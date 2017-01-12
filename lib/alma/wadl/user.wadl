@@ -1,0 +1,795 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application xmlns="http://wadl.dev.java.net/2009/02" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <doc title="Alma"/>
+  <grammars/>
+  <resources base="https://api-na.hosted.exlibrisgroup.com">
+    <resource path="/almaws/v1/users">
+      <method name="GET">
+        <doc title="Retrieve users">This API returns a list of Users, sorted by last name.</doc>
+        <request>
+          <param name="limit" style="query" default="10" type="xs:int">
+            <doc>Limits the number of results. Optional. Valid values are 0-100. Default value: 10.</doc>
+          </param>
+          <param name="offset" style="query" default="0" type="xs:int">
+            <doc>Offset of the results returned. Optional. Default value: 0, which means that the first results will be returned.</doc>
+          </param>
+          <param name="q" style="query" default="" type="xs:string">
+            <doc>Search query. Optional. Searching for words from: primary_id, first_name, last_name, middle_name, email, job_category, identifiers, general_info and ALL. Example (note the tilde between the code and text): q=last_name~Smith (see [Brief Search|https://developers.exlibrisgroup.com/blog/How-we-re-building-APIs-at-Ex-Libris#BriefSearch])</doc>
+          </param>
+          <param name="order_by" style="query" default="last_name, first_name, primary_id" type="xs:string">
+            <doc>A few sort options are available: last_name, first_name and primary_id. One sort option may be used at a time. A secondary sort key, primary_id, is added if last_name or first_name is the primary sort. Default sorting is by all three in the following order: last_name, first_name, primary_id. If the query option is used, the result will not sort by primary_id.</doc>
+          </param>
+        </request>
+        <response>
+          <doc title="402119">General error.</doc>
+          <doc title="401651">Identifier not found.</doc>
+          <representation mediaType="application/xml">
+            <doc title="Users">rest_users.xsd</doc>
+          </representation>
+          <representation mediaType="application/json">
+            <doc title="Users">rest_users.xsd</doc>
+          </representation>
+        </response>
+      </method>
+      <method name="POST">
+        <doc title="Create user">This Web service creates a new user.</doc>
+        <request>
+          <param name="social_authentication" style="query" default="false" type="xs:string">
+            <doc>When customer parameter social_authentication='True': Send social authentication email to patron. Default value: False.</doc>
+          </param>
+          <param name="send_pin_number_letter" style="query" default="false" type="xs:string">
+            <doc>The email notification for PIN setting change will be sent</doc>
+          </param>
+          <representation mediaType="application/xml">
+            <doc>This method takes a User object.</doc>
+          </representation>
+          <representation mediaType="application/json">
+            <doc>This method takes a User object.</doc>
+          </representation>
+        </request>
+        <response>
+          <doc title="401676">No valid XML was given.</doc>
+          <doc title="401851">User with identifier  of type Y already exists.</doc>
+          <doc title="401664">Mandatory field is missing: X</doc>
+          <doc title="401852">Given user group is not legal.</doc>
+          <doc title="401853">External Id must be empty for internal user.</doc>
+          <doc title="401854">External Id must be given for external user.</doc>
+          <doc title="401855">The account type 'Internal with external authentication' is currently not supported.</doc>
+          <doc title="401857">The given user account type is illegal (must be INTERNAL/EXTERNAL).</doc>
+          <doc title="401658">General Error - Failed to create new user</doc>
+          <doc title="401863">Given X type (Y) is not supported for given user record type (Z).</doc>
+          <doc title="401864">Given X type (Y) is invalid.</doc>
+          <representation mediaType="application/xml">
+            <doc title="User">rest_user.xsd</doc>
+          </representation>
+          <representation mediaType="application/json">
+            <doc title="User">rest_user.xsd</doc>
+          </representation>
+        </response>
+      </method>
+      <resource path="operation/test">
+        <method name="GET">
+          <doc title="GET User Test API">This API is used to test if the API key was configured correctly.</doc>
+          <response>
+            <representation mediaType="application/xml">
+              <param name="result" style="plain" type="xs:string"/>
+            </representation>
+            <representation mediaType="application/json">
+              <param name="result" style="plain" type="xs:string"/>
+            </representation>
+          </response>
+        </method>
+        <method name="POST">
+          <doc title="POST User Test API">This API is used to test if the API key was configured correctly, including read/write permissions.</doc>
+          <response>
+            <representation mediaType="application/xml">
+              <param name="result" style="plain" type="xs:string"/>
+            </representation>
+            <representation mediaType="application/json">
+              <param name="result" style="plain" type="xs:string"/>
+            </representation>
+          </response>
+        </method>
+      </resource>
+      <resource path="{user_id}">
+        <param name="user_id" style="template" type="xs:string">
+          <doc>A unique identifier for the user</doc>
+        </param>
+        <method name="DELETE">
+          <doc title="Delete user">This Web service deletes a specific user.</doc>
+          <request>
+            <param name="user_id_type" style="query" default="all_unique" type="xs:string">
+              <doc>The type of identifier that is being searched. Optional. If this is not provided, all unique identifier types are used. The values that can be used are any of the values in the User Identifier Type code table.</doc>
+            </param>
+          </request>
+          <response>
+            <doc title="401890">User with identifier X of type Y was not found.</doc>
+            <doc title="401850">Failed to delete user with identifier X of type Y.</doc>
+            <representation mediaType="application/xml">
+              <param name="result" style="plain" type="xs:string"/>
+            </representation>
+            <representation mediaType="application/json">
+              <param name="result" style="plain" type="xs:string"/>
+            </representation>
+          </response>
+        </method>
+        <method name="GET">
+          <doc title="Get user details">This Web service returns a specific user's details.</doc>
+          <request>
+            <param name="user_id_type" style="query" default="all_unique" type="xs:string">
+              <doc>The type of identifier that is being searched. Optional. If this is not provided, all unique identifier types are used. The values that can be used are any of the values in the User Identifier Type code table.</doc>
+            </param>
+            <param name="view" style="query" default="full" type="xs:string">
+              <doc>Special view of User object. Optional. Possible values: full - full User object will be returned. brief - only user's core information, emails, identifiers and statistics are returned. By default, the full User object will be returned.</doc>
+            </param>
+            <param name="expand" style="query" default="none" type="xs:string">
+              <doc>This parameter allows for expanding on some user information. Three options are available: loans-Include the total number of loans; requests-Include the total number of requests; fees-Include the balance of fees. To have more than one option, use a comma separator.</doc>
+            </param>
+          </request>
+          <response>
+            <doc title="401890">User with identifier X of type Y was not found.</doc>
+            <doc title="401861">User with identifier X was not found..</doc>
+            <doc title="60101">General Error: An error has occurred while processing the request.</doc>
+            <representation mediaType="application/xml">
+              <doc title="User">rest_user.xsd</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc title="User">rest_user.xsd</doc>
+            </representation>
+          </response>
+        </method>
+        <method name="POST">
+          <doc title="Authenticate user">This Web service runs the process of authenticating a given user in Alma. 
+Authentication operation requires a password which may be entered as a parameter or with the header: Exl-User-Pw
+Successful authentication will result with an HTTP 204 (success - no content) response.
+This API is meant for internal users where Alma is the identity provider.</doc>
+          <request>
+            <param name="user_id_type" style="query" default="all_unique" type="xs:string">
+              <doc>The type of identifier that is being searched. Optional. If this is not provided, all unique identifier types are used. The values that can be used are any of the values in the User Identifier Type code table.</doc>
+            </param>
+            <param name="op" style="query" type="xs:string">
+              <doc>The operation to be performed on the user. Mandatory. Currently only op=auth is supported</doc>
+            </param>
+            <param name="password" style="query" type="xs:string">
+              <doc>Add the user's password. Or, enter the password in the header Exl-User-Pw. A password is mandatory for op=auth.</doc>
+            </param>
+          </request>
+          <response>
+            <doc title="401866">User authentication failed</doc>
+            <representation mediaType="application/xml">
+              <param name="result" style="plain" type="xs:string"/>
+            </representation>
+            <representation mediaType="application/json">
+              <param name="result" style="plain" type="xs:string"/>
+            </representation>
+          </response>
+        </method>
+        <method name="PUT">
+          <doc title="Update User Details">This Web service updates a specific user's details. 
+
+The update is done in a 'Swap All' mode: existing fields' information will be replaced with the incoming information. Incoming lists will replace existing lists. 
+Exception for this are the following fields: 
+roles - if the incoming list does not contain roles, exsiting roles will be kept.  
+User group, Job title, PIN number, User language, Resource sharing libraries, Campus code, User title (for external user): these fields will not be replaced if updated manually (or if empty in the incoming user record), unless 'override' parameter is sent with the field's name.</doc>
+          <request>
+            <param name="user_id_type" style="query" default="all_unique" type="xs:string">
+              <doc>The type of identifier that is being searched. Optional. If this is not provided, all unique identifier types are used. The values that can be used are any of the values in the User Identifier Type code table.</doc>
+            </param>
+            <param name="override" style="query" default="" type="xs:string">
+              <doc>The following fields of the user object are not replaced if they were updated manually: 
+user_group, job_category, pin_number, preferred_language, campus_code, rs_libraries, user_title, library_notices. 
+To update these fields, specify the fields you want to replace in this parameter. 
+For example override=user_group,job_category. Default is empty.</doc>
+            </param>
+            <param name="send_pin_number_letter" style="query" default="false" type="xs:string">
+              <doc>The email notification for PIN setting change will be sent</doc>
+            </param>
+            <representation mediaType="application/xml">
+              <doc>This method takes a User object.</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc>This method takes a User object.</doc>
+            </representation>
+          </request>
+          <response>
+            <doc title="401890">User with identifier X of type Y was not found.</doc>
+            <doc title="401859">Action currently not supported.</doc>
+            <doc title="401676">No valid XML was given.</doc>
+            <doc title="401858">The external id in DB does not fit the given value in xml - external id cannot be updated.</doc>
+            <doc title="401855">The account type 'Internal with external authentication' is currently not supported.</doc>
+            <doc title="401860">Failed to update user.</doc>
+            <doc title="401652">General Error: An error has occurred while processing the request.</doc>
+            <doc title="401863">Given X type (Y) is not supported for given user record type (Z).</doc>
+            <doc title="401864">Given X type (Y) is invalid.</doc>
+            <representation mediaType="application/xml">
+              <doc title="User">rest_user.xsd</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc title="User">rest_user.xsd</doc>
+            </representation>
+          </response>
+        </method>
+      </resource>
+      <resource path="{user_id}/deposits">
+        <param name="user_id" style="template" type="xs:string">
+          <doc>A unique identifier for the user</doc>
+        </param>
+        <method name="GET">
+          <doc title="deposits by user id">This Web service retrieves the user deposits for a particular user id </doc>
+          <request>
+            <param name="user_id_type" style="query" default="all_unique" type="xs:string">
+              <doc>The type of identifier that is being searched. Optional. If this is not provided, all unique identifier types are used. The values that can be used are any of the values in the User Identifier Type code table.</doc>
+            </param>
+            <param name="status" style="query" default="" type="xs:string">
+              <doc>filter deposits by status</doc>
+            </param>
+            <param name="limit" style="query" default="10" type="xs:int">
+              <doc>Limits the number of results. Optional. Valid values are 0-100. Default value: 10.</doc>
+            </param>
+            <param name="offset" style="query" default="0" type="xs:int">
+              <doc>Offset of the results returned. Optional. Default value: 0, which means that the first results will be returned.</doc>
+            </param>
+          </request>
+          <response>
+            <doc title="402238">Failed to get deposits.</doc>
+            <representation mediaType="application/xml">
+              <doc title="User Deposit For User ID and Deposit ID">rest_user_deposits.xsd</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc title="User Deposit For User ID and Deposit ID">rest_user_deposits.xsd</doc>
+            </representation>
+          </response>
+        </method>
+        <method name="POST">
+          <doc title="Create deposit">This API performs creation of a deposit object. Currently supported: submittig deposit, submitting deposit as a draft.</doc>
+          <request>
+            <param name="user_id_type" style="query" default="all_unique" type="xs:string">
+              <doc>The type of identifier that is being searched. Optional. If this is not provided, all unique identifier types are used. The values that can be used are any of the values in the User Identifier Type code table.</doc>
+            </param>
+            <param name="draft" style="query" default="false" type="xs:string">
+              <doc>Boolean flag for indicating whether submit as draft.</doc>
+            </param>
+            <representation mediaType="application/xml">
+              <doc>This method takes a Deposit object.</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc>This method takes a Deposit object.</doc>
+            </representation>
+          </request>
+          <response>
+            <doc title="401652">General Error - An error has occurred while creating the deposit.</doc>
+            <doc title="402205">Input parameter X (Y) is not numeric.</doc>
+            <doc title="401666">X parameter is not valid.</doc>
+            <representation mediaType="application/xml">
+              <doc title="Deposit">rest_user_deposit.xsd</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc title="Deposit">rest_user_deposit.xsd</doc>
+            </representation>
+          </response>
+        </method>
+      </resource>
+      <resource path="{user_id}/deposits/{deposit_id}">
+        <param name="user_id" style="template" type="xs:string">
+          <doc>A unique identifier for the user</doc>
+        </param>
+        <param name="deposit_id" style="template" type="xs:string">
+          <doc>A unique identifier for the deposit</doc>
+        </param>
+        <method name="GET">
+          <doc title="deposit by user id and deposit id">This Web service retrieves the user deposit for a particular user id and deposit id.</doc>
+          <request>
+            <param name="user_id_type" style="query" default="all_unique" type="xs:string">
+              <doc>The type of identifier that is being searched. Optional. If this is not provided, all unique identifier types are used. The values that can be used are any of the values in the User Identifier Type code table.</doc>
+            </param>
+          </request>
+          <response>
+            <doc title="402238">Failed to get deposit.</doc>
+            <representation mediaType="application/xml">
+              <doc title="User Deposit For User ID and Deposit ID">rest_user_deposit.xsd</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc title="User Deposit For User ID and Deposit ID">rest_user_deposit.xsd</doc>
+            </representation>
+          </response>
+        </method>
+        <method name="POST">
+          <doc title="Action on a request">This API performs an update of a deposit. Currently supported: withdraw and submit of a returned/draft deposit.</doc>
+          <request>
+            <param name="op" style="query" default="" type="xs:string">
+              <doc>The operation to be performed on the deposit. Mandatory. Currently submit and withdraw are supported.</doc>
+            </param>
+            <param name="user_id_type" style="query" default="all_unique" type="xs:string">
+              <doc>The type of identifier that is being searched. Optional. If this is not provided, all unique identifier types are used. The values that can be used are any of the values in the User Identifier Type code table.</doc>
+            </param>
+            <representation mediaType="application/xml">
+              <doc>This method takes a Request object.</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc>This method takes a Request object.</doc>
+            </representation>
+          </request>
+          <response>
+            <doc title="401652">General Error - An error has occurred while updating the deposit.</doc>
+            <doc title="401666">X parameter is not valid.</doc>
+            <representation mediaType="application/xml">
+              <doc title="Deposit">rest_user_deposit.xsd</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc title="Deposit">rest_user_deposit.xsd</doc>
+            </representation>
+          </response>
+        </method>
+      </resource>
+      <resource path="{user_id}/fees">
+        <param name="user_id" style="template" type="xs:string">
+          <doc>A unique identifier for the user</doc>
+        </param>
+        <method name="GET">
+          <doc title="Get user fines/fees">This API returns a user's fines and fees.</doc>
+          <request>
+            <param name="user_id_type" style="query" default="all_unique" type="xs:string">
+              <doc>The type of identifier that is being searched. Optional. If this is not provided, all unique identifier types are used. The values that can be used are any of the values in the User Identifier Type code table.</doc>
+            </param>
+            <param name="status" style="query" default="ACTIVE" type="xs:string">
+              <doc>Return fees of this status only. Optional. If this is not provided, all active fees will be returned. The values that can be used are {ACTIVE|INDISPUTE}.</doc>
+            </param>
+          </request>
+          <response>
+            <doc title="402119">General error.</doc>
+            <doc title="401651">Identifier not found.</doc>
+            <doc title="401666">Parameter is not valid.</doc>
+            <representation mediaType="application/xml">
+              <doc title="Fees">rest_fees.xsd</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc title="Fees">rest_fees.xsd</doc>
+            </representation>
+          </response>
+        </method>
+      </resource>
+      <resource path="{user_id}/fees/all">
+        <param name="user_id" style="template" type="xs:string">
+          <doc>A unique identifier for the user</doc>
+        </param>
+        <method name="POST">
+          <doc title="Pay user fines/fees">This API posts a payment against a specific user's fines and fees as a whole.</doc>
+          <request>
+            <param name="user_id_type" style="query" default="all_unique" type="xs:string">
+              <doc>The type of identifier that is being searched. Optional. If this is not provided, all unique identifier types are used. The values that can be used are any of the values in the User Identifier Type code table.</doc>
+            </param>
+            <param name="op" style="query" type="xs:string">
+              <doc>The operation to be performed on the user's specified fee. Mandatory. Currently only op=pay is supported</doc>
+            </param>
+            <param name="amount" style="query" default="" type="xs:string">
+              <doc>The amount of the payment to be made on the user's specified fees. To pay the entire balance use amount=ALL</doc>
+            </param>
+            <param name="method" style="query" default="" type="xs:string">
+              <doc>The Payment method. Relevant and mandatory if op=pay. Options are CREDIT_CARD, ONLINE, or CASH</doc>
+            </param>
+            <param name="comment" style="query" default="" type="xs:string">
+              <doc>A note that can be attached to the payment action. Optional.</doc>
+            </param>
+            <param name="external_transaction_id" style="query" default="" type="xs:string">
+              <doc>An external payment system transaction ID. Optional.</doc>
+            </param>
+          </request>
+          <response>
+            <doc title="402119">General error.</doc>
+            <doc title="401651">Identifier not found.</doc>
+            <doc title="401666">Parameter is not valid.</doc>
+            <representation mediaType="application/xml">
+              <doc title="Fees">rest_fees.xsd</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc title="Fees">rest_fees.xsd</doc>
+            </representation>
+          </response>
+        </method>
+      </resource>
+      <resource path="{user_id}/fees/{fee_id}">
+        <param name="user_id" style="template" type="xs:string">
+          <doc>A unique identifier for the user</doc>
+        </param>
+        <param name="fee_id" style="template" type="xs:string">
+          <doc>The fine/fee identifier</doc>
+        </param>
+        <method name="GET">
+          <doc title="Get user fine/fee">This API returns a specific fine or fee for a user.</doc>
+          <request>
+            <param name="user_id_type" style="query" default="all_unique" type="xs:string">
+              <doc>The type of identifier that is being searched. Optional. If this is not provided, all unique identifier types are used. The values that can be used are any of the values in the User Identifier Type code table.</doc>
+            </param>
+          </request>
+          <response>
+            <doc title="402119">General error.</doc>
+            <doc title="401665">Fine not found.</doc>
+            <doc title="401651">Identifier not found.</doc>
+            <doc title="401666">Parameter is not valid.</doc>
+            <representation mediaType="application/xml">
+              <doc title="Fee">rest_fee.xsd</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc title="Fee">rest_fee.xsd</doc>
+            </representation>
+          </response>
+        </method>
+        <method name="POST">
+          <doc title="Pay/waive/dispute/restore user fine/fee">This API applies the specified operation to a specific fine/fee.</doc>
+          <request>
+            <param name="user_id_type" style="query" default="all_unique" type="xs:string">
+              <doc>The type of identifier that is being searched. Optional. If this is not provided, all unique identifier types are used. The values that can be used are any of the values in the User Identifier Type code table.</doc>
+            </param>
+            <param name="op" style="query" type="xs:string">
+              <doc>The operation to be performed on the user's specified fee. Mandatory. Options are pay, waive, dispute or restore</doc>
+            </param>
+            <param name="amount" style="query" default="" type="xs:string">
+              <doc>The amount of the payment to be made on the user's specified fees. Relevant for op=pay,waive</doc>
+            </param>
+            <param name="method" style="query" default="" type="xs:string">
+              <doc>The Payment method. Relevant and mandatory if op=pay. Options are CREDIT_CARD, ONLINE, or CASH</doc>
+            </param>
+            <param name="reason" style="query" default="" type="xs:string">
+              <doc>The reason for waiving the fine/fee. Mandatory if op=waive. The value should be one of the codes from the Reasons for Transactions code table.</doc>
+            </param>
+            <param name="comment" style="query" default="" type="xs:string">
+              <doc>A note that can be attached to the action. Optional.</doc>
+            </param>
+            <param name="external_transaction_id" style="query" default="" type="xs:string">
+              <doc>An external payment system transaction ID. Relevant for op=pay</doc>
+            </param>
+          </request>
+          <response>
+            <doc title="402119">General error.</doc>
+            <doc title="401665">Fine not found.</doc>
+            <doc title="401651">Identifier not found.</doc>
+            <doc title="401666">Parameter is not valid.</doc>
+            <representation mediaType="application/xml">
+              <doc title="Fee">rest_fee.xsd</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc title="Fee">rest_fee.xsd</doc>
+            </representation>
+          </response>
+        </method>
+      </resource>
+      <resource path="{user_id}/loans">
+        <param name="user_id" style="template" type="xs:string">
+          <doc>A unique identifier for the user</doc>
+        </param>
+        <method name="GET">
+          <doc title="Retrieve user loans">This Web service retrieves a list of active loans for a user.</doc>
+          <request>
+            <param name="user_id_type" style="query" default="all_unique" type="xs:string">
+              <doc>The type of identifier that is being searched. Optional. If this is not provided, all unique identifier types are used. The values that can be used are any of the values in the User Identifier Type code table.</doc>
+            </param>
+            <param name="limit" style="query" default="10" type="xs:int">
+              <doc>Limits the number of results. Optional. Valid values are 0-100. Default value: 10.</doc>
+            </param>
+            <param name="offset" style="query" default="0" type="xs:int">
+              <doc>Offset of the results returned. Optional. Default value: 0, which means that the first results will be returned. </doc>
+            </param>
+            <param name="order_by" style="query" default="id" type="xs:string">
+              <doc>A few sort options are available (only one can be sent): loan_date, due_date, barcode, title and author. A secondary sort key, id, is added to the single sort option chosen. Default sorting is by id.</doc>
+            </param>
+            <param name="direction" style="query" default="ASC" type="xs:string">
+              <doc>Sorting direction: ASC/DESC. Default: ASC.</doc>
+            </param>
+            <param name="expand" style="query" type="xs:string">
+              <doc>Comma separated list of values for expansion of results. Possible values: 'renewable'</doc>
+            </param>
+          </request>
+          <response>
+            <doc title="401861">User with identifier X was not found.</doc>
+            <doc title="401890">User with identifier X of type Y was not found.</doc>
+            <doc title="401652">General Error: An error has occurred while processing the request.</doc>
+            <representation mediaType="application/xml">
+              <doc title="User Loans">rest_item_loans.xsd</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc title="User Loans">rest_item_loans.xsd</doc>
+            </representation>
+          </response>
+        </method>
+        <method name="POST">
+          <doc title="Create user loan">This Web service loans an item to a user. The loan will be created according to the library's policy.</doc>
+          <request>
+            <param name="item_pid" style="query" type="xs:string">
+              <doc>The Item ID. This parameter or the item_barcode parameter must be supplied.</doc>
+            </param>
+            <param name="user_id_type" style="query" default="all_unique" type="xs:string">
+              <doc>The type of identifier that is being searched. Optional. If this is not provided, all unique identifier types are used. The values that can be used are any of the values in the User Identifier Type code table.</doc>
+            </param>
+            <param name="item_barcode" style="query" type="xs:string">
+              <doc>The Item barcode. This parameter or the item_pid parameter must be supplied.</doc>
+            </param>
+            <representation mediaType="application/xml">
+              <doc>This method takes a Loan object.</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc>This method takes a Loan object.</doc>
+            </representation>
+          </request>
+          <response>
+            <doc title="401890">User with identifier X of type Y was not found.</doc>
+            <doc title="401153">Item cannot be loaned from this circulation desk.</doc>
+            <doc title="401651">Item is not loanable.</doc>
+            <doc title="401672">PID field is empty.</doc>
+            <doc title="401652">General Error: An error has occurred while processing the request.</doc>
+            <representation mediaType="application/xml">
+              <doc title="Item Loan">rest_item_loan.xsd</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc title="Item Loan">rest_item_loan.xsd</doc>
+            </representation>
+          </response>
+        </method>
+      </resource>
+      <resource path="{user_id}/loans/{loan_id}">
+        <param name="user_id" style="template" type="xs:string">
+          <doc>A unique identifier for the user</doc>
+        </param>
+        <param name="loan_id" style="template" type="xs:string">
+          <doc>A unique identifier for the loan</doc>
+        </param>
+        <method name="GET">
+          <doc title="Loan by user id and loan id">This Web service retrieves the user loan for a particular user id and loan id.</doc>
+          <request/>
+          <response>
+            <doc title="401652">General Error: An error has occurred while processing the request.</doc>
+            <representation mediaType="application/xml">
+              <doc title="User Loan For User ID and Loan ID">rest_item_loan.xsd</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc title="User Loan For User ID and Loan ID">rest_item_loan.xsd</doc>
+            </representation>
+          </response>
+        </method>
+        <method name="POST">
+          <doc title="Renew loan">This Web service renews a loan.</doc>
+          <request>
+            <param name="user_id_type" style="query" default="all_unique" type="xs:string">
+              <doc>The type of identifier that is being searched. Optional. If this is not provided, all unique identifier types are used. The values that can be used are any of the values in the User Identifier Type code table.</doc>
+            </param>
+            <param name="op" style="query" type="xs:string">
+              <doc>Operation. Currently only op=renew is supported</doc>
+            </param>
+          </request>
+          <response>
+            <doc title="401823">Loan ID XXX does not exist.</doc>
+            <doc title="401822">Cannot renew loan: Loan ID XXX.</doc>
+            <representation mediaType="application/xml">
+              <doc title="User Loan">rest_item_loan.xsd</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc title="User Loan">rest_item_loan.xsd</doc>
+            </representation>
+          </response>
+        </method>
+      </resource>
+      <resource path="{user_id}/requests">
+        <param name="user_id" style="template" type="xs:string">
+          <doc>A unique identifier for the user</doc>
+        </param>
+        <method name="GET">
+          <doc title="Retrieve user requests">This Web service returns list of requests for a specific user.</doc>
+          <request>
+            <param name="request_type" style="query" type="xs:string">
+              <doc>Filter results by request type. Optional. Possible values: HOLD, DIGITIZATION, BOOKING. If not supplied, all request types will be returned.</doc>
+            </param>
+            <param name="user_id_type" style="query" default="all_unique" type="xs:string">
+              <doc>The type of identifier that is being searched. Optional. If this is not provided, all unique identifier types are used. The values that can be used are any of the values in the User Identifier Type code table.</doc>
+            </param>
+            <param name="limit" style="query" default="10" type="xs:int">
+              <doc>Limits the number of results. Optional. Valid values are 0-100. Default value: 10.</doc>
+            </param>
+            <param name="offset" style="query" default="0" type="xs:string">
+              <doc>Offset of the results returned. Optional.Default value: 0, which means that the first results will be returned. </doc>
+            </param>
+            <param name="status" style="query" default="active" type="xs:string">
+              <doc>Active or History request status. Default is active. The 'history' option is only available if the 'should_anonymize_requests' customer parameter is set to 'false' at the time the request was completed.</doc>
+            </param>
+          </request>
+          <response>
+            <doc title="401890">User with identifier X of type Y was not found.</doc>
+            <doc title="401652">General Error - An error has occurred while processing the request.</doc>
+            <representation mediaType="application/xml">
+              <doc title="User Requests">rest_user_requests.xsd</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc title="User Requests">rest_user_requests.xsd</doc>
+            </representation>
+          </response>
+        </method>
+        <method name="POST">
+          <doc title="Create user request">This Web service creates a user's request for a library resource. The request can be for a physical item (request types: hold, booking), or a request for digitizing a file (request type: digitization). The request can be placed on title level or on  item level.</doc>
+          <request>
+            <param name="user_id_type" style="query" default="all_unique" type="xs:string">
+              <doc>The type of identifier that is being searched.  Optional. If this is not provided, all unique identifier types are used. The values that can be used are any of the values in the User Identifier Type code table.</doc>
+            </param>
+            <param name="mms_id" style="query" type="xs:string">
+              <doc>The requested title. This parameter is mandatory if the request is in title level.</doc>
+            </param>
+            <param name="item_pid" style="query" type="xs:string">
+              <doc>The requested item ID. This parameter is mandatory if the request is in item level.</doc>
+            </param>
+            <representation mediaType="application/xml">
+              <doc>This method takes a Request object.</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc>This method takes a Request object.</doc>
+            </representation>
+          </request>
+          <response>
+            <doc title="401890">User with identifier X of type Y was not found.</doc>
+            <doc title="401129">No items can fulfill the submitted request.</doc>
+            <doc title="401136">Failed to save the request: Patron has active request for selected item.</doc>
+            <doc title="401652">General Error: An error has occurred while processing the request.</doc>
+            <representation mediaType="application/xml">
+              <doc title="User Request">rest_user_request.xsd</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc title="User Request">rest_user_request.xsd</doc>
+            </representation>
+          </response>
+        </method>
+      </resource>
+      <resource path="{user_id}/requests/{request_id}">
+        <param name="user_id" style="template" type="xs:string">
+          <doc>A unique identifier for the user</doc>
+        </param>
+        <param name="request_id" style="template" type="xs:string">
+          <doc>A unique identifier of the request that should be canceled.</doc>
+        </param>
+        <method name="DELETE">
+          <doc title="Cancel user request">This Web service cancels a specific user request.</doc>
+          <request>
+            <param name="reason" style="query" type="xs:string">
+              <doc>Code of the cancel reason. Must be a value from the code table 'RequestCancellationReasons'</doc>
+            </param>
+            <param name="note" style="query" default="" type="xs:string">
+              <doc>Note with additional information regarding the cancellation.</doc>
+            </param>
+            <param name="notify_user" style="query" default="true" type="xs:boolean">
+              <doc>Boolean flag for notifying the requester of the cancellation (when relevant). Defaults to 'true'.</doc>
+            </param>
+          </request>
+          <response status="204">
+            <doc title="401890">User with identifier X of type Y was not found.</doc>
+            <doc title="401694">Request Identifier not found.</doc>
+            <doc title="401652">General Error: An error has occurred while processing the request.</doc>
+          </response>
+        </method>
+        <method name="GET">
+          <doc title="Retrieve user request">This Web service returns a request by a specific request id.</doc>
+          <request>
+            <param name="user_id_type" style="query" default="all_unique" type="xs:string">
+              <doc>The type of identifier that is being searched. Optional. If this is not provided, all unique identifier types are used. The values that can be used are any of the values in the User Identifier Type code table.</doc>
+            </param>
+          </request>
+          <response>
+            <doc title="401890">User with identifier X of type Y was not found.</doc>
+            <doc title="401652">General Error - An error has occurred while processing the request.</doc>
+            <representation mediaType="application/xml">
+              <doc title="User Request">rest_user_request.xsd</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc title="User Request">rest_user_request.xsd</doc>
+            </representation>
+          </response>
+        </method>
+        <method name="POST">
+          <doc title="Action on a request">This API performs an action on a request. Currently supported: moving digitization requests to their next step.</doc>
+          <request>
+            <param name="op" style="query" default="" type="xs:string">
+              <doc>The operation to be performed on the request. Mandatory. Currently only next_step is supported.</doc>
+            </param>
+            <param name="release_item" style="query" default="false" type="xs:string">
+              <doc>Boolean flag for indicating whether to release the item from the request.</doc>
+            </param>
+          </request>
+          <response>
+            <doc title="401652">General Error - An error has occurred while processing the request.</doc>
+            <doc title="401907">Failed to find a request for the given request ID.</doc>
+            <doc title="402205">Input parameter X (Y) is not numeric.</doc>
+            <doc title="401932">Request X is not a Digitization request</doc>
+            <doc title="401933">Cannot move forward in workflow. Request ID: X, Step: Y</doc>
+            <doc title="401934">Move digitization request to next step in workflow has failed. Request ID: X</doc>
+            <doc title="401666">X parameter is not valid.</doc>
+            <representation mediaType="application/xml">
+              <doc title="Request">rest_user_request.xsd</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc title="Request">rest_user_request.xsd</doc>
+            </representation>
+          </response>
+        </method>
+        <method name="PUT">
+          <doc title="Update request">This Web service updates a user's request for a library resource.</doc>
+          <request>
+            <representation mediaType="application/xml">
+              <doc>This method takes a User Request object.</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc>This method takes a User Request object.</doc>
+            </representation>
+          </request>
+          <response>
+            <representation mediaType="application/xml">
+              <doc title="User Request">rest_user_request.xsd</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc title="User Request">rest_user_request.xsd</doc>
+            </representation>
+          </response>
+        </method>
+      </resource>
+      <resource path="{user_id}/resource_sharing_requests">
+        <param name="user_id" style="template" type="xs:string">
+          <doc>A unique identifier for the user</doc>
+        </param>
+        <method name="POST">
+          <doc title="Create user request for resource sharing">This Web service creates a user's request for resource sharing.</doc>
+          <request>
+            <param name="user_id_type" style="query" type="xs:string">
+              <doc>The type of identifier that is being searched. Optional. If this is not provided, all unique identifier types are used. The values that can be used are any of the values in the User Identifier Type code table.</doc>
+            </param>
+            <param name="override_blocks" style="query" type="xs:string">
+              <doc>Indication whether the request should be created even if blocks exist. optional. By default this is false.</doc>
+            </param>
+            <representation mediaType="application/xml">
+              <doc>This method takes a Resource Sharing Request object.</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc>This method takes a Resource Sharing Request object.</doc>
+            </representation>
+          </request>
+          <response>
+            <doc title="401890">User with identifier X of type Y was not found.</doc>
+            <doc title="401604">Warning: The institutional inventory has services for the requested title.</doc>
+            <doc title="401652">General Error: An error has occurred while processing the request.</doc>
+            <doc title="402039">Could not create request, default item location is not defined for the resource sharing library</doc>
+            <doc title="401768">Patron is not affiliated with a resource sharing library</doc>
+            <doc title="402362">Failed to save the request: Patron has duplicate request</doc>
+            <doc title="401607">Resource sharing library (owner) is missing</doc>
+            <doc title="401608">The given resource sharing library (owner) is not defined in the patron record</doc>
+            <representation mediaType="application/xml">
+              <doc title="User Request for resource sharing">rest_user_resource_sharing_request.xsd</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc title="User Request for resource sharing">rest_user_resource_sharing_request.xsd</doc>
+            </representation>
+          </response>
+        </method>
+      </resource>
+      <resource path="{user_id}/resource_sharing_requests/{request_id}">
+        <param name="user_id" style="template" type="xs:string">
+          <doc>A unique identifier for the user</doc>
+        </param>
+        <param name="request_id" style="template" type="xs:string">
+          <doc>The identifier of the resource sharing request.</doc>
+        </param>
+        <method name="GET">
+          <doc title="Retrieve user's resource sharing request.">This Web service retrieves a user's resource sharing request.</doc>
+          <request>
+            <param name="request_id_type" style="query" type="xs:string">
+              <doc>Request ID type. Optional. Use request_id_type=external to search by external identifier.</doc>
+            </param>
+          </request>
+          <response>
+            <doc title="401890">User with identifier X of type Y was not found.</doc>
+            <doc title="401652">General Error: An error has occurred while processing the request.</doc>
+            <doc title="40166450">No result found for given parameters.</doc>
+            <doc title="40166422">Value of parameter is invalid given other parameter.</doc>
+            <representation mediaType="application/xml">
+              <doc title="User Request for resource sharing">rest_user_resource_sharing_request.xsd</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc title="User Request for resource sharing">rest_user_resource_sharing_request.xsd</doc>
+            </representation>
+          </response>
+        </method>
+      </resource>
+    </resource>
+  </resources>
+</application>
