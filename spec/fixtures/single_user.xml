@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<user>
+  <record_type desc="Public">PUBLIC</record_type>
+  <primary_id>johns</primary_id>
+  <first_name>John</first_name>
+  <middle_name/>
+  <last_name>Smith</last_name>
+  <pin_number/>
+  <job_category desc="Cataloger">Cataloger</job_category>
+  <job_description>The best cataloger</job_description>
+  <gender desc="Male">MALE</gender>
+  <user_group desc="Staff">08</user_group>
+  <campus_code desc="Main Campus">Main</campus_code>
+  <preferred_language desc="English">en</preferred_language>
+  <birth_date>1979-01-11Z</birth_date>
+  <expiry_date>2030-01-16Z</expiry_date>
+  <purge_date>2021-01-20Z</purge_date>
+  <account_type desc="Internal">INTERNAL</account_type>
+  <password/>
+  <force_password_change/>
+  <status desc="Active">ACTIVE</status>
+  <contact_info>
+    <addresses>
+      <address>
+        <line1>Main Street 1</line1>
+        <line2>Nice building near the corner</line2>
+        <city>London</city>
+        <state_province/>
+        <postal_code/>
+        <country/>
+        <address_note/>
+        <start_date>2013-12-26Z</start_date>
+        <address_types>
+          <address_type desc="Home">home</address_type>
+        </address_types>
+      </address>
+    </addresses>
+    <emails>
+      <email preferred="true">
+        <email_address>johns@mylib.org</email_address>
+        <email_types>
+          <email_type desc="Personal">personal</email_type>
+        </email_types>
+      </email>
+    </emails>
+    <phones>
+      <phone preferred="true">
+        <phone_number>123456789</phone_number>
+        <phone_types>
+          <phone_type desc="Home">home</phone_type>
+          <phone_type desc="Office">office</phone_type>
+        </phone_types>
+      </phone>
+    </phones>
+  </contact_info>
+  <user_identifiers>
+    <user_identifier>
+      <id_type desc="User ID">02</id_type>
+      <value>johns02</value>
+    </user_identifier>
+  </user_identifiers>
+  <user_roles>
+    <user_role>
+      <status desc="Active">ACTIVE</status>
+      <scope desc="Main Campus">1010.1021</scope>
+      <role_type desc="Patron">200</role_type>
+      <expiry_date>2029-01-26Z</expiry_date>
+    </user_role>
+    <user_role>
+      <status desc="Active">ACTIVE</status>
+      <scope desc="Main Campus">1010.1021</scope>
+      <role_type desc="Cataloger">204</role_type>
+      <expiry_date>2014-01-31Z</expiry_date>
+    </user_role>
+  </user_roles>
+  <user_blocks>
+    <user_block>
+      <block_type desc="General">GENERAL</block_type>
+      <block_description desc="Block (02)(GLOBAL)">02-GLOBAL</block_description>
+      <block_status>ACTIVE</block_status>
+      <block_note>Slept and snored in the library</block_note>
+    </user_block>
+  </user_blocks>
+  <user_notes>
+    <user_note>
+      <note_type desc="Address">ADDRESS</note_type>
+      <note_text>His address was changed a month ago</note_text>
+      <user_viewable>true</user_viewable>
+    </user_note>
+  </user_notes>
+  <user_statistics>
+    <user_statistic>
+      <statistic_category desc="Graduate">Graduate</statistic_category>
+      <statistic_note>With Honors</statistic_note>
+    </user_statistic>
+  </user_statistics>
+</user>

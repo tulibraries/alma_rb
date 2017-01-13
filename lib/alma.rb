@@ -1,7 +1,7 @@
 require 'alma/version'
 require 'alma/config'
 require 'alma/api'
-require 'alma/alma_response'
+require 'alma/alma_record'
 require 'alma/user'
 
 module Alma

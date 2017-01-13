@@ -1,7 +1,7 @@
 
 
 module Alma
-  class  User < AlmaResponse
+  class  User < AlmaRecord
     extend Alma::Api
 
 
@@ -13,12 +13,12 @@ module Alma
       Alma::User.loans({:user_id => self.id.to_s})
     end
 
-
     class << self
+      # Static methods that do the actual querying
       def find(args = {})
         #TODO Handle Search Queries
         #TODO Handle Pagination
-        #TODO Handle looping through results
+        #TODO Handle looping through all results
 
         return find_by_id(:user_id => args[:user_id]) if args.fetch(:user_id, nil)
         params = query_merge args
@@ -56,7 +56,7 @@ module Alma
         )
       end
 
-      def wadl_filename
+      def set_wadl_filename
         'user.wadl'
       end
     end

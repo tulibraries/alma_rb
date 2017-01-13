@@ -13,10 +13,18 @@ module Alma
     end
 
     def resources
-      @resources ||= EzWadl::Parser.parse(File.join(Alma::WADL_DIR, wadl_filename)).first
+      @resources ||= load_wadl
     end
 
-    def wadl_filename
+    def load_wadl(wadl_filename = nil)
+      wadl_filename ||= set_wadl_filename
+      parsed_wadl = EzWadl::Parser.parse(File.join(Alma::WADL_DIR, wadl_filename)) do |rs|
+        rs.first.path = Alma.configuration.region
+      end
+      parsed_wadl.first
+    end
+
+    def set_wadl_filename
       # Each class including this module should define this
       raise NotImplementedError 'You must define the wadl_filename method'
     end

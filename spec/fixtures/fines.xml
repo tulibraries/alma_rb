@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<fees total_record_count="4" total_sum="415.0" currency="USD">
+  <fee link="/almaws/v1/users/johns/fees/950645520000121">
+    <id>950645520000121</id>
+    <type desc="Overdue fine">OVERDUEFINE</type>
+    <status desc="Active">ACTIVE</status>
+    <balance>400.0</balance>
+    <original_amount>400.0</original_amount>
+    <creation_time>2014-10-21T08:17:12.450Z</creation_time>
+    <comment>Date generated: 10/21/2014, Due: 06/23/2014, Fine Policy: Overdue Fine for All Hours, Action: Renewed</comment>
+    <title>History</title>
+  </fee>
+  <fee link="/almaws/v1/users/johns/fees/950645580000121">
+    <id>950645580000121</id>
+    <type desc="Renew fee">RENEWFEE</type>
+    <status desc="Active">ACTIVE</status>
+    <balance>10.0</balance>
+    <original_amount>10.0</original_amount>
+    <creation_time>2014-10-21T08:17:12.709Z</creation_time>
+    <title>History</title>
+  </fee>
+  <fee link="/almaws/v1/users/johns/fees/711924990000121">
+    <id>711924990000121</id>
+    <type desc="Overdue fine">OVERDUEFINE</type>
+    <status desc="Active">ACTIVE</status>
+    <balance>55.0</balance>
+    <original_amount>77.0</original_amount>
+    <creation_time>2014-07-15T08:40:32.630Z</creation_time>
+    <comment>Date generated: 15/07/2014, Due: 23/06/2014, Fine Policy: Overdue Fine for All Hours, Action: Lost with overdue charge</comment>
+    <title>History</title>
+    <transactions>
+      <transaction>
+        <type desc="Payment">PAYMENT</type>
+        <amount>22.0</amount>
+        <created_by>Ex Libris</created_by>
+        <transaction_time>2014-10-20T13:26:54.144Z</transaction_time>
+      </transaction>
+    </transactions>
+  </fee>
+  <fee link="/almaws/v1/users/johns/fees/950644660000121">
+    <id>950644660000121</id>
+    <type desc="Credit">CREDIT</type>
+    <status desc="Active">ACTIVE</status>
+    <balance>-50.0</balance>
+    <original_amount>-50.0</original_amount>
+    <creation_time>2014-10-21T07:45:03.188Z</creation_time>
+    <title>History</title>
+  </fee>
+</fees>
