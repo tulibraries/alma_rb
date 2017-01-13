@@ -6,12 +6,13 @@ module Alma
 
 
     def fines
-      Alma::User.get_fines({:user_id => self.id.to_s})
+      Alma::User.fines({:user_id => self.id.to_s})
     end
 
     def loans
-      Alma::User.get_loans({:user_id => self.id.to_s})
+      Alma::User.loans({:user_id => self.id.to_s})
     end
+
 
     class << self
       def find(args = {})
@@ -35,7 +36,7 @@ module Alma
         User.new(response['user'])
       end
 
-      def get_fines(args)
+      def fines(args)
         #TODO Handle Additional Parameters
         params = query_merge args
         response = resources.almaws_v1_users.user_id_fees.get(params)
@@ -47,7 +48,7 @@ module Alma
         )
       end
 
-      def get_loans(args)
+      def loans(args)
         params = query_merge args
         response = resources.almaws_v1_users.user_id_loans.get(params)
         Struct.new('Items', :list ).new(

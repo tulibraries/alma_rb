@@ -44,8 +44,41 @@ Now you can access those configuration attributes with `Alma.configuration.apike
  user.total count
  > 402
  
- user.first.id 
- > NoamV
+ user.list.first.id 
+ > 123456789
+ ```
+ 
+ #### Get a Single user
+ ```ruby
+ user = Alma::User.find({:user_id => 123456789})
+ 
+ user.first_name
+ > Chad
+ 
+ user.email
+ > chad.nelson@fictional.edu
+ ```
+ 
+ Once you have a user, you can also request that users loans, fines, requests.
+ 
+ ```ruby
+ fines = user.fines
+ fines.sum
+ > 20.0
+ 
+ fines.list.first.title
+ > Practical Object Oriented Design with Ruby
+ 
+ user.loans.list
+ [\<Item Object 1\>, \<Item Oject 2\>]
+ ```
+ 
+ Loans, fines and Requests can also be accessed statically
+  
+  ```ruby
+ fines = Alma::User.fines({:user_id => 123456789})
+ 
+ loans = Alma::User.loans({:user_id => 123456789})
  
  ```
 ## Development
