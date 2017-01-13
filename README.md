@@ -41,14 +41,14 @@ Now you can access those configuration attributes with `Alma.configuration.apike
  ```ruby
  users = Alma::User.find
  
- user.total count
+ users.total count
  > 402
  
- user.list.first.id 
+ users.list.first.id 
  > 123456789
  ```
  
- #### Get a Single user
+#### Get a Single user
  ```ruby
  user = Alma::User.find({:user_id => 123456789})
  
