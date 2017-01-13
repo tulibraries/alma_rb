@@ -1,5 +1,5 @@
 module Alma
-  class AlmaResponse
+  class AlmaRecord
 
     attr_accessor :id
 
