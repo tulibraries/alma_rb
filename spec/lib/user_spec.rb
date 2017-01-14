@@ -4,9 +4,13 @@ require "spec_helper"
 RSpec.configure do |config|
   config.before(:each) do
     stub_request(:get, /.*\.exlibrisgroup\.com\/almaws\/v1\/users\/.*\/.*/).
-        to_return(:status => 200, :body => File.open(SPEC_ROOT + '/fixtures/single_user.xml').read, :headers => {})
+        to_return(:status => 200,
+                  :body => File.open(SPEC_ROOT + '/fixtures/single_user.xml').read,
+                  :headers => { 'content-type' => ['application/xml;charset=UTF-8']})
     stub_request(:get, /.*\.exlibrisgroup\.com\/almaws\/v1\/users\/.*\/fees\/.*/).
-        to_return(:status => 200, :body => File.open(SPEC_ROOT + '/fixtures/fines.xml').read, :headers => {})
+        to_return(:status => 200,
+                  :body => File.open(SPEC_ROOT + '/fixtures/fines.xml').read,
+                  :headers => { 'content-type' => ['application/xml;charset=UTF-8']})
 
 
   end
@@ -71,7 +75,7 @@ describe Alma::User do
 
 
       it 'responds to total_records' do
-        expect(fines).to respond_to :total_records
+        expect(fines).to respond_to :total_results
 
       end
     end

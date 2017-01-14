@@ -44,7 +44,7 @@ module Alma
             response['fees']['total_record_count'],
             response['fees']['total_sum'],
             response['fees']['currency'],
-            response['fees'].fetch('fee',[]).map {|fee| Alma::AlmaResponse.new(fee)}
+            response['fees'].fetch('fee',[]).map {|fee| Alma::AlmaRecord.new(fee)}
         )
       end
 
@@ -52,7 +52,7 @@ module Alma
         params = query_merge args
         response = resources.almaws_v1_users.user_id_loans.get(params)
         Struct.new('Items', :list ).new(
-             response['item_loans'].fetch('item_loan',[]).map {|fee| Alma::AlmaResponse.new(fee)}
+             response['item_loans'].fetch('item_loan',[]).map {|fee| Alma::AlmaRecord.new(fee)}
         )
       end
 
