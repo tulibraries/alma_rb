@@ -11,8 +11,10 @@ RSpec.configure do |config|
         to_return(:status => 200,
                   :body => File.open(SPEC_ROOT + '/fixtures/fines.xml').read,
                   :headers => { 'content-type' => ['application/xml;charset=UTF-8']})
-
-
+    stub_request(:get, /.*\.exlibrisgroup\.com\/almaws\/v1\/users\/.*\/requests\/.*/).
+        to_return(:status => 200,
+                  :body => File.open(SPEC_ROOT + '/fixtures/requests.xml').read,
+                  :headers => { 'content-type' => ['application/xml;charset=UTF-8']})
   end
 end
 
@@ -75,9 +77,51 @@ describe Alma::User do
 
 
       it 'responds to total_records' do
-        expect(fines).to respond_to :total_results
-
+        expect(fines).to respond_to :total_record_count
       end
+
+      it 'lists the expected number of results' do
+        expect(fines.total_record_count).to eql 4
+      end
+
+      it 'has the expected number of results' do
+        expect(fines.list.size).to eql 4
+      end
+
+      it 'responds to sum' do
+        expect(fines).to respond_to :sum
+      end
+
+      it 'lists the expected summed total' do
+        expect(fines.sum).to eql "415.0"
+      end
+
+    end
+
+    describe "#{described_class}.requests" do
+      let(:requests) {described_class.get_requests({:user_id => "johns"})}
+
+
+      it 'responds to total_records' do
+        expect(requests).to respond_to :total_record_count
+      end
+
+      it 'lists the expected number of results' do
+        expect(requests.total_record_count).to eql 1
+      end
+
+      it 'responds to list' do
+        expect(requests).to respond_to :list
+      end
+
+      it 'returns an array when list is called' do
+        expect(requests.list).to be_an Array
+      end
+
+      it 'has the expected number of results' do
+        expect(requests.list.size).to eql 1
+      end
+
     end
   end
 end
