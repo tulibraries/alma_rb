@@ -7,7 +7,7 @@ A client for Web Services provided by the Ex Libris's Alma Library System.
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'alma', :git => https://github.com/tulibraries/alma.git
+gem 'alma', :git => https://github.com/tulibraries/alma_rb.git
 ```
 
 And then execute:
@@ -16,7 +16,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install alma
+    $ gem install alma_rb
 
 ## Usage
 
@@ -76,9 +76,9 @@ Now you can access those configuration attributes with `Alma.configuration.apike
  Loans, fines and Requests can also be accessed statically
   
   ```ruby
- fines = Alma::User.fines({:user_id => 123456789})
+ fines = Alma::User.get_fines({:user_id => 123456789})
  
- loans = Alma::User.loans({:user_id => 123456789})
+ loans = Alma::User.get_loans({:user_id => 123456789})
  
  ```
 ## Development
