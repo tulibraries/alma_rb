@@ -1,11 +1,9 @@
 module Alma
   class AlmaRecord
 
-    attr_accessor :id
-
-    def initialize(response_hash)
-      @response = response_hash
-      @id = response_hash['primary_id']
+    def initialize(record)
+      @raw_record = record
+      post_initialize()
     end
 
     def method_missing(name)
@@ -18,7 +16,12 @@ module Alma
     end
 
     def response
-      @response
+      @raw_record
+    end
+
+    def post_initialize
+      # Subclasses can define this method to perform extra initialization
+      # after the super class init.
     end
 
   end

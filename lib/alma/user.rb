@@ -4,6 +4,11 @@ module Alma
   class  User < AlmaRecord
     extend Alma::Api
 
+    attr_accessor :id
+
+    def post_initialize
+      @id = response['primary_id']
+    end
 
     def fines
       Alma::User.get_fines({:user_id => self.id.to_s})
@@ -13,8 +18,13 @@ module Alma
       Alma::User.get_loans({:user_id => self.id.to_s})
     end
 
+    def requests
+      Alma::User.get_requests({:user_id => self.id.to_s})
+    end
+
     class << self
       # Static methods that do the actual querying
+
       def find(args = {})
         #TODO Handle Search Queries
         #TODO Handle Pagination
@@ -23,11 +33,7 @@ module Alma
         return find_by_id(:user_id => args[:user_id]) if args.fetch(:user_id, nil)
         params = query_merge args
         response = resources.almaws_v1_users.get(params)
-
-        Struct.new('Users', :total_results, :list ).new(
-            response['users']['total_record_count'],
-            response['users']['user'].map {|user| Alma::User.new(user)}
-        )
+        Alma::UserSet.new(response)
       end
 
       def find_by_id(user_id_hash)
@@ -38,23 +44,31 @@ module Alma
 
       def get_fines(args)
         #TODO Handle Additional Parameters
+        #TODO Handle Pagination
+        #TODO Handle looping through all results
         params = query_merge args
         response = resources.almaws_v1_users.user_id_fees.get(params)
-        Struct.new('Fines', :total_results, :sum, :currency, :list ).new(
-            response['fees']['total_record_count'],
-            response['fees']['total_sum'],
-            response['fees']['currency'],
-            response['fees'].fetch('fee',[]).map {|fee| Alma::AlmaRecord.new(fee)}
-        )
+        Alma::FineSet.new(response)
       end
 
       def get_loans(args)
+        #TODO Handle Additional Parameters
+        #TODO Handle Pagination
+        #TODO Handle looping through all results
         params = query_merge args
         response = resources.almaws_v1_users.user_id_loans.get(params)
-        Struct.new('Items', :list ).new(
-             response['item_loans'].fetch('item_loan',[]).map {|fee| Alma::AlmaRecord.new(fee)}
-        )
+        Alma::LoanSet.new(response)
       end
+
+      def get_requests(args)
+        #TODO Handle Additional Parameters
+        #TODO Handle Pagination
+        #TODO Handle looping through all results
+        params = query_merge args
+        response = resources.almaws_v1_users.user_id_requests.get(params)
+        Alma::RequestSet.new(response)
+      end
+
 
       def set_wadl_filename
         'user.wadl'
