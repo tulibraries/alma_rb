@@ -71,7 +71,7 @@ describe Alma::User do
     end
 
     describe "#{described_class}.fines" do
-      let(:fines) {described_class.fines({:user_id => "johns"})}
+      let(:fines) {described_class.get_fines({:user_id => "johns"})}
 
 
       it 'responds to total_records' do
