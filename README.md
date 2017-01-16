@@ -7,7 +7,7 @@ A client for Web Services provided by the Ex Libris's Alma Library System.
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'alma', :git => https://github.com/tulibraries/alma_rb.git
+gem 'alma', :git => "https://github.com/tulibraries/alma_rb.git"
 ```
 
 And then execute:
