@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = %q{Client for Ex Libris Alma Web Services}
   spec.description   = %q{Client for Ex Libris Alma Web Services}
-  spec.homepage      = "https://alma.ruby"
+  spec.homepage      = "https://github.com/tulibraries/alma_rb"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
