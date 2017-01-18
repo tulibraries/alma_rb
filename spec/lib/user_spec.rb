@@ -15,6 +15,12 @@ RSpec.configure do |config|
         to_return(:status => 200,
                   :body => File.open(SPEC_ROOT + '/fixtures/requests.xml').read,
                   :headers => { 'content-type' => ['application/xml;charset=UTF-8']})
+    stub_request(:post, /.*\.exlibrisgroup\.com\/almaws\/v1\/users\/.*\/.*/).
+        with(query: hash_including({password: 'right_password'})).
+        to_return(:status => 204)
+    stub_request(:post, /.*\.exlibrisgroup\.com\/almaws\/v1\/users\/.*\/.*/).
+        with(query: hash_including({password: 'wrong_password'})).
+        to_return(:status => 400)
   end
 end
 
@@ -120,6 +126,24 @@ describe Alma::User do
 
       it 'has the expected number of results' do
         expect(requests.list.size).to eql 1
+      end
+
+    end
+
+    describe "#{described_class}.authenticate" do
+      let(:auth_success) {described_class.authenticate({user_id: 'johns', password: 'right_password'}) }
+      let(:auth_fail) {described_class.authenticate({user_id: 'johns', password: 'wrong_password'}) }
+
+      context 'Successful authentication' do
+        it 'returns true' do
+          expect(auth_success).to be true
+        end
+      end
+
+      context 'Unsuccessful authentication' do
+        it 'returns false' do
+          expect(auth_fail).to be false
+        end
       end
 
     end

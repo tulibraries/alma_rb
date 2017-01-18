@@ -69,6 +69,14 @@ module Alma
         Alma::RequestSet.new(response)
       end
 
+      def authenticate(args)
+        # Authenticates a Alma user with their Alma Password
+        args.merge!({op: 'auth'})
+        params = query_merge args
+        response = resources.almaws_v1_users.user_id.post(params)
+        response.code == 204
+      end
+
 
       def set_wadl_filename
         'user.wadl'
