@@ -9,6 +9,7 @@ require 'alma/user_set'
 require 'alma/fine_set'
 require 'alma/user_set'
 require 'alma/request_set'
+require 'alma/renewal_response'
 
 module Alma
 
