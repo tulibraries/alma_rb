@@ -106,7 +106,14 @@ to renew an item you can pass a loan object to `user.renew_loan`
 
 ```ruby
 
-user.renew_loan(loans.list.first)
+renewal = user.renew_loan(loans.list.first)
+
+renewal.renewed?
+> True
+
+renewal.message 
+> "Javascript: The Good Parts is now due 02-20-17"
+
 
 ```
 
