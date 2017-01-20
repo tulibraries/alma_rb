@@ -89,9 +89,9 @@ loans.total_record_count
 > "2"
  
 loans.list
-> [#<Alma::AlmaRecord:0x000000038c6b79
+> [#<Alma::Loan:0x000000038c6b79
   ...>,
-  #<Alma::AlmaRecord:0x000000038c6b34
+  #<Alma::Loan:0x000000038c6b34
    ...>]
  
 loans.list.first.title
@@ -102,18 +102,16 @@ loans.list.first.due_date
  
 ```
 
-to renew an item you can pass a loan object to `user.renew_loan`
+To renew an item you can can call the Loan objects renew method
 
 ```ruby
-
-renewal = user.renew_loan(loans.list.first)
+renewal = loans.list.first.renew
 
 renewal.renewed?
 > True
 
 renewal.message 
 > "Javascript: The Good Parts is now due 02-20-17"
-
 
 ```
 
