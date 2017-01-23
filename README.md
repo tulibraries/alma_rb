@@ -38,7 +38,7 @@ Now you can access those configuration attributes with `Alma.configuration.apike
 ### Making Requests
 
 #### Get a list of Users
- ```ruby
+```ruby
  users = Alma::User.find
  
  users.total count
@@ -46,10 +46,10 @@ Now you can access those configuration attributes with `Alma.configuration.apike
  
  users.list.first.id 
  > 123456789
- ```
+```
  
 #### Get a Single user
- ```ruby
+```ruby
  user = Alma::User.find({:user_id => 123456789})
  
  user.first_name
@@ -57,30 +57,97 @@ Now you can access those configuration attributes with `Alma.configuration.apike
  
  user.email
  > chad.nelson@fictional.edu
- ```
+```
  
- Once you have a user, you can also request that users loans, fines, requests.
+#### Get details on a users fines
  
- ```ruby
+```ruby
  fines = user.fines
  fines.sum
- > 20.0
+ > "20.0"
+ 
+ fines.total_record_count
+ > "2"
+ 
+ fines.list
+ > [#<Alma::AlmaRecord:0x000000038b7b50
+    ...>,
+    #<Alma::AlmaRecord:0x000000038b7b28
+     ...>]
  
  fines.list.first.title
- > Practical Object Oriented Design with Ruby
+ > "Practical Object Oriented Design with Ruby"
  
- user.loans.list
- [\<Item Object 1\>, \<Item Oject 2\>]
- ```
+```
+
+#### Get details on a users loans
+ 
+```ruby
+loans = user.loans
+
+loans.total_record_count
+> "2"
+ 
+loans.list
+> [#<Alma::Loan:0x000000038c6b79
+  ...>,
+  #<Alma::Loan:0x000000038c6b34
+   ...>]
+ 
+loans.list.first.title
+ > "Javascript: The Good Parts"
+ 
+loans.list.first.due_date
+"2016-12-26z
+ 
+```
+
+To renew an item you can can call the Loan objects renew method
+
+```ruby
+renewal = loans.list.first.renew
+
+renewal.renewed?
+> True
+
+renewal.message 
+> "Javascript: The Good Parts is now due 02-20-17"
+
+```
+
+
+
+#### Get details on a users requests
+```ruby
+requests = user.requests
+
+requests.total_record_count
+> "1"
+ 
+requests.list
+> [#<Alma::AlmaRecord:0x000000038c6b79...>]
+ 
+requests.list.first.title
+> "Food in history / Reay Tannahill."
+
+requests.list.first.pickup_location
+> "Main Library"
+
+requests.list.first.request_status
+> "In Process"
+ 
+```
  
  Loans, fines and Requests can also be accessed statically
   
-  ```ruby
- fines = Alma::User.get_fines({:user_id => 123456789})
+```ruby
+Alma::User.get_fines({:user_id => 123456789})
  
- loans = Alma::User.get_loans({:user_id => 123456789})
+Alma::User.get_loans({:user_id => 123456789})
+
+Alma::User.get_requests({:user_id => 123456789})
  
- ```
+```
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.

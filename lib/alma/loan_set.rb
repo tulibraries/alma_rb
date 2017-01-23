@@ -15,7 +15,7 @@ module Alma
 
     def list_results
       response_records.map do |loan|
-        Alma::AlmaRecord.new(loan)
+        Alma::Loan.new(loan)
       end
     end
 

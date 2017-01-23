@@ -7,19 +7,34 @@ module Alma
     attr_accessor :id
 
     def post_initialize
-      @id = response['primary_id']
+      @id = response['primary_id'].to_s
+      @recheck_loans = true
     end
 
     def fines
-      Alma::User.get_fines({:user_id => self.id.to_s})
+      self.class.get_fines({user_id: self.id})
     end
 
     def loans
-      Alma::User.get_loans({:user_id => self.id.to_s})
+      unless @loans && !recheck_loans?
+        @loans = self.class.get_loans({user_id: self.id})
+        @recheck_loans = false
+      end
+      @loans
+    end
+
+    def renew_loan(loan)
+      response = self.class.renew_loan({user_id: self.id, loan: loan})
+      @recheck_loans = true if response.renewed?
+      response
+    end
+
+    def recheck_loans?
+      @recheck_loans
     end
 
     def requests
-      Alma::User.get_requests({:user_id => self.id.to_s})
+      self.class.get_requests({user_id:self.id})
     end
 
     class << self
@@ -30,7 +45,7 @@ module Alma
         #TODO Handle Pagination
         #TODO Handle looping through all results
 
-        return find_by_id(:user_id => args[:user_id]) if args.fetch(:user_id, nil)
+        return find_by_id(user_id: args[:user_id]) if args.fetch(:user_id, nil)
         params = query_merge args
         response = resources.almaws_v1_users.get(params)
         Alma::UserSet.new(response)
@@ -75,6 +90,26 @@ module Alma
         params = query_merge args
         response = resources.almaws_v1_users.user_id.post(params)
         response.code == 204
+      end
+
+      # Attempts to renew a single item for a user
+      # @param [Hash] args
+      # @option args [String] :user_id The unique id of the user
+      # @option args [String] :loan_id The unique id of the loan - optional (either :loan_id or :loan must be present)
+      # @option args [String] :loan_id A loan object - optional (either :loan_id or :loan must be present)
+      # @option args [String] :user_id_type Type of identifier being used to search
+      # @return [RenewalResponse] Object indicating the renewal message
+      def renew_loan(args)
+        args.merge!({op: 'renew'})
+
+        # If a loan object is passed in args, us its id as loan_id
+        loan = args.delete(:loan)
+        if loan
+          args[:loan_id] = loan.loan_id
+        end
+        params = query_merge args
+        response = resources.almaws_v1_users.user_id_loans_loan_id.post(params)
+        RenewalResponse.new(response, loan)
       end
 
 
