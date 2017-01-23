@@ -1,30 +1,34 @@
 module Alma
   class RenewalResponse
 
-    def initialize(response, loan=nil)
-      @loan     = loan
-      @success  = response.fetch('item_loan', nil)
-      @error    = response.fetch('web_service_result', nil)
-      @renewed  = @error.nil?
+    def initialize(response)
+      @success  = response.fetch('item_loan', {})
+      @error    = response.fetch('web_service_result', {})
+      @renewed  = @error.empty?
     end
 
     def renewed?
       @renewed
     end
 
-    def new_due_date
-      Time.parse(@success['due_date']).strftime('%m-%e-%y %H:%M')
+    def due_date
+      @success.fetch('due_date', '')
+    end
+
+
+    def due_date_pretty
+      Time.parse(due_date).strftime('%m-%e-%y %H:%M')
     end
 
     def error_message
-      @error['errorList']['error']['errorMessage']
+      (renewed?) ? '' : @error['errorList']['error']['errorMessage']
     end
 
     def item_title
-      if @loan
-        @loan.title
+      if @success
+        @success['title']
       else
-        "This Item"
+        'This Item'
       end
     end
 
