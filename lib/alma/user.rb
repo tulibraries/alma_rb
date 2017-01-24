@@ -23,8 +23,8 @@ module Alma
       @loans
     end
 
-    def renew_loan(loan)
-      response = self.class.renew_loan({user_id: self.id, loan: loan})
+    def renew_loan(loan_id)
+      response = self.class.renew_loan({user_id: self.id, loan_id: loan_id})
       @recheck_loans = true if response.renewed?
       response
     end
@@ -95,21 +95,14 @@ module Alma
       # Attempts to renew a single item for a user
       # @param [Hash] args
       # @option args [String] :user_id The unique id of the user
-      # @option args [String] :loan_id The unique id of the loan - optional (either :loan_id or :loan must be present)
-      # @option args [String] :loan_id A loan object - optional (either :loan_id or :loan must be present)
-      # @option args [String] :user_id_type Type of identifier being used to search
+      # @option args [String] :loan_id The unique id of the loan
+      # @option args [String] :user_id_type Type of identifier being used to search. OPTIONAL
       # @return [RenewalResponse] Object indicating the renewal message
       def renew_loan(args)
         args.merge!({op: 'renew'})
-
-        # If a loan object is passed in args, us its id as loan_id
-        loan = args.delete(:loan)
-        if loan
-          args[:loan_id] = loan.loan_id
-        end
         params = query_merge args
         response = resources.almaws_v1_users.user_id_loans_loan_id.post(params)
-        RenewalResponse.new(response, loan)
+        RenewalResponse.new(response)
       end
 
 

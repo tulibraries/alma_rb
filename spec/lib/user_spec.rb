@@ -7,20 +7,29 @@ RSpec.configure do |config|
         to_return(:status => 200,
                   :body => File.open(SPEC_ROOT + '/fixtures/single_user.xml').read,
                   :headers => { 'content-type' => ['application/xml;charset=UTF-8']})
+
     stub_request(:get, /.*\.exlibrisgroup\.com\/almaws\/v1\/users\/.*\/fees\/.*/).
         to_return(:status => 200,
                   :body => File.open(SPEC_ROOT + '/fixtures/fines.xml').read,
                   :headers => { 'content-type' => ['application/xml;charset=UTF-8']})
+
     stub_request(:get, /.*\.exlibrisgroup\.com\/almaws\/v1\/users\/.*\/requests\/.*/).
         to_return(:status => 200,
                   :body => File.open(SPEC_ROOT + '/fixtures/requests.xml').read,
                   :headers => { 'content-type' => ['application/xml;charset=UTF-8']})
+
     stub_request(:post, /.*\.exlibrisgroup\.com\/almaws\/v1\/users\/.*\/.*/).
         with(query: hash_including({password: 'right_password'})).
         to_return(:status => 204)
     stub_request(:post, /.*\.exlibrisgroup\.com\/almaws\/v1\/users\/.*\/.*/).
         with(query: hash_including({password: 'wrong_password'})).
         to_return(:status => 400)
+
+    stub_request(:post, /.*\.exlibrisgroup\.com\/almaws\/v1\/users\/.*\/loans\/.*\/.*/).
+        with(query: hash_including({loan_id: 'RENEWED_ID'})).
+        to_return(:status => 200,
+                  :body => File.open(SPEC_ROOT + '/fixtures/renewal_success.xml').read,
+                  :headers => { 'content-type' => ['application/xml;charset=UTF-8']})
   end
 end
 
@@ -126,6 +135,36 @@ describe Alma::User do
 
       it 'has the expected number of results' do
         expect(requests.list.size).to eql 1
+      end
+
+    end
+
+    describe "#{described_class}.renew_loan" do
+      let(:renew){described_class.renew_loan({user_id: 'johns', loan_id: "RENEWED_ID"})}
+
+      context 'Successful renewal' do
+
+        it '#renewed? should be true' do
+          expect(renew.renewed?).to be true
+        end
+
+        it 'provides a renwal date string' do
+          expect(renew.due_date).to eql '2014-06-23T14:00:00.000Z'
+        end
+
+        it 'provides the title' do
+          expect(renew.item_title).to eql 'History'
+        end
+
+        it 'returns an empty error message' do
+          expect(renew.error_message).to be_empty
+        end
+
+
+      end
+
+      context 'Failed Renewal' do
+
       end
 
     end
