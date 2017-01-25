@@ -40,8 +40,7 @@ module Alma
     def list_results
       #If there is only one record in the response, HTTParty returns as a hash, not
       # an array of hashes, so wrap in array to normalize.
-      response_array = (total_record_count == 1) ? [response_records] : response_records
-
+      response_array = (response_records.is_a? Array) ? response_records : [response_records]
       response_array.map do |record|
         single_record_class.new(record)
       end

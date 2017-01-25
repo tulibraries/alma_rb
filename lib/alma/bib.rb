@@ -16,7 +16,7 @@ module Alma
         bibs = get_bibs(ids, args)
 
         return bibs if bibs.has_error?
-        bibs
+        Alma::AvailabilityResponse.new(bibs)
       end
 
       def find(ids, args)
