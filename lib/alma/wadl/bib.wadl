@@ -1695,7 +1695,7 @@ Returned only when view=label.</xs:documentation>
       </xs:complexType>
     </xs:schema>
   </grammars>
-  <resources base="https://api-eu.hosted.exlibrisgroup.com">
+  <resources base="https://api-na.hosted.exlibrisgroup.com">
     <resource path="/almaws/v1/bibs">
       <method name="GET">
         <doc title="Retrieve Bibs">This web service returns Bib records in an XML format from a list of Bib IDs submitted in a parameter. 

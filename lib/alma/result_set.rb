@@ -1,13 +1,17 @@
 module Alma
   class ResultSet
+    extend Forwardable
+
+    include Alma::Error
+
+    def_delegators :list, :size, :each, :map
 
     def initialize(ws_response)
-      @ws_response = ws_response
+      @response = ws_response
     end
 
-
     def total_record_count
-      @ws_response[top_level_key].fetch('total_record_count', 0).to_i
+      @response[top_level_key].fetch('total_record_count', 0).to_i
     end
 
     def list
@@ -25,7 +29,12 @@ module Alma
 
 
     def response_records
-      @ws_response[top_level_key].fetch(response_records_key,[])
+      @response[top_level_key].fetch(response_records_key,[])
+    end
+
+    # Subclasses Can override this to use a Custom Class for single record objects.
+    def single_record_class
+      Alma::AlmaRecord
     end
 
     def list_results
@@ -34,7 +43,7 @@ module Alma
       response_array = (total_record_count == 1) ? [response_records] : response_records
 
       response_array.map do |record|
-        Alma::AlmaRecord.new(record)
+        single_record_class.new(record)
       end
     end
   end

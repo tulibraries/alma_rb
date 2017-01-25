@@ -10,11 +10,11 @@ module Alma
     end
 
     def sum
-      @ws_response['fees'].fetch('total_sum', 0)
+      @response['fees'].fetch('total_sum', 0)
     end
 
     def currency
-      @ws_response['fees'].fetch('total_sum', nil)
+      @response['fees'].fetch('total_sum', nil)
     end
 
   end

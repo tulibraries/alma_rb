@@ -1,16 +1,20 @@
 require 'alma/version'
 require 'alma/config'
 require 'alma/api'
+require 'alma/error'
 require 'alma/alma_record'
 require 'alma/user'
+require 'alma/bib'
 require 'alma/loan'
 require 'alma/result_set'
 require 'alma/loan_set'
 require 'alma/user_set'
 require 'alma/fine_set'
 require 'alma/user_set'
+require 'alma/bib_set'
 require 'alma/request_set'
 require 'alma/renewal_response'
+require 'alma/availability_response'
 
 module Alma
 
