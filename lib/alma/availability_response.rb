@@ -10,7 +10,7 @@ module Alma
 
     def parse_bibs_data(bibs)
 
-      inventory_types = Alma.INVENTORY_TO_SUBFIELD_TO_FIELDNAME.keys
+      inventory_types = Alma::INVENTORY_TO_SUBFIELD_TO_FIELDNAME.keys
 
 
       bibs.map do |bib|
