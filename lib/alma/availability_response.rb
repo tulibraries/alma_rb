@@ -22,7 +22,7 @@ module Alma
 
         record['holdings'] = inventory_fields.map do |inventory_field|
           inventory_type = inventory_field['tag']
-          subfield_codes_to_fieldnames = @inventory_type_to_subfield_codes_to_fieldnames[inventory_type]
+          subfield_codes_to_fieldnames = Alma::INVENTORY_TO_SUBFIELD_TO_FIELDNAME[inventory_type]
 
           # make sure subfields is always an Array (which isn't the case if there's only one subfield element)
           subfields = [inventory_field.fetch('subfield', [])].flatten(1)
