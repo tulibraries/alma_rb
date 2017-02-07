@@ -1,0 +1,3081 @@
+<?xml version="1.0"?>
+<application xmlns="http://wadl.dev.java.net/2009/02" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <doc title="Alma"/>
+  <grammars>
+    <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified">
+      <xs:annotation>
+        <xs:documentation>An object representation of a Physical Item's data.</xs:documentation>
+      </xs:annotation>
+      <xs:element name="item" type="item"/>
+      <xs:complexType name="item">
+        <xs:annotation>
+          <xs:documentation>A Physical item.</xs:documentation>
+        </xs:annotation>
+        <xs:all>
+          <xs:element maxOccurs="1" minOccurs="0" name="bib_data" type="bib_data">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>Bibliographic data of the Physical Item. Output parameter.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="1" name="holding_data" type="holding_data">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get post put</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>Information of the Holding that this Physical Item belongs to.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="1" name="item_data" type="item_data">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get post put</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>Physical Item data.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="additional_info" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>Additional information following an action on the item. Output parameter.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:all>
+        <xs:attribute name="link" type="xs:string"/>
+      </xs:complexType>
+      <xs:complexType name="bib_data">
+        <xs:annotation>
+          <xs:appinfo>
+            <xs:tags>api get</xs:tags>
+          </xs:appinfo>
+          <xs:documentation>Bibliographic data of the Physical Item. Output parameter.</xs:documentation>
+        </xs:annotation>
+        <xs:all>
+          <xs:element maxOccurs="1" minOccurs="1" name="mms_id" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>mms_id. Output parameter.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="title" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>The title of the Bibliographic record to which this Physical Item relates. Output parameter.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="author" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>author</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="issn" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>issn. Output parameter.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="isbn" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>isbn. Output parameter.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="complete_edition" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>Complete edition. Output parameter.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="network_numbers" type="network_numbers">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>Network number, control number. Output parameter.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="place_of_publication" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>Place of publication, part of the imprint information. Output parameter.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="publisher_const" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>Publisher_const, part of the imprint information. Output parameter.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:all>
+        <xs:attribute name="link" type="xs:string"/>
+      </xs:complexType>
+      <xs:complexType name="holding_data">
+        <xs:annotation>
+          <xs:appinfo>
+            <xs:tags>api get post</xs:tags>
+          </xs:appinfo>
+          <xs:documentation>Information of the Holding that this Physical Item belongs to.</xs:documentation>
+        </xs:annotation>
+        <xs:all>
+          <xs:element name="holding_id" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get post</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>Holding pid, a unique holding id that the item is associated with.
+Currently, cannot be updated for an existing item.
+					</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="call_number_type">
+            <xs:annotation>
+              <xs:documentation>The call number type used for the item. Possible codes are listed in 'CallNumberType' code-table.
+					</xs:documentation>
+              <xs:appinfo>
+                <xs:tags>api get</xs:tags>
+                <xs:codeTable>CallNumberType</xs:codeTable>
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:simpleContent>
+                <xs:extension base="xs:string">
+                  <xs:attribute name="desc" type="xs:string" use="optional"/>
+                </xs:extension>
+              </xs:simpleContent>
+            </xs:complexType>
+          </xs:element>
+          <xs:element minOccurs="0" name="call_number" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>Call number, used to describe this physical holding. Output parameter.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="accession_number" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>accession number. Output parameter.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="copy_id" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get post put</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>The item's copy ID, used to identify individual copies of the same title when multiple copies exist at the same location.
+					</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="in_temp_location" type="xs:boolean">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get post put</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>Indicates whether the item is currently in temporary location. Default is False.
+					</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="temp_library">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get post put</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>Temporary library.
+Relevant only if in_temp_location is True.</xs:documentation>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:simpleContent>
+                <xs:extension base="xs:string">
+                  <xs:attribute name="desc" type="xs:string" use="optional"/>
+                </xs:extension>
+              </xs:simpleContent>
+            </xs:complexType>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="temp_location">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get post put</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>Temporary location.
+Relevant only if in_temp_location is True.</xs:documentation>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:simpleContent>
+                <xs:extension base="xs:string">
+                  <xs:attribute name="desc" type="xs:string" use="optional"/>
+                </xs:extension>
+              </xs:simpleContent>
+            </xs:complexType>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="temp_call_number_type">
+            <xs:annotation>
+              <xs:documentation>The call number type used for the item at the temporary location.
+Possible codes are listed in 'CallNumberType' [code table|https://developers.exlibrisgroup.com/blog/Working-with-the-code-tables-API].
+Relevant only if in_temp_location is True.
+					</xs:documentation>
+              <xs:appinfo>
+                <xs:tags>api get post put</xs:tags>
+                <xs:codeTable>CallNumberType</xs:codeTable>
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:simpleContent>
+                <xs:extension base="xs:string">
+                  <xs:attribute name="desc" type="xs:string" use="optional"/>
+                </xs:extension>
+              </xs:simpleContent>
+            </xs:complexType>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="temp_call_number" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get post put</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>The item's call number when using the temporary call number type at the temporary location.
+Relevant only if in_temp_location is True.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="temp_policy">
+            <xs:annotation>
+              <xs:documentation>The item's temporary override policy.
+Possible codes are listed in 'ItemPolicy' [code table|https://developers.exlibrisgroup.com/blog/Working-with-the-code-tables-API].
+Relevant only if in_temp_location is True.
+					</xs:documentation>
+              <xs:appinfo>
+                <xs:tags>api get post put</xs:tags>
+                <xs:codeTable>ItemPolicy</xs:codeTable>
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:simpleContent>
+                <xs:extension base="xs:string">
+                  <xs:attribute name="desc" type="xs:string" use="optional"/>
+                </xs:extension>
+              </xs:simpleContent>
+            </xs:complexType>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="due_back_date" type="xs:date">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get post put</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>The date the item is due back from the temporary location.
+Relevant only if in_temp_location is True.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:all>
+        <xs:attribute name="link" type="xs:string"/>
+      </xs:complexType>
+      <xs:complexType name="item_data">
+        <xs:annotation>
+          <xs:appinfo>
+            <xs:tags>api get post put</xs:tags>
+          </xs:appinfo>
+          <xs:documentation>Physical Item data.</xs:documentation>
+        </xs:annotation>
+        <xs:all>
+          <xs:element maxOccurs="1" minOccurs="0" name="pid" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>Physical item pid. Output parameter.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="barcode" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get post put</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>The item's barcode.
+If not sent as part of the PUT or POST actions, Alma will generate a barcode based on the barcode generation rules.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="creation_date" type="xs:date">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>The date the item was created. Output parameter.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="modification_date" type="xs:date">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>The date the item was modified. Output parameter.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="base_status">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get</xs:tags>
+                <xs:codeTable>BaseStatus</xs:codeTable>
+                <xs:documentation>The item's basic status: In place / Not in place. Output parameter.
+Possible codes are listed in 'BaseStatus' [code table|https://developers.exlibrisgroup.com/blog/Working-with-the-code-tables-API].
+						</xs:documentation>
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:simpleContent>
+                <xs:extension base="xs:string">
+                  <xs:attribute name="desc" type="xs:string" use="optional"/>
+                </xs:extension>
+              </xs:simpleContent>
+            </xs:complexType>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="physical_material_type">
+            <xs:annotation>
+              <xs:documentation>The item's physical form, such as a book or CD-ROM.
+Possible codes are listed in 'PhysicalMaterialType' [code table|https://developers.exlibrisgroup.com/blog/Working-with-the-code-tables-API].
+					</xs:documentation>
+              <xs:appinfo>
+                <xs:tags>api get post put</xs:tags>
+                <xs:codeTable>PhysicalMaterialType</xs:codeTable>
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:simpleContent>
+                <xs:extension base="xs:string">
+                  <xs:attribute name="desc" type="xs:string" use="optional"/>
+                </xs:extension>
+              </xs:simpleContent>
+            </xs:complexType>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="policy">
+            <xs:annotation>
+              <xs:documentation>The item's override policy for loan rules.
+Defines the conditions under which a request for this item can be fulfilled.
+						Possible codes are listed in 'ItemPolicy' [code table|https://developers.exlibrisgroup.com/blog/Working-with-the-code-tables-API].
+					</xs:documentation>
+              <xs:appinfo>
+                <xs:tags>api get post put</xs:tags>
+                <xs:codeTable>ItemPolicy</xs:codeTable>
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:simpleContent>
+                <xs:extension base="xs:string">
+                  <xs:attribute name="desc" type="xs:string" use="optional"/>
+                </xs:extension>
+              </xs:simpleContent>
+            </xs:complexType>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="provenance">
+            <xs:annotation>
+              <xs:documentation>The item's origin.
+Possible codes are listed in 'provenanceCodes' [code table|https://developers.exlibrisgroup.com/blog/Working-with-the-code-tables-API].</xs:documentation>
+              <xs:appinfo>
+                <xs:tags>api get post put</xs:tags>
+                <xs:codeTable>provenanceCodes</xs:codeTable>
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:simpleContent>
+                <xs:extension base="xs:string">
+                  <xs:attribute name="desc" type="xs:string" use="optional"/>
+                </xs:extension>
+              </xs:simpleContent>
+            </xs:complexType>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="po_line" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get post put</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>
+						The related PO line number.
+						In the GET action, this might be the matching holding's PO line (in case of continuous PO line).
+						In POST and PUT actions, it is possible to update only the specific item's PO line.
+						Hence, in case the PO line in this field is continuous, it will be ignored. Such an update should be done in the holding record itself.
+					</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="is_magnetic" type="xs:boolean">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get post put</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>Indicates whether the item contains a magnet which can cause it to be damaged when scanned by a self-check machine.
+						Optional. Default is False.
+					</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="arrival_date" type="xs:date">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get post put</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>The date the material was actually received/activated for the first time.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="expected_arrival_date" type="xs:date">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get post put</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>The date the item was expected to be received.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="year_of_issue" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get post put</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>The related year for an issue item.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="enumeration_a" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get post put</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>enumeration A</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="enumeration_b" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get post put</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>enumeration B</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="enumeration_c" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get post put</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>enumeration C</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="enumeration_d" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get post put</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>enumeration D</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="enumeration_e" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get post put</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>enumeration E</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="enumeration_f" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get post put</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>enumeration F</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="enumeration_g" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get post put</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>enumeration G</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="enumeration_h" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get post put</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>enumeration H</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="chronology_i" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get post put</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>chronology I</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="chronology_j" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get post put</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>chronology J</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="chronology_k" type="xs:string">
+            <xs:annotation>
+              <xs:documentation>chronology K</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="chronology_l" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get post put</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>chronology L</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="chronology_m" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get post put</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>chronology M</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="description" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get post put</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>This item's description.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="replacement_cost" type="xs:float">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get post put</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>The charge administered to the patron if the item is lost.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="receiving_operator" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get post put</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>The Operator who received the item.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="process_type">
+            <xs:annotation>
+              <xs:documentation>Process type.
+Possible codes are listed in 'PROCESSTYPE' [code table|https://developers.exlibrisgroup.com/blog/Working-with-the-code-tables-API].</xs:documentation>
+              <xs:appinfo>
+                <xs:tags>api get</xs:tags>
+                <xs:codeTable>PROCESSTYPE</xs:codeTable>
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:simpleContent>
+                <xs:extension base="xs:string">
+                  <xs:attribute name="desc" type="xs:string" use="optional"/>
+                </xs:extension>
+              </xs:simpleContent>
+            </xs:complexType>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="library">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get put</xs:tags>
+                <xs:codeTable>libraries</xs:codeTable>
+              </xs:appinfo>
+              <xs:documentation>Library.
+In PUT, updating the library and/or location might move the item to a different Holding record, or will create a new holding record for it.
+In POST action the library will be defined according to the holding_id field.
+see [Get libraries API|https://developers.exlibrisgroup.com/alma/apis/conf/GET/gwPcGly021p29HpB7XTI4Dp4I8TKv6CAxBlD4LyRaVE=/37088dc9-c685-4641-bc7f-60b5ca7cabed]</xs:documentation>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:simpleContent>
+                <xs:extension base="xs:string">
+                  <xs:attribute name="desc" type="xs:string" use="optional"/>
+                </xs:extension>
+              </xs:simpleContent>
+            </xs:complexType>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="location">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get put</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>Location.
+In PUT, updating the library and/or location might move the item to a different Holding record, or will create a new holding record for it.
+In POST action, will be defined according to the holding_id field.
+see [Get locations API|https://developers.exlibrisgroup.com/alma/apis/conf/GET/gwPcGly021p29HpB7XTI4Dp4I8TKv6CAreHxJz3zVZbDL9ogrSqDbgE+r4q6vcJ0xBlD4LyRaVE=/37088dc9-c685-4641-bc7f-60b5ca7cabed]</xs:documentation>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:simpleContent>
+                <xs:extension base="xs:string">
+                  <xs:attribute name="desc" type="xs:string" use="optional"/>
+                </xs:extension>
+              </xs:simpleContent>
+            </xs:complexType>
+          </xs:element>
+          <xs:element minOccurs="0" name="alternative_call_number" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get post put</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>The ID number for the item that corresponds to the alternative call number type.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="alternative_call_number_type">
+            <xs:annotation>
+              <xs:documentation>An alternative identification number type to the call number.
+Possible codes are listed in 'CallNumberType' [code table|https://developers.exlibrisgroup.com/blog/Working-with-the-code-tables-API].
+					</xs:documentation>
+              <xs:appinfo>
+                <xs:tags>api get post put</xs:tags>
+                <xs:codeTable>CallNumberType</xs:codeTable>
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:simpleContent>
+                <xs:extension base="xs:string">
+                  <xs:attribute name="desc" type="xs:string" use="optional"/>
+                </xs:extension>
+              </xs:simpleContent>
+            </xs:complexType>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="storage_location_id" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get post put</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>The ID number of the location where the item is stored.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="pages" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get post put</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>The item's number of pages.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="pieces" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get post put</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>The item's number of pieces.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="public_note" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get post put</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>Contains note content that is displayed in Primo.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="fulfillment_note" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get post put</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>Contains note content that is displayed during the circulation process.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="internal_note_1" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get post put</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>Contains note content regarding an item for internal use by Alma staff.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="internal_note_2" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get post put</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>Contains note content regarding an item for internal use by Alma staff.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="internal_note_3" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get post put</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>Contains note content regarding an item for internal use by Alma staff.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="statistics_note_1" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get post put</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>Contains note content that is exposed in analytics.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="statistics_note_2" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get post put</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>Contains note content that is exposed in analytics.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="statistics_note_3" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get post put</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>Contains note content that is exposed in analytics.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="requested" type="xs:boolean">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>Indication whether item is requested or not. Output parameter.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="edition" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>Edition of the item. Output parameter. Returned only when view=label.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="imprint" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>Imprint of the item. Output parameter.
+Returned only when view=label.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="language" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>Language of the item. Output parameter.
+Returned only when view=label.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="library_details" type="library_details">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>Information regarding the item's owning library. Output parameter.
+Returned only when view=label.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="parsed_alt_call_number" type="parsed_alt_call_number">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>Parsing information for the alternative call number. Output parameter.
+Returned only when view=label.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="parsed_call_number" type="parsed_call_number">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>Parsing information for the call number. Output parameter.
+Returned only when view=label.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="parsed_issue_level_description" type="parsed_issue_level_description">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>Parsing information for the description. Output parameter.
+Returned only when view=label.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="title_abcnph" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>Output parameter.
+Returned only when view=label.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:all>
+      </xs:complexType>
+      <xs:complexType name="library_details">
+        <xs:annotation>
+          <xs:appinfo>
+            <xs:tags>api get</xs:tags>
+          </xs:appinfo>
+          <xs:documentation>Information regarding the item's owning library. Output parameter.
+Returned only when view=label.</xs:documentation>
+        </xs:annotation>
+        <xs:all>
+          <xs:element maxOccurs="1" minOccurs="0" name="address" type="library_address">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>The library's related address. Output parameter.
+Returned only when view=label.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:all>
+      </xs:complexType>
+      <xs:complexType name="network_numbers">
+        <xs:annotation>
+          <xs:appinfo>
+            <xs:tags>api get</xs:tags>
+          </xs:appinfo>
+          <xs:documentation>The control numbers of this bibliographic record. Output parameter.
+Returned only when view=label.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="network_number" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="library_address">
+        <xs:annotation>
+          <xs:appinfo>
+            <xs:tags>api get</xs:tags>
+          </xs:appinfo>
+          <xs:documentation>The library's related address. Output parameter.
+Returned only when view=label.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+          <xs:element maxOccurs="1" minOccurs="0" name="line1" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>Line 1 of the address. Output parameter.
+Returned only when view=label.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="line2" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>Line 2 of the address. Output parameter.
+Returned only when view=label.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="line3" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>Line 3 of the address. Output parameter.
+Returned only when view=label.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="line4" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>Line 4 of the address. Output parameter.
+Returned only when view=label.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="line5" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>Line 5 of the address. Output parameter.
+Returned only when view=label.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="city" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>The relevant city. Output parameter.
+Returned only when view=label.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="country">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:codeTable>CountryCodes</xs:codeTable>
+                <xs:tags>api get</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>The address' relevant country.
+Possible codes are listed in the 'Country Codes' [code table|https://developers.exlibrisgroup.com/blog/Working-with-the-code-tables-API].
+Output parameter. Returned only when view=label.
+					</xs:documentation>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:simpleContent>
+                <xs:extension base="xs:string">
+                  <xs:attribute name="desc" type="xs:string" use="optional"/>
+                </xs:extension>
+              </xs:simpleContent>
+            </xs:complexType>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="email" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>Output parameter.
+Returned only when view=label.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="phone" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>Output parameter.
+Returned only when view=label.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="postal_code" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>The address' relevant postal code. Output parameter.
+Returned only when view=label.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="state" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>The address' relevant state. Output parameter.
+Returned only when view=label.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="parsed_alt_call_number">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="alt_call_no" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="parsed_call_number">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="call_no" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="parsed_issue_level_description">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="issue_level_description" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+    <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified">
+      <xs:annotation>
+        <xs:documentation>A collection of Physical Items</xs:documentation>
+      </xs:annotation>
+      <xs:include schemaLocation="https://api-eu.hosted.exlibrisgroup.com"/>
+      <xs:element name="items" type="items"/>
+      <xs:complexType name="items">
+        <xs:annotation>
+          <xs:documentation>A collection of Physical Items.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="item" type="item">
+            <xs:annotation>
+              <xs:documentation>A Physical item.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+        <xs:attribute name="total_record_count" type="xs:int">
+          <xs:annotation>
+            <xs:documentation>The total number of items. This can be used when
+					retrieving the list using pagination.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:complexType>
+    </xs:schema>
+    <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified">
+      <xs:annotation>
+        <xs:documentation>An object representation of a Bibliographic Record</xs:documentation>
+      </xs:annotation>
+      <xs:element name="bib" type="bib"/>
+      <xs:complexType name="bib">
+        <xs:annotation>
+          <xs:documentation>Bibliographic record object</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+          <xs:element maxOccurs="1" minOccurs="0" name="mms_id" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>Bibliographic record identifier. Output parameter.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="record_format" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get post</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>Bibliographic format: marc21, unimarc, kormarc, cnmarc or dc. Default is marc21.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="linked_record_id">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>Linked record identifier. Output parameter.</xs:documentation>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:simpleContent>
+                <xs:extension base="xs:string">
+                  <xs:attribute name="type" type="xs:string" use="optional"/>
+                </xs:extension>
+              </xs:simpleContent>
+            </xs:complexType>
+          </xs:element>
+          <xs:element minOccurs="0" name="title" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>The title of the Bibliographic record. Output parameter.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="author" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>Author. Output parameter.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="issn" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>issn. Output parameter.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="isbn" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>isbn. Output parameter.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="complete_edition" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>Complete edition. Output parameter.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="network_numbers" type="network_numbers">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>Network number, control number. Output parameter.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="place_of_publication" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>Place of publication, part of the imprint information. Output parameter.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="publisher_const" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>Publisher_const, part of the imprint information. Output parameter.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="holdings">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>Link to a list of Holdings for the Bib record. Output parameter.</xs:documentation>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:simpleContent>
+                <xs:extension base="xs:string">
+                  <xs:attribute name="link" type="xs:string" use="optional"/>
+                </xs:extension>
+              </xs:simpleContent>
+            </xs:complexType>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="created_by" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>Creator of the record. Output parameter.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="created_date" type="xs:date">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>The record creation date. Output parameter.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="last_modified_by" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>Last user to modify the record. Output parameter.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="last_modified_date" type="xs:date">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>Date by which the last change to the record was made. Output parameter.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="suppress_from_publishing" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get post put</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>Indication whether the record should be published to Primo.
+					Note that the default is true which means that the record will NOT be published.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="originating_system" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>The system in which the record was initially generated. Output parameter.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="originating_system_id" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>The id of the record in the original system. Output parameter.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:any maxOccurs="unbounded" minOccurs="0" namespace="##other" processContents="lax"/>
+        </xs:sequence>
+        <xs:attribute name="link" type="xs:string" use="optional"/>
+      </xs:complexType>
+      <xs:complexType name="network_numbers">
+        <xs:annotation>
+          <xs:appinfo>
+            <xs:tags>api get</xs:tags>
+          </xs:appinfo>
+          <xs:documentation>The control numbers of this bibliographic record. Output parameter.
+Returned only when view=label.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="network_number" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+    <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:annotation>
+        <xs:documentation>Alma digital representation.</xs:documentation>
+      </xs:annotation>
+      <xs:element name="representation" type="representation"/>
+      <xs:complexType name="representation">
+        <xs:annotation>
+          <xs:appinfo>
+            <xs:tags>api get post delete</xs:tags>
+          </xs:appinfo>
+          <xs:documentation>Representation. Mandatory Boolean attribute 'is_remote'.</xs:documentation>
+        </xs:annotation>
+        <xs:all>
+          <xs:element maxOccurs="1" minOccurs="0" name="id" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>Internal representation ID.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="1" name="library">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get post put</xs:tags>
+                <xs:codeTable>libraries</xs:codeTable>
+              </xs:appinfo>
+              <xs:documentation>Library code. Mandatory. See [Get libraries API|https://developers.exlibrisgroup.com/alma/apis/conf/GET/gwPcGly021p29HpB7XTI4Dp4I8TKv6CAxBlD4LyRaVE=/37088dc9-c685-4641-bc7f-60b5ca7cabed]</xs:documentation>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:simpleContent>
+                <xs:extension base="xs:string">
+                  <xs:attribute name="desc" type="xs:string" use="optional"/>
+                </xs:extension>
+              </xs:simpleContent>
+            </xs:complexType>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="label" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get post put</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>Representation label.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="public_note" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get post put</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>Representation public note.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="1" name="usage_type">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get post put</xs:tags>
+                <xs:codeTable>RepresentationUsageType</xs:codeTable>
+              </xs:appinfo>
+              <xs:documentation>Representation usage type. Possible codes are listed in 'RepresentationUsageType' [code table|https://developers.exlibrisgroup.com/blog/Working-with-the-code-tables-API].</xs:documentation>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:simpleContent>
+                <xs:extension base="xs:string">
+                  <xs:attribute name="desc" type="xs:string" use="optional"/>
+                </xs:extension>
+              </xs:simpleContent>
+            </xs:complexType>
+          </xs:element>
+          <!-- Special (partial) Rep fields -->
+          <xs:element maxOccurs="1" minOccurs="0" name="entity_type">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get post put</xs:tags>
+                <xs:codeTable>representationEntityType</xs:codeTable>
+              </xs:appinfo>
+              <xs:documentation>Representation Entity Type. Possible values are listed in Representation Entity Type code-table '.</xs:documentation>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:simpleContent>
+                <xs:extension base="xs:string">
+                  <xs:attribute name="desc" type="xs:string" use="optional"/>
+                </xs:extension>
+              </xs:simpleContent>
+            </xs:complexType>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="author" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get post put</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>Author. Relevant only for entity_type=CHAPTER, ARTICLE, AUDIOVISUAL.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="title" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get post put</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>Title. Relevant only for entity_type=CHAPTER, ARTICLE, AUDIOVISUAL.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="volume" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get post put</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>Volume. Relevant only for entity_type=ARTICLE, ISSUE, Issue-Detailed.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="issue" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get post put</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>Issue. Relevant only for entity_type=ISSUE, ARTICLE, Issue-Detailed.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="date" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get post put</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>Date. Relevant only for entity_type=ISSUE, ARTICLE.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="start_page" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get post put</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>Start Page. Relevant only for entity_type=CHAPTER, ARTICLE.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="end_page" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get post put</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>End Page. Relevant only for entity_type=CHAPTER, ARTICLE.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="track" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get post put</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>Track. Relevant only for entity_type=AUDIOVISUAL.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="start_time" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get post put</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>Start Time. Relevant only for entity_type=AUDIOVISUAL.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="end_time" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get post put</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>End Time. Relevant only for entity_type=AUDIOVISUAL.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="number" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get post put</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>Number. Relevant only for entity_type=CHAPTER, Issue-Detailed.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="year" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get post put</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>Number. Relevant only for entity_type=Issue-Detailed.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="season_month" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get post put</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>Number. Relevant only for entity_type=Issue-Detailed.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="day_in_month" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get post put</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>Number. Relevant only for entity_type=Issue-Detailed.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="access_rights_policy_id">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get post put</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>Representation access rights policy id. Can be used only when is_remote=false.</xs:documentation>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:simpleContent>
+                <xs:extension base="xs:string">
+                  <xs:attribute name="desc" type="xs:string" use="optional"/>
+                </xs:extension>
+              </xs:simpleContent>
+            </xs:complexType>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="delivery_url" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>URL to view the representation.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="thumbnail_url" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>URL to view the representation thumbnail.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="request_id" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get post</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>Related digitization request id.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="deposit_id" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>Related deposit id.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="repository">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get post</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>The repository code as defined in the list of Alma remote repositories. Mandatory when is_remote=true, should not be used when is_remote=false.</xs:documentation>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:simpleContent>
+                <xs:extension base="xs:string">
+                  <xs:attribute name="desc" type="xs:string" use="optional"/>
+                </xs:extension>
+              </xs:simpleContent>
+            </xs:complexType>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="originating_record_id" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get post</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>Unique ID of the object in the remote repository. Mandatory when is_remote=true, should not be used when is_remote=false.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="linking_parameter_1" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get post put</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>Other remote repository object identifier. Optional when is_remote=true, should not be used when is_remote=false.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="linking_parameter_2" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get post put</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>Other remote repository object identifier. Optional when is_remote=true, should not be used when is_remote=false.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="linking_parameter_3" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get post put</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>Other remote repository object identifier. Optional when is_remote=true, should not be used when is_remote=false.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="linking_parameter_4" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get post put</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>Other remote repository object identifier. Optional when is_remote=true, should not be used when is_remote=false.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="linking_parameter_5" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get post put</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>Other remote repository object identifier. Optional when is_remote=true, should not be used when is_remote=false.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="created_by" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>User who created the representation.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="created_date" type="xs:date">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>Date the representation was created.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="last_modified_by" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>User who last modified the representation.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="last_modified_date" type="xs:date">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>Date the representation was last modified.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="files">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>File-level information.</xs:documentation>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:simpleContent>
+                <xs:extension base="xs:string">
+                  <xs:attribute name="total_record_count" type="xs:int">
+                    <xs:annotation>
+                      <xs:documentation>The total number of files.</xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                  <xs:attribute name="link" type="xs:string">
+                    <xs:annotation>
+                      <xs:documentation>Link to the files URI.</xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                </xs:extension>
+              </xs:simpleContent>
+            </xs:complexType>
+          </xs:element>
+        </xs:all>
+        <xs:attribute name="is_remote" type="xs:boolean" use="required">
+          <xs:annotation>
+            <xs:documentation>Type of representation. Mandatory.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="link" type="xs:string" use="optional"/>
+      </xs:complexType>
+    </xs:schema>
+    <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified">
+      <xs:annotation>
+        <xs:documentation>List of Digital Representations in Alma. The list contains both
+			Remote and regular Representations if exists.</xs:documentation>
+      </xs:annotation>
+      <xs:include schemaLocation="https://api-eu.hosted.exlibrisgroup.com"/>
+      <xs:element name="representations" type="representations"/>
+      <xs:complexType name="representations">
+        <xs:annotation>
+          <xs:documentation>A list of Representations.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="representation" type="representation">
+            <xs:annotation>
+              <xs:documentation>Representation object.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+        <xs:attribute name="total_record_count" type="xs:long">
+          <xs:annotation>
+            <xs:documentation>The total number of representations.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:complexType>
+    </xs:schema>
+    <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified">
+      <xs:annotation>
+        <xs:documentation>Representation File</xs:documentation>
+      </xs:annotation>
+      <xs:element name="representation_file" type="representation_file"/>
+      <xs:complexType name="representation_file">
+        <xs:annotation>
+          <xs:documentation>File.</xs:documentation>
+        </xs:annotation>
+        <xs:all>
+          <xs:element maxOccurs="1" minOccurs="1" name="pid" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>File Id.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="1" name="thumbnail_url" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>URL to view the file thumbnail.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="label" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get post put</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>File label.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="1" name="size" type="xs:long">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>File size (bytes).</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="1" name="path" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get post</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>File path. When POST, should contain a reference to a file in the library's S3 upload folder (i.e. 01UNI_INST/upload/scratch/1234/file.png). </xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="url" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xs:tags>api get</xs:tags>
+              </xs:appinfo>
+              <xs:documentation>File URL. Requires expand=url parameter.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:all>
+      </xs:complexType>
+    </xs:schema>
+    <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified">
+      <xs:annotation>
+        <xs:documentation>List of files for a representation.</xs:documentation>
+      </xs:annotation>
+      <xs:include schemaLocation="https://api-eu.hosted.exlibrisgroup.com"/>
+      <xs:element name="representation_files" type="representation_files"/>
+      <xs:complexType name="representation_files">
+        <xs:annotation>
+          <xs:documentation>A list of files.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="representation_file" type="representation_file">
+            <xs:annotation>
+              <xs:documentation>File object.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+        <xs:attribute name="total_record_count" type="xs:int">
+          <xs:annotation>
+            <xs:documentation>The total number of files.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:complexType>
+    </xs:schema>
+  </grammars>
+  <resources base="https://api-na.hosted.exlibrisgroup.com">
+    <resource path="/almaws/v1/bibs">
+      <method name="GET">
+        <doc title="Retrieve Bibs">This web service returns Bib records in an XML format from a list of Bib IDs submitted in a parameter. 
+
+To include physical inventory information use "expand=p_avail": 
+AVA field is added per holding record as following: 
+$$a - Institution code, $$b - Library code, $$c - Location display name, 
+$$d - Call number, $$e - Availability (such as available, unavailable, or check_holdings), 
+$$j - Location code, $$k - Call number type, $$f - total items, $$g - non available items, 
+$$p - priority. 
+ Note: When using the API against a NZ Institution AVA fields will be retrieved for each member which has holdings.
+
+To include digital inventory information use: "expand=d_avail": 
+AVD field is added per Representations, as following: 
+$$a - Institution code, $$b - Representations ID, $$c - REPRESENTATION/REMOTE_REPRESENTATION, $$d - Repository Name, $$e - Label, 
+
+To include electronic inventory information use: "expand=e_avail": 
+AVE field is added per portfolio, as following: 
+$$l -library code, $$m - Collection name, $$n - Public note, $$u - link to the bibliographic record's services page, 
+$$s - coverage statement (as displayed in Primo's ViewIt mashup), $$t - Interface name. 
+Note:  $$u will be created based on a Customer Parameter in the "Customer Parameters" mapping table (module: general): publishing_base_url.
+
+Note: The expand parameter is not supported for Dublin Core records. 
+Note:The bibliographic record retrieved from Alma is enriched with additional identifiers. 
+The MMS ID of the Network Zone and the Alma Community Zone ID are added to the record 
+in additional 035 marc fields. The Community Zone ID is added with the prefix (EXLCZ) 
+while the Network Zone ID is added with the prefix (EXLNZ-network_code). The local 
+MMS ID is in the 001 marc field. These additional shared IDs can be used for better 
+identification of a common record. The local MMS ID should be used when there is a need to call 
+an API in the institution for the record.</doc>
+        <request>
+          <param name="mms_id" style="query" type="xs:string">
+            <doc>A list of Bib Record IDs (for example: 99939650000541,99939680000541) from 1 to the limit of 100</doc>
+          </param>
+          <param name="ie_id" style="query" default="" type="xs:string">
+            <doc>IE identifier (IEP, IED etc.)</doc>
+          </param>
+          <param name="holdings_id" style="query" default="" type="xs:string">
+            <doc>Holdings ID</doc>
+          </param>
+          <param name="representation_id" style="query" default="" type="xs:string">
+            <doc>Representation ID</doc>
+          </param>
+          <param name="nz_mms_id" style="query" default="" type="xs:string">
+            <doc>Network Zone ID</doc>
+          </param>
+          <param name="view" style="query" type="xs:string">
+            <doc>Use view=brief to retrieve without the MARCXML.</doc>
+          </param>
+          <param name="expand" style="query" default="None" type="xs:string">
+            <doc>This parameter allows for expanding the bibliographic record with additional information:
+ p_avail - Expand physical inventory information.
+ e_avail - Expand electronic inventory information.
+ d_avail - Expand digital inventory information.
+ To use more than one, use a comma separator.</doc>
+          </param>
+        </request>
+        <response>
+          <doc title="401652">General Error - An error has occurred while processing the request.</doc>
+          <doc title="402203">Input parameter mmsId list is not valid.</doc>
+          <representation mediaType="application/xml">
+            <doc title="Bibs">rest_bibs.xsd</doc>
+          </representation>
+          <representation mediaType="application/json">
+            <doc title="Bibs">rest_bibs.xsd</doc>
+          </representation>
+        </response>
+      </method>
+      <method name="POST">
+        <doc title="Create record">These web services create a new Bib record, and also allows creation of a local record for a NZ record.
+ Note: JSON is not supported for this API.</doc>
+        <request>
+          <param name="from_nz_mms_id" style="query" default="" type="xs:string">
+            <doc>The MMS_ID of the Network-Zone record. Leave empty when creating a regular local record.</doc>
+          </param>
+          <representation mediaType="application/xml">
+            <doc>This method takes a Bib object. When creating linked record send an empty Bib object: &lt;bib/&gt;</doc>
+          </representation>
+          <representation mediaType="application/json">
+            <doc>This method takes a Bib object. When creating linked record send an empty Bib object: &lt;bib/&gt;</doc>
+          </representation>
+        </request>
+        <response>
+          <doc title="401652">General Error - An error has occurred while processing the request.</doc>
+          <doc title="402209">Given bib xml is invalid.</doc>
+          <doc title="402204">Input parameters mmsId X is not numeric.</doc>
+          <doc title="402210">Failed to create new bib.</doc>
+          <doc title="33007">No record found for MMS id X</doc>
+          <doc title="60105">JSON is not supported for this API.</doc>
+          <representation mediaType="application/xml">
+            <doc title="Bib">rest_bib.xsd</doc>
+          </representation>
+          <representation mediaType="application/json">
+            <doc title="Bib">rest_bib.xsd</doc>
+          </representation>
+        </response>
+      </method>
+      <resource path="collections">
+        <method name="GET">
+          <doc title="Retrieve Collections">This Web service returns a list of collections.</doc>
+          <request>
+            <param name="level" style="query" type="xs:string">
+              <doc>This parameter determines the number of levels of sub-collections should be retrieved. For example, 1 = only current; 2 = immediate decendants. Default is 1.</doc>
+            </param>
+          </request>
+          <response>
+            <representation mediaType="application/xml">
+              <doc title="Collections">rest_collections.xsd</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc title="Collections">rest_collections.xsd</doc>
+            </representation>
+          </response>
+        </method>
+        <method name="POST">
+          <doc title="Create Collection">This Web service creates a collection.</doc>
+          <request>
+            <representation mediaType="application/xml">
+              <doc>This method takes a Collection object.</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc>This method takes a Collection object.</doc>
+            </representation>
+          </request>
+          <response>
+            <representation mediaType="application/xml">
+              <doc title="Collection">rest_collection.xsd</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc title="Collection">rest_collection.xsd</doc>
+            </representation>
+          </response>
+        </method>
+      </resource>
+      <resource path="collections/{pid}">
+        <param name="pid" style="template" type="xs:string">
+          <doc>The collection ID.</doc>
+        </param>
+        <method name="GET">
+          <doc title="Retrieve Collection">This Web service returns a collection for a given pid.</doc>
+          <request>
+            <param name="level" style="query" type="xs:string">
+              <doc>This parameter determines the number of levels of sub-collections should be retrieved. For example, 1 = only current; 2 = immediate decendants. Default is 1.</doc>
+            </param>
+          </request>
+          <response>
+            <representation mediaType="application/xml">
+              <doc title="Collection">rest_collection.xsd</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc title="Collection">rest_collection.xsd</doc>
+            </representation>
+          </response>
+        </method>
+      </resource>
+      <resource path="collections/{pid}/bibs">
+        <param name="pid" style="template" type="xs:string">
+          <doc>The collection ID.</doc>
+        </param>
+        <method name="GET">
+          <doc title="Retrieve Bibs in a collection">This Web service returns a list of bibliographic titles in a given collection.</doc>
+          <request>
+            <param name="offset" style="query" default="0" type="xs:string">
+              <doc>Offset of the results returned. Optional.Default value: 0, which means that the first results will be returned. </doc>
+            </param>
+            <param name="limit" style="query" default="10" type="xs:int">
+              <doc>Limits the number of results. Optional. Valid values are 0-100. Default value: 10.</doc>
+            </param>
+          </request>
+          <response>
+            <representation mediaType="application/xml">
+              <doc title="Bibs">rest_bibs.xsd</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc title="Bibs">rest_bibs.xsd</doc>
+            </representation>
+          </response>
+        </method>
+        <method name="POST">
+          <doc title="Add Bib to a collection">This Web service adds a bibliographic title into a given collection.</doc>
+          <request>
+            <representation mediaType="application/xml">
+              <doc>This method takes an Bib object with only mms_id.</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc>This method takes an Bib object with only mms_id.</doc>
+            </representation>
+          </request>
+          <response>
+            <doc title="402261">Bib record is already assigned to this collection.</doc>
+            <doc title="401652">General Error - An error has occurred while processing the request.</doc>
+            <representation mediaType="application/xml">
+              <doc title="Bib">rest_bib.xsd</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc title="Bib">rest_bib.xsd</doc>
+            </representation>
+          </response>
+        </method>
+      </resource>
+      <resource path="collections/{pid}/bibs/{mms_id}">
+        <param name="pid" style="template" type="xs:string">
+          <doc>The collection ID.</doc>
+        </param>
+        <param name="mms_id" style="template" type="xs:string">
+          <doc>The Bib Record ID (for example, 99939650000541).</doc>
+        </param>
+        <method name="DELETE">
+          <doc title="Remove Bib from a collection">This Web service removes a bibliographic title from a collection.</doc>
+          <request/>
+          <response status="204"/>
+        </method>
+      </resource>
+      <resource path="test">
+        <method name="GET">
+          <doc title="GET Inventory Test API">This API is used to test if the API key was configured correctly.</doc>
+          <response>
+            <representation mediaType="application/xml">
+              <param name="result" style="plain" type="xs:string"/>
+            </representation>
+            <representation mediaType="application/json">
+              <param name="result" style="plain" type="xs:string"/>
+            </representation>
+          </response>
+        </method>
+        <method name="POST">
+          <doc title="POST Inventory Test API">This API is used to test if the API key was configured correctly, including read/write permissions.</doc>
+          <response>
+            <representation mediaType="application/xml">
+              <param name="result" style="plain" type="xs:string"/>
+            </representation>
+            <representation mediaType="application/json">
+              <param name="result" style="plain" type="xs:string"/>
+            </representation>
+          </response>
+        </method>
+      </resource>
+      <resource path="{mmsId}/holdings/{holdingId}/items/{itemPid}/requests/{requestId}">
+        <param name="mmsId" style="template" type="xs:string">
+          <doc>The Bib Record ID.</doc>
+        </param>
+        <param name="holdingId" style="template" type="xs:string">
+          <doc>The Holding Record ID.</doc>
+        </param>
+        <param name="itemPid" style="template" type="xs:string">
+          <doc>The Item ID.</doc>
+        </param>
+        <param name="requestId" style="template" type="xs:string">
+          <doc>The Request ID.</doc>
+        </param>
+        <method name="DELETE">
+          <doc title="Cancel Request">This web service canceles a request.</doc>
+          <request>
+            <param name="reason" style="query" type="xs:string">
+              <doc>Code of the cancel reason. Must be a value from the code table 'RequestCancellationReasons'</doc>
+            </param>
+            <param name="note" style="query" default="" type="xs:string">
+              <doc>Note with additional information regarding the cancellation.</doc>
+            </param>
+            <param name="notify_user" style="query" default="true" type="xs:boolean">
+              <doc>Boolean flag for notifying the requester of the cancellation (when relevant). Defaults to 'true'.</doc>
+            </param>
+          </request>
+          <response status="204">
+            <doc title="401652">General Error - An error has occurred while processing the request.</doc>
+          </response>
+        </method>
+      </resource>
+      <resource path="{mmsId}/requests/{requestId}">
+        <param name="mmsId" style="template" type="xs:string"/>
+        <param name="requestId" style="template" type="xs:string"/>
+        <method name="DELETE">
+          <doc title="Cancel Request">This web service cancels a request.</doc>
+          <request>
+            <param name="reason" style="query" type="xs:string">
+              <doc>Code of the cancel reason. Must be a value from the code table 'RequestCancellationReasons'</doc>
+            </param>
+            <param name="note" style="query" default="" type="xs:string">
+              <doc>Note with additional information regarding the cancellation.</doc>
+            </param>
+            <param name="notify_user" style="query" default="true" type="xs:boolean">
+              <doc>Boolean flag for notifying the requester of the cancellation (when relevant). Defaults to 'true'.</doc>
+            </param>
+          </request>
+          <response status="204">
+            <doc title="401652">General Error - An error has occurred while processing the request.</doc>
+          </response>
+        </method>
+      </resource>
+      <resource path="{mms_id}">
+        <param name="mms_id" style="template" type="xs:string">
+          <doc>The Bib Record ID (for example, 99939650000541).</doc>
+        </param>
+        <method name="DELETE">
+          <doc title="Delete Bib Record">This web service deletes a Bib Record.</doc>
+          <request/>
+          <response status="204">
+            <doc title="401652">General Error - An error has occurred while processing the request.</doc>
+            <doc title="402214">Delete Bib Error - The bib could not be deleted.</doc>
+            <doc title="402203">Error - An error has occured while validating the mms_id.</doc>
+            <doc title="402204">Input parameters mmsId X is not numeric.</doc>
+            <doc title="402203">Input parameters mmsId X is not valid.</doc>
+          </response>
+        </method>
+        <method name="GET">
+          <doc title="Retrieve Bib">This web service returns a Bib record in an XML format. 
+
+To include physical inventory information use "expand=p_avail": 
+AVA field is added per holding record as following: 
+$$a - Institution code, $$b - Library code, $$c - Location display name, 
+$$d - Call number, $$e - Availability (such as available, unavailable, or check_holdings), 
+$$j - Location code, $$k - Call number type, $$f - total items, $$g - non available items, 
+$$p - priority. 
+ Note: When using the API against a NZ Institution AVA fields will be retrieved for each member which has holdings.
+
+To include digital inventory information use: "expand=d_avail": 
+AVD field is added per Representations, as following: 
+$$a - Institution code, $$b - Representations ID, $$c - REPRESENTATION/REMOTE_REPRESENTATION, $$d - Repository Name, $$e - Label, 
+
+To include electronic inventory information use: "expand=e_avail": 
+AVE field is added per portfolio, as following: 
+$$l - library code, $$m - Collection name, $$n - Public note, $$u - link to the bibliographic record's services page, 
+$$s - coverage statement (as displayed in Primo's ViewIt mashup), $$t - Interface name. 
+Note:  $$u will be created based on a Customer Parameter in the "Customer Parameters" mapping table (module: general): publishing_base_url. 
+
+Note: The expand parameter is not supported for Dublin Core records. 
+Note: The bibliographic record retrieved from Alma is enriched with additional identifiers. 
+The MMS ID of the Network Zone and the Alma Community Zone ID are added to the record 
+in additional 035 marc fields. The Community Zone ID is added with the prefix (EXLCZ) 
+while the Network Zone ID is added with the prefix (EXLNZ-network_code). The local 
+MMS ID is in the 001 marc field. These additional shared IDs can be used for better 
+identification of a common record. The local MMS ID should be used when there is a need to call 
+an API in the institution for the record.</doc>
+          <request>
+            <param name="view" style="query" default="full" type="xs:string">
+              <doc>Use view=brief to retrieve without the MARCXML. Use view=local_fields to retrieve only local fields for an IZ record linked to an NZ record.</doc>
+            </param>
+            <param name="expand" style="query" default="None" type="xs:string">
+              <doc>This parameter allows for expanding the bibliographic record with additional information:
+ p_avail - Expand physical inventory information.
+ e_avail - Expand electronic inventory information.
+ d_avail - Expand digital inventory information.
+ To use more than one, use a comma separator.</doc>
+            </param>
+          </request>
+          <response>
+            <doc title="401652">General Error - An error has occurred while processing the request.</doc>
+            <doc title="402204">Input parameters mmsId X is not numeric.</doc>
+            <doc title="402203">Input parameters mmsId X is not valid.</doc>
+            <representation mediaType="application/xml">
+              <doc title="Bib">rest_bib.xsd</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc title="Bib">rest_bib.xsd</doc>
+            </representation>
+          </response>
+        </method>
+        <method name="POST">
+          <doc title="Operate on record">This web service performs an operation on a Bib record.  Currently, the supported operation is to unlink from NZ. Note: JSON is not supported for this API.</doc>
+          <request>
+            <param name="op" style="query" type="xs:string">
+              <doc>The operation that is to be performed. Currently, only option is: unlink_from_nz.</doc>
+            </param>
+            <representation mediaType="application/xml">
+              <doc>This method takes a Bib object.</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc>This method takes a Bib object.</doc>
+            </representation>
+          </request>
+          <response>
+            <doc title="401652">General Error - An error has occurred while processing the request.</doc>
+            <doc title="40166452">Error - Not supported from the network zone.</doc>
+            <doc title="40166453">Error - Not supported from the institution zone.</doc>
+            <doc title="402278">Error - Parse exception for MARC record.</doc>
+            <doc title="402204">Input parameters mmsId X is not numeric.</doc>
+            <doc title="33007">No record found for MMS id X</doc>
+            <doc title="60105">JSON is not supported for this API.</doc>
+            <representation mediaType="application/xml">
+              <doc title="Bib">rest_bib.xsd</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc title="Bib">rest_bib.xsd</doc>
+            </representation>
+          </response>
+        </method>
+        <method name="PUT">
+          <doc title="Update Bib Record">This web service updates a Bib Record.
+For an IZ record that is linked to NZ record, local fields will be replaced, based on $$9local field indication.
+Updating of non local fields should be done directly on the NZ record.
+See [Working with APIs in a Network Topology|https://developers.exlibrisgroup.com/blog/Working-with-APIs-in-a-Network-Topology] for more details.
+
+ Note: JSON is not supported, and updating a linked CZ record is currently not supported.</doc>
+          <request>
+            <representation mediaType="application/xml">
+              <doc>This method takes a Bib object.</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc>This method takes a Bib object.</doc>
+            </representation>
+          </request>
+          <response>
+            <doc title="401652">General Error - An error has occurred while processing the request.</doc>
+            <doc title="40166454">Error - Not supported from the community zone.</doc>
+            <doc title="402204">Input parameters mmsId X is not numeric.</doc>
+            <doc title="402203">Input parameters mmsId X is not valid.</doc>
+            <doc title="60105">JSON is not supported for this API.</doc>
+            <representation mediaType="application/xml">
+              <doc title="Bib">rest_bib.xsd</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc title="Bib">rest_bib.xsd</doc>
+            </representation>
+          </response>
+        </method>
+      </resource>
+      <resource path="{mms_id}/booking-availability">
+        <param name="mms_id" style="template" type="xs:string">
+          <doc>The Bib Record ID.</doc>
+        </param>
+        <method name="GET">
+          <doc title="Retrieve booking availability for a Title">This web service returns list of periods in which specific title (MMS) is unavailable for booking.</doc>
+          <request>
+            <param name="period" style="query" type="xs:int">
+              <doc>The number of days/weeks/months to retrieve availability for. Mandatory.</doc>
+            </param>
+            <param name="period_type" style="query" type="xs:string">
+              <doc>The type of period of interest. Optional. Possible values: days, weeks, months. Default: days.</doc>
+            </param>
+            <param name="user_id" style="query" default="" type="xs:string">
+              <doc>A unique identifier for the user, for which the booking request is about to be done. Optional. If not supplied, the system will calculate a minimal availability.</doc>
+            </param>
+            <param name="user_id_type" style="query" default="all_unique" type="xs:string">
+              <doc>The type of identifier that is being searched. Optional. If this is not provided, all unique identifier types are used. The values that can be used are any of the values in the User Identifier Type code table.</doc>
+            </param>
+          </request>
+          <response>
+            <doc title="401890">User with identifier X of type Y was not found.</doc>
+            <doc title="4018990">Unsupported period type.</doc>
+            <doc title="401652">General Error - An error has occurred while processing the request.</doc>
+            <representation mediaType="application/xml">
+              <doc title="Booking Availability">rest_booking-availability.xsd</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc title="Booking Availability">rest_booking-availability.xsd</doc>
+            </representation>
+          </response>
+        </method>
+      </resource>
+      <resource path="{mms_id}/holdings">
+        <param name="mms_id" style="template" type="xs:string">
+          <doc>The Bib Record ID.</doc>
+        </param>
+        <method name="GET">
+          <doc title="Retrieve Holdings list">This web service returns list of holding records for a given MMS.</doc>
+          <request/>
+          <response>
+            <doc title="401652">General Error - An error has occurred while processing the request.</doc>
+            <representation mediaType="application/xml">
+              <doc title="Holdings list">rest_holdings.xsd</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc title="Holdings list">rest_holdings.xsd</doc>
+            </representation>
+          </response>
+        </method>
+        <method name="POST">
+          <doc title="Create holding record">This web service creates a new holding record.
+ Note: JSON is not supported for this API.</doc>
+          <request>
+            <representation mediaType="application/xml">
+              <doc>This method takes a Holding object.</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc>This method takes a Holding object.</doc>
+            </representation>
+          </request>
+          <response>
+            <doc title="401652">General Error - An error has occurred while processing the request.</doc>
+            <doc title="402211">Given holding xml is invalid.</doc>
+            <doc title="402204">Input parameters mmsId X is not numeric.</doc>
+            <doc title="402212">Failed to create new holding.</doc>
+            <doc title="33007">No record found for MMS id X</doc>
+            <doc title="33008">Failed to create holding due to errors: X</doc>
+            <doc title="33009">Failed to create holding.</doc>
+            <doc title="60105">JSON is not supported for this API.</doc>
+            <representation mediaType="application/xml">
+              <doc title="Holding">rest_holding.xsd</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc title="Holding">rest_holding.xsd</doc>
+            </representation>
+          </response>
+        </method>
+      </resource>
+      <resource path="{mms_id}/holdings/{holding_id}">
+        <param name="mms_id" style="template" type="xs:string">
+          <doc>The Bib Record ID.</doc>
+        </param>
+        <param name="holding_id" style="template" type="xs:string">
+          <doc>The Holding Record ID.</doc>
+        </param>
+        <method name="GET">
+          <doc title="Retrieve Holdings Record">This web service returns a Holdings Record. In order to use this service, authentication must be done by a user that has the 'API Fulfillment Read' role. Please note that the holding record is returned in MARC XML format, therefore it is not recommended to use this service with JSON format.</doc>
+          <request/>
+          <response>
+            <doc title="401652">General Error - An error has occurred while processing the request.</doc>
+            <representation mediaType="application/xml">
+              <doc title="Holding">rest_holding.xsd</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc title="Holding">rest_holding.xsd</doc>
+            </representation>
+          </response>
+        </method>
+        <method name="PUT">
+          <doc title="Update Holdings Record">This web service updates a Holdings Record.
+ Note: JSON is not supported for this API.</doc>
+          <request>
+            <representation mediaType="application/xml">
+              <doc>This method takes a Holding object.</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc>This method takes a Holding object.</doc>
+            </representation>
+          </request>
+          <response>
+            <doc title="401652">General Error - An error has occurred while processing the request.</doc>
+            <doc title="60105">JSON is not supported for this API.</doc>
+            <representation mediaType="application/xml">
+              <doc title="Holding">rest_holding.xsd</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc title="Holding">rest_holding.xsd</doc>
+            </representation>
+          </response>
+        </method>
+      </resource>
+      <resource path="{mms_id}/holdings/{holding_id}/items">
+        <param name="mms_id" style="template" type="xs:string">
+          <doc>The Bib Record ID.</doc>
+        </param>
+        <param name="holding_id" style="template" type="xs:string">
+          <doc>The Holding Record ID.</doc>
+        </param>
+        <method name="GET">
+          <doc title="Retrieve Items list">This web service returns Items list.</doc>
+          <request>
+            <param name="limit" style="query" default="10" type="xs:int">
+              <doc>Limits the number of results. Optional. Valid values are 0-100. Default value: 10.</doc>
+            </param>
+            <param name="offset" style="query" default="0" type="xs:int">
+              <doc>Offset of the results returned. Optional. Default value: 0, which means that the first results will be returned.</doc>
+            </param>
+          </request>
+          <response>
+            <doc title="401652">General Error - An error has occurred while processing the request.</doc>
+            <representation mediaType="application/xml">
+              <doc title="Items list">rest_items.xsd</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc title="Items list">rest_items.xsd</doc>
+            </representation>
+          </response>
+        </method>
+        <method name="POST">
+          <doc title="Create Item">This web service creates an Item.</doc>
+          <request>
+            <representation mediaType="application/xml">
+              <doc>This method takes an Item object.</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc>This method takes an Item object.</doc>
+            </representation>
+          </request>
+          <response>
+            <doc title="401652">General Error - An error has occurred while processing the request.</doc>
+            <doc title="401885">Given poline does not fit item; POLine's type must be physical one time.</doc>
+            <representation mediaType="application/xml">
+              <doc title="Item Information">rest_item.xsd</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc title="Item Information">rest_item.xsd</doc>
+            </representation>
+          </response>
+        </method>
+      </resource>
+      <resource path="{mms_id}/holdings/{holding_id}/items/{item_id}/loans">
+        <param name="mms_id" style="template" type="xs:string">
+          <doc>The Bib Record ID.</doc>
+        </param>
+        <param name="holding_id" style="template" type="xs:string">
+          <doc>The Holding Record ID.</doc>
+        </param>
+        <param name="item_id" style="template" type="xs:string">
+          <doc>The Item ID.</doc>
+        </param>
+        <method name="GET">
+          <doc title="Loan By Item information">This web service returns Item Loan by Item information.</doc>
+          <request/>
+          <response>
+            <doc title="401652">General Error - An error has occurred while processing the request.</doc>
+            <representation mediaType="application/xml">
+              <doc title="Item Loan">rest_item_loans.xsd</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc title="Item Loan">rest_item_loans.xsd</doc>
+            </representation>
+          </response>
+        </method>
+      </resource>
+      <resource path="{mms_id}/holdings/{holding_id}/items/{item_id}/requests">
+        <param name="mms_id" style="template" type="xs:string">
+          <doc>The Bib Record ID.</doc>
+        </param>
+        <param name="holding_id" style="template" type="xs:string">
+          <doc>The Holding Bib Record ID.</doc>
+        </param>
+        <param name="item_id" style="template" type="xs:string">
+          <doc>The item ID.</doc>
+        </param>
+        <method name="GET">
+          <doc title="Retrieve User Requests per Item">This web service returns a list of requests per the given item (using item_id).</doc>
+          <request>
+            <param name="request_type" style="query" default="all_types" type="xs:string">
+              <doc>Filter results by request type. Optional. Possible values: HOLD, DIGITIZATION, BOOKING. If not supplied, all request types will be returned.</doc>
+            </param>
+            <param name="status" style="query" default="active" type="xs:string">
+              <doc>Active or history request status . The default is active.</doc>
+            </param>
+          </request>
+          <response>
+            <doc title="401652">General Error - An error has occurred while processing the request.</doc>
+            <doc title="402204">Input parameters mmsId X is not numeric.</doc>
+            <doc title="402203">Input parameters mmsId X is not valid.</doc>
+            <representation mediaType="application/xml">
+              <doc title="User Requests">rest_user_requests.xsd</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc title="User Requests">rest_user_requests.xsd</doc>
+            </representation>
+          </response>
+        </method>
+      </resource>
+      <resource path="{mms_id}/holdings/{holding_id}/items/{item_id}/requests/{request_id}">
+        <param name="mms_id" style="template" type="xs:string">
+          <doc>The Bib Record ID.</doc>
+        </param>
+        <param name="holding_id" style="template" type="xs:string">
+          <doc>The Holding Bib Record ID.</doc>
+        </param>
+        <param name="item_id" style="template" type="xs:string">
+          <doc>The item ID.</doc>
+        </param>
+        <param name="request_id" style="template" type="xs:string">
+          <doc>The Request ID.</doc>
+        </param>
+        <method name="GET">
+          <doc title="Retrieve User Item Request">This web service return a request per the given item and request ID.</doc>
+          <request/>
+          <response>
+            <doc title="401652">General Error - An error has occurred while processing the request.</doc>
+            <doc title="402204">Input parameters mmsId X is not numeric.</doc>
+            <doc title="402203">Input parameters mmsId X is not valid.</doc>
+            <doc title="402204">Input parameters requestId X is not numeric.</doc>
+            <representation mediaType="application/xml">
+              <doc title="User Request">rest_user_request.xsd</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc title="User Request">rest_user_request.xsd</doc>
+            </representation>
+          </response>
+        </method>
+      </resource>
+      <resource path="{mms_id}/holdings/{holding_id}/items/{item_pid}">
+        <param name="mms_id" style="template" type="xs:string">
+          <doc>The Bib Record ID.</doc>
+        </param>
+        <param name="holding_id" style="template" type="xs:string">
+          <doc>The Holding Record ID.</doc>
+        </param>
+        <param name="item_pid" style="template" type="xs:string">
+          <doc>The Item ID.</doc>
+        </param>
+        <method name="DELETE">
+          <doc title="Withdraw Item">This web service withdraws an item.</doc>
+          <request>
+            <param name="override" style="query" default="false" type="xs:string">
+              <doc>Indication whether the item should be deleted even if warnings exist. Optional. By default: false.</doc>
+            </param>
+            <param name="holdings" style="query" default="retain" type="xs:string">
+              <doc>Method for handling a Holdings record left without any items: retain, delete or suppress. Optional. By default: retain.</doc>
+            </param>
+          </request>
+          <response>
+            <doc title="401652">General Error - An error has occurred while processing the request.</doc>
+            <representation mediaType="application/xml">
+              <param name="result" style="plain" type="xs:string"/>
+            </representation>
+            <representation mediaType="application/json">
+              <param name="result" style="plain" type="xs:string"/>
+            </representation>
+          </response>
+        </method>
+        <method name="GET">
+          <doc title="Retrieve Item and label printing information">This web service returns Item information. 
+Note: It is also possible to retrieve item information by using: GET /almaws/v1/items?item_barcode={item_barcode}. Calling this shorthand URL will return an HTTP 302 redirect response leading to a URL with the structure documented here.</doc>
+          <request>
+            <param name="view" style="query" default="brief" type="xs:string">
+              <doc>Special view of Item object. Optional. Currently supported: label - adds fields relevant for label printing.</doc>
+            </param>
+          </request>
+          <response>
+            <doc title="401652">General Error - An error has occurred while processing the request.</doc>
+            <representation mediaType="application/xml">
+              <doc title="Item Information">rest_item.xsd</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc title="Item Information">rest_item.xsd</doc>
+            </representation>
+          </response>
+        </method>
+        <method name="POST">
+          <doc title="Scan-in operation on item.">This web service allows to perform a Scan-in operation on an item.</doc>
+          <request>
+            <param name="op" style="query" type="xs:string">
+              <doc>The operation that is to be performed. Currently, only option is: scan.</doc>
+            </param>
+            <param name="external_id" style="query" default="false" type="xs:string">
+              <doc>External ID. Options: true or false.</doc>
+            </param>
+            <param name="request_id" style="query" type="xs:string">
+              <doc>The request ID. Needed when item is not yet bound to a single request and there are multiple requests which scanned item can fulfill.</doc>
+            </param>
+            <param name="library" style="query" type="xs:string">
+              <doc>The library code of the given circulation desk or department where the action is being performed.</doc>
+            </param>
+            <param name="circ_desk" style="query" type="xs:string">
+              <doc>The circulation desk where the action is being performed.</doc>
+            </param>
+            <param name="department" style="query" type="xs:string">
+              <doc>The department where the action is being performed.</doc>
+            </param>
+            <param name="work_order_type" style="query" type="xs:string">
+              <doc>The work order type which is to be performed, or is being performed on the scanned in item.</doc>
+            </param>
+            <param name="status" style="query" type="xs:string">
+              <doc>The work order status to which we want to move the item. Optional input is defined by the work order type.</doc>
+            </param>
+            <param name="done" style="query" default="false" type="xs:string">
+              <doc>Work order processing is completed on the item. Options: true or false.</doc>
+            </param>
+            <param name="auto_print_slip" style="query" default="false" type="xs:string">
+              <doc>Automatically print a slip. Options: true or false.</doc>
+            </param>
+            <param name="place_on_hold_shelf" style="query" default="false" type="xs:string">
+              <doc>Place on hold shelf. Options: true or false.</doc>
+            </param>
+            <param name="confirm" style="query" default="false" type="xs:string">
+              <doc>Confirm the action on the item. Options: true or false.</doc>
+            </param>
+            <param name="register_in_house_use" style="query" default="true" type="xs:string">
+              <doc>Register in house uses. Options: true or false.</doc>
+            </param>
+          </request>
+          <response>
+            <doc title="401652">General Error - An error has occurred while processing the request.</doc>
+            <representation mediaType="application/xml">
+              <doc title="Item">rest_item.xsd</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc title="Item">rest_item.xsd</doc>
+            </representation>
+          </response>
+        </method>
+        <method name="PUT">
+          <doc title="Update Item information">This web service updates Item information.</doc>
+          <request>
+            <representation mediaType="application/xml">
+              <doc>This method takes an Item object.</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc>This method takes an Item object.</doc>
+            </representation>
+          </request>
+          <response>
+            <doc title="401652">General Error - An error has occurred while processing the request.</doc>
+            <doc title="401885">Given poline does not fit item; POLine's type must be physical one time.</doc>
+            <representation mediaType="application/xml">
+              <doc title="Item Information">rest_item.xsd</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc title="Item Information">rest_item.xsd</doc>
+            </representation>
+          </response>
+        </method>
+      </resource>
+      <resource path="{mms_id}/holdings/{holding_id}/items/{item_pid}/booking-availability">
+        <param name="mms_id" style="template" type="xs:string">
+          <doc>The Bib Record ID.</doc>
+        </param>
+        <param name="holding_id" style="template" type="xs:string">
+          <doc>The Holding Record ID.</doc>
+        </param>
+        <param name="item_pid" style="template" type="xs:string">
+          <doc>The Item ID.</doc>
+        </param>
+        <method name="GET">
+          <doc title="Retrieve booking availability for an Item">This web service returns list of periods in which specific item is unavailable for booking.</doc>
+          <request>
+            <param name="period" style="query" type="xs:int">
+              <doc>The number of days/weeks/months to retrieve availability for. Mandatory.</doc>
+            </param>
+            <param name="period_type" style="query" type="xs:string">
+              <doc>The type of period of interest. Optional. Possible values: days, weeks, months. Default: days.</doc>
+            </param>
+            <param name="user_id" style="query" default="" type="xs:string">
+              <doc>A unique identifier for the user, for which the booking request is about to be done. Optional. If not supplied, the system will calculate a minimal availability.</doc>
+            </param>
+            <param name="user_id_type" style="query" default="all_unique" type="xs:string">
+              <doc>The type of identifier that is being searched. Optional. If this is not provided, all unique identifier types are used. The values that can be used are any of the values in the User Identifier Type code table.</doc>
+            </param>
+          </request>
+          <response>
+            <doc title="401890">User with identifier X of type Y was not found.</doc>
+            <doc title="4018990">Unsupported period type.</doc>
+            <doc title="401652">General Error - An error has occurred while processing the request.</doc>
+            <representation mediaType="application/xml">
+              <doc title="Booking Availability">rest_booking-availability.xsd</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc title="Booking Availability">rest_booking-availability.xsd</doc>
+            </representation>
+          </response>
+        </method>
+      </resource>
+      <resource path="{mms_id}/holdings/{holding_id}/items/{item_pid}/loans">
+        <param name="mms_id" style="template" type="xs:string">
+          <doc>The Bib Record ID.</doc>
+        </param>
+        <param name="holding_id" style="template" type="xs:string">
+          <doc>The Holding Record ID.</doc>
+        </param>
+        <param name="item_pid" style="template" type="xs:string">
+          <doc>The Item ID.</doc>
+        </param>
+        <method name="POST">
+          <doc title="Create user loan">This web service loans an item to a user. The loan will be created according to the library's policy.</doc>
+          <request>
+            <param name="user_id" style="query" type="xs:string">
+              <doc>A unique identifier of the loaning user. Mandatory.</doc>
+            </param>
+            <param name="user_id_type" style="query" default="all_unique" type="xs:string">
+              <doc>The type of identifier that is being searched. Optional. If this is not provided, all unique identifier types are used. The values that can be used are any of the values in the User Identifier Type code table.</doc>
+            </param>
+            <representation mediaType="application/xml">
+              <doc>This method takes a Loan object.</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc>This method takes a Loan object.</doc>
+            </representation>
+          </request>
+          <response>
+            <doc title="401890">User with identifier X of type Y was not found.</doc>
+            <doc title="401153">Item cannot be loaned from this circulation desk.</doc>
+            <doc title="401651">Item is not loanable.</doc>
+            <doc title="401652">General Error - An error has occurred while processing the request.</doc>
+            <representation mediaType="application/xml">
+              <doc title="Item Loan">rest_item_loan.xsd</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc title="Item Loan">rest_item_loan.xsd</doc>
+            </representation>
+          </response>
+        </method>
+      </resource>
+      <resource path="{mms_id}/holdings/{holding_id}/items/{item_pid}/loans/{loan_id}">
+        <param name="mms_id" style="template" type="xs:string">
+          <doc>The Bib Record ID.</doc>
+        </param>
+        <param name="holding_id" style="template" type="xs:string">
+          <doc>The Holding Record ID.</doc>
+        </param>
+        <param name="item_pid" style="template" type="xs:string">
+          <doc>The Item ID.</doc>
+        </param>
+        <param name="loan_id" style="template" type="xs:string">
+          <doc>The Loan ID.</doc>
+        </param>
+        <method name="GET">
+          <doc title="Retrieve Item Loan information">This web service returns Item Loan information.</doc>
+          <request/>
+          <response>
+            <doc title="401652">General Error - An error has occurred while processing the request.</doc>
+            <representation mediaType="application/xml">
+              <doc title="Item Loan">rest_item_loan.xsd</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc title="Item Loan">rest_item_loan.xsd</doc>
+            </representation>
+          </response>
+        </method>
+      </resource>
+      <resource path="{mms_id}/holdings/{holding_id}/items/{item_pid}/requests">
+        <param name="mms_id" style="template" type="xs:string">
+          <doc>The Bib Record ID.</doc>
+        </param>
+        <param name="holding_id" style="template" type="xs:string">
+          <doc>The Holding Record ID.</doc>
+        </param>
+        <param name="item_pid" style="template" type="xs:string">
+          <doc>The  requested Item ID.</doc>
+        </param>
+        <method name="POST">
+          <doc title="Create request for an Item">This web service creates a request for a library resource. The request can be for a physical item (request types: hold, booking), or a request for digitizing a file (request type: digitization). Currently it is not possible to create a move or work order request.</doc>
+          <request>
+            <param name="user_id" style="query" default="" type="xs:string">
+              <doc>A unique identifier for the user. For a library level digitization request, leave empty.</doc>
+            </param>
+            <param name="user_id_type" style="query" default="all_unique" type="xs:string">
+              <doc>The type of identifier that is being searched. Optional. If this is not provided, all unique identifier types are used. The values that can be used are any of the values in the User Identifier Type code table.</doc>
+            </param>
+            <representation mediaType="application/xml">
+              <doc>This method takes a Request object.</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc>This method takes a Request object.</doc>
+            </representation>
+          </request>
+          <response>
+            <doc title="401890">User with identifier X of type Y was not found.</doc>
+            <doc title="401129">No items can fulfill the submitted request.</doc>
+            <doc title="401136">Failed to save the request: Patron has active request for selected item.</doc>
+            <doc title="401652">General Error - An error has occurred while processing the request.</doc>
+            <representation mediaType="application/xml">
+              <doc title="Request">rest_user_request.xsd</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc title="Request">rest_user_request.xsd</doc>
+            </representation>
+          </response>
+        </method>
+      </resource>
+      <resource path="{mms_id}/holdings/{holding_id}/items/{item_pid}/requests/{request_id}">
+        <param name="mms_id" style="template" type="xs:string">
+          <doc>The Bib Record ID.</doc>
+        </param>
+        <param name="holding_id" style="template" type="xs:string">
+          <doc>The Holding Record ID.</doc>
+        </param>
+        <param name="item_pid" style="template" type="xs:string">
+          <doc>The Item ID.</doc>
+        </param>
+        <param name="request_id" style="template" type="xs:string">
+          <doc>The request ID.</doc>
+        </param>
+        <method name="POST">
+          <doc title="Action on a request">This API performs an action on a request. Currently supported: moving digitization requests to their next step.</doc>
+          <request>
+            <param name="op" style="query" default="" type="xs:string">
+              <doc>The operation to be performed on the request. Mandatory. Currently only next_step is supported.</doc>
+            </param>
+            <param name="release_item" style="query" default="false" type="xs:string">
+              <doc>Boolean flag for indicating whether to release the item from the request</doc>
+            </param>
+          </request>
+          <response>
+            <doc title="401652">General Error - An error has occurred while processing the request.</doc>
+            <doc title="401907">Failed to find a request for the given request ID.</doc>
+            <doc title="402205">Input parameter X (Y) is not numeric.</doc>
+            <doc title="401932">Request X is not a Digitization request</doc>
+            <doc title="401933">Cannot move forward in workflow. Request ID: X, Step: Y</doc>
+            <doc title="401934">Move digitization request to next step in workflow has failed. Request ID: X</doc>
+            <doc title="401666">X parameter is not valid.</doc>
+            <representation mediaType="application/xml">
+              <doc title="Request">rest_user_request.xsd</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc title="Request">rest_user_request.xsd</doc>
+            </representation>
+          </response>
+        </method>
+        <method name="PUT">
+          <doc title="Update Item Request">This web service updates a request for a library resource.</doc>
+          <request>
+            <representation mediaType="application/xml">
+              <doc>This method takes a User-Request object.</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc>This method takes a User-Request object.</doc>
+            </representation>
+          </request>
+          <response>
+            <representation mediaType="application/xml">
+              <doc title="Request">rest_user_request.xsd</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc title="Request">rest_user_request.xsd</doc>
+            </representation>
+          </response>
+        </method>
+      </resource>
+      <resource path="{mms_id}/loans">
+        <param name="mms_id" style="template" type="xs:string">
+          <doc>The Bib Record ID.</doc>
+        </param>
+        <method name="GET">
+          <doc title="Retrieve Bib Loan information">This web service returns Loan information for a Bib record.</doc>
+          <request/>
+          <response>
+            <doc title="401652">General Error - An error has occurred while processing the request.</doc>
+            <representation mediaType="application/xml">
+              <doc title="Bib Loan">rest_item_loan.xsd</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc title="Bib Loan">rest_item_loan.xsd</doc>
+            </representation>
+          </response>
+        </method>
+      </resource>
+      <resource path="{mms_id}/loans/{loan_id}">
+        <param name="mmsId" style="template" type="xs:string"/>
+        <param name="loan_id" style="template" type="xs:string"/>
+        <method name="GET">
+          <doc title="Retrieve Bib Loan information for a Bib id and Loan id">This Web service retrieves loan information for a particular Bib id and Loan id.</doc>
+          <request/>
+          <response>
+            <doc title="401652">General Error - An error has occurred while processing the request.</doc>
+            <representation mediaType="application/xml">
+              <doc title="Bib Loan by Loan ID">rest_item_loan.xsd</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc title="Bib Loan by Loan ID">rest_item_loan.xsd</doc>
+            </representation>
+          </response>
+        </method>
+      </resource>
+      <resource path="{mms_id}/representations">
+        <param name="mms_id" style="template" type="xs:string">
+          <doc>The Bib Record ID.</doc>
+        </param>
+        <method name="GET">
+          <doc title="Retrieve Representations">This web service returns a list of Digital Representations for a given Bib MMS-ID.</doc>
+          <request>
+            <param name="limit" style="query" default="10" type="xs:int">
+              <doc>Limits the number of results. Optional. Valid values are 0-100. Default value: 10.</doc>
+            </param>
+            <param name="offset" style="query" default="0" type="xs:int">
+              <doc>Offset of the results returned. Optional. Default value: 0, which means that the first results will be returned.</doc>
+            </param>
+          </request>
+          <response>
+            <doc title="401652">General Error - An error has occurred while processing the request.</doc>
+            <representation mediaType="application/xml">
+              <doc title="Representations">rest_representations.xsd</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc title="Representations">rest_representations.xsd</doc>
+            </representation>
+          </response>
+        </method>
+        <method name="POST">
+          <doc title="Create Representation">This web service creates a Digital Representation.</doc>
+          <request>
+            <param name="generate_label" style="query" default="false" type="xs:string">
+              <doc>Auto-generate label: true/false</doc>
+            </param>
+            <representation mediaType="application/xml">
+              <doc>This method takes a Representation object.</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc>This method takes a Representation object.</doc>
+            </representation>
+          </request>
+          <response>
+            <doc title="402260">Bib record is not assigned to a collection.</doc>
+            <doc title="401652">General Error - An error has occurred while processing the request.</doc>
+            <representation mediaType="application/xml">
+              <doc title="Representation">rest_representation.xsd</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc title="Representation">rest_representation.xsd</doc>
+            </representation>
+          </response>
+        </method>
+      </resource>
+      <resource path="{mms_id}/representations/{rep_id}">
+        <param name="mms_id" style="template" type="xs:string">
+          <doc>The Bib Record ID.</doc>
+        </param>
+        <param name="rep_id" style="template" type="xs:string">
+          <doc>The Representation ID.</doc>
+        </param>
+        <method name="DELETE">
+          <doc title="Delete Representation">This web service deletes a Digital Representations.</doc>
+          <request>
+            <param name="override" style="query" default="false" type="xs:string">
+              <doc>Indication whether the representation should be deleted even if warnings exist. Optional. By default: false.</doc>
+            </param>
+            <param name="bibs" style="query" default="retain" type="xs:string">
+              <doc>Method for handling a bib left without any representations: retain , suppress or delete. Optional. By default: retain.</doc>
+            </param>
+          </request>
+          <response>
+            <doc title="401652">General Error - An error has occurred while processing the request.</doc>
+            <representation mediaType="application/xml"/>
+            <representation mediaType="application/json"/>
+          </response>
+        </method>
+        <method name="GET">
+          <doc title="Retrieve Representation Details">This web service returns a specific Digital Representation's details. Supported for Remote and Non-Remote Representations.</doc>
+          <request/>
+          <response>
+            <doc title="401652">General Error - An error has occurred while processing the request.</doc>
+            <representation mediaType="application/xml">
+              <doc title="Representation">rest_representation.xsd</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc title="Representation">rest_representation.xsd</doc>
+            </representation>
+          </response>
+        </method>
+        <method name="PUT">
+          <doc title="Updates Representation">This web service updates a Digital Representations.</doc>
+          <request>
+            <param name="generate_label" style="query" default="false" type="xs:string">
+              <doc>Auto-generate label: true/false</doc>
+            </param>
+            <representation mediaType="application/xml">
+              <doc>This method takes a Representation object.</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc>This method takes a Representation object.</doc>
+            </representation>
+          </request>
+          <response>
+            <doc title="401652">General Error - An error has occurred while processing the request.</doc>
+            <representation mediaType="application/xml">
+              <doc title="Representation">rest_representation.xsd</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc title="Representation">rest_representation.xsd</doc>
+            </representation>
+          </response>
+        </method>
+      </resource>
+      <resource path="{mms_id}/representations/{rep_id}/files">
+        <param name="mms_id" style="template" default="" type="xs:string">
+          <doc>The Bib Record ID.</doc>
+        </param>
+        <param name="rep_id" style="template" default="" type="xs:string">
+          <doc>The Representation ID.</doc>
+        </param>
+        <method name="GET">
+          <doc title="Retrieve Representation Files' Details">This web service returns a specific Representation Files' details. Supported for Non-Remote Representations.</doc>
+          <request>
+            <param name="expand" style="query" default="" type="xs:string">
+              <doc>If expand=url the &lt;url&gt; field will hold the signed URL for downloading.</doc>
+            </param>
+          </request>
+          <response>
+            <doc title="401652">General Error - An error has occurred while processing the request.</doc>
+            <representation mediaType="application/xml">
+              <doc title="RepresentationFiles">rest_representation_files.xsd</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc title="RepresentationFiles">rest_representation_files.xsd</doc>
+            </representation>
+          </response>
+        </method>
+        <method name="POST">
+          <doc title="Create RepresentationFile">This web service creates a Digital RepresentationFile.</doc>
+          <request>
+            <representation mediaType="application/xml">
+              <doc>This method takes a Representation object.</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc>This method takes a Representation object.</doc>
+            </representation>
+          </request>
+          <response>
+            <doc title="401652">General Error - An error has occurred while processing the request.</doc>
+            <representation mediaType="application/xml">
+              <doc title="RepresentationFile">rest_representation_file.xsd</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc title="RepresentationFile">rest_representation_file.xsd</doc>
+            </representation>
+          </response>
+        </method>
+      </resource>
+      <resource path="{mms_id}/representations/{rep_id}/files/{file_id}">
+        <param name="mms_id" style="template" type="xs:string">
+          <doc>The Bib Record ID.</doc>
+        </param>
+        <param name="rep_id" style="template" type="xs:string">
+          <doc>The Representation ID.</doc>
+        </param>
+        <param name="file_id" style="template" default="" type="xs:string">
+          <doc>The File ID.</doc>
+        </param>
+        <method name="DELETE">
+          <doc title="Delete RepresentationFile">This web service deletes a Digital RepresentationFile.</doc>
+          <request>
+            <param name="representations" style="query" default="retain" type="xs:string">
+              <doc>Method for handling a representation left without any files: retain or delete. Optional. By default: retain.</doc>
+            </param>
+            <param name="bibs" style="query" default="retain" type="xs:string">
+              <doc>Method for handling a bib left without any representations: retain , suppress or delete. Optional. By default: retain.</doc>
+            </param>
+          </request>
+          <response>
+            <doc title="401652">General Error - An error has occurred while processing the request.</doc>
+            <representation mediaType="application/xml"/>
+            <representation mediaType="application/json"/>
+          </response>
+        </method>
+        <method name="GET">
+          <doc title="Retrieve Representation File Details">This web service returns a specific Representation File details. Supported for Non-Remote Representations.</doc>
+          <request>
+            <param name="expand" style="query" default="" type="xs:string">
+              <doc>If expand=url the &lt;url&gt; field will hold the signed URL for downloading.</doc>
+            </param>
+          </request>
+          <response>
+            <doc title="401652">General Error - An error has occurred while processing the request.</doc>
+            <representation mediaType="application/xml">
+              <doc title="RepresentationFile">rest_representation_file.xsd</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc title="RepresentationFile">rest_representation_file.xsd</doc>
+            </representation>
+          </response>
+        </method>
+        <method name="PUT">
+          <doc title="Updates RepresentationFile">This web service updates a Digital RepresentationFile.</doc>
+          <request>
+            <representation mediaType="application/xml">
+              <doc>This method takes a RepresentationFile object.</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc>This method takes a RepresentationFile object.</doc>
+            </representation>
+          </request>
+          <response>
+            <doc title="401652">General Error - An error has occurred while processing the request.</doc>
+            <representation mediaType="application/xml">
+              <doc title="RepresentationFile">rest_representation_file.xsd</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc title="RepresentationFile">rest_representation_file.xsd</doc>
+            </representation>
+          </response>
+        </method>
+      </resource>
+      <resource path="{mms_id}/requests">
+        <param name="mms_id" style="template" type="xs:string">
+          <doc>The Bib Record ID.</doc>
+        </param>
+        <method name="GET">
+          <doc title="Retrieve User Requests per Bib">This web service returns a list of requests per the given bib (using mms_id).</doc>
+          <request>
+            <param name="request_type" style="query" default="all_types" type="xs:string">
+              <doc>Filter results by request type. Optional. Possible values: HOLD, DIGITIZATION, BOOKING, MOVE, WORK_ORDER. If not supplied, all request types will be returned.</doc>
+            </param>
+            <param name="status" style="query" default="active" type="xs:string">
+              <doc>Active or history requests status. Default is active.</doc>
+            </param>
+          </request>
+          <response>
+            <doc title="401652">General Error - An error has occurred while processing the request.</doc>
+            <doc title="402204">Input parameters mmsId X is not numeric.</doc>
+            <doc title="402203">Input parameters mmsId X is not valid.</doc>
+            <representation mediaType="application/xml">
+              <doc title="User Requests">rest_user_requests.xsd</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc title="User Requests">rest_user_requests.xsd</doc>
+            </representation>
+          </response>
+        </method>
+        <method name="POST">
+          <doc title="Create request for a Title">This web service creates a request for a library resouce. The request can be for a physical item (request types: hold, booking), or a request for digitizing a file (request type: digitization). Currently it is not possible to create a move or work order request.</doc>
+          <request>
+            <param name="user_id" style="query" default="" type="xs:string">
+              <doc>A unique identifier for the user. For a library level digitization request, leave empty.</doc>
+            </param>
+            <param name="user_id_type" style="query" default="all_unique" type="xs:string">
+              <doc>The type of identifier that is being searched. Optional. If this is not provided, all unique identifier types are used. The values that can be used are any of the values in the User Identifier Type code table.</doc>
+            </param>
+            <representation mediaType="application/xml">
+              <doc>This method takes a Request object.</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc>This method takes a Request object.</doc>
+            </representation>
+          </request>
+          <response>
+            <doc title="401890">User with identifier X of type Y was not found.</doc>
+            <doc title="401129">No items can fulfill the submitted request.</doc>
+            <doc title="401136">Failed to save the request: Patron has active request for selected item.</doc>
+            <doc title="401652">General Error - An error has occurred while processing the request.</doc>
+            <representation mediaType="application/xml">
+              <doc title="User Request">rest_user_request.xsd</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc title="User Request">rest_user_request.xsd</doc>
+            </representation>
+          </response>
+        </method>
+      </resource>
+      <resource path="{mms_id}/requests/{request_id}">
+        <param name="mms_id" style="template" type="xs:string">
+          <doc>The Bib Record ID.</doc>
+        </param>
+        <param name="request_id" style="template" type="xs:string">
+          <doc>The Request ID.</doc>
+        </param>
+        <method name="GET">
+          <doc title="Retrieve User Title Request">This web service returns a request per the given bib by the request ID.</doc>
+          <request/>
+          <response>
+            <doc title="401652">General Error - An error has occurred while processing the request.</doc>
+            <doc title="402204">Input parameters mmsId X is not numeric.</doc>
+            <doc title="402203">Input parameters mmsId X is not valid.</doc>
+            <doc title="402204">Input parameters requestId X is not numeric.</doc>
+            <representation mediaType="application/xml">
+              <doc title="User Request">rest_user_request.xsd</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc title="User Request">rest_user_request.xsd</doc>
+            </representation>
+          </response>
+        </method>
+        <method name="POST">
+          <doc title="Action on a request">This API performs an action on a request. Currently supported: moving digitization requests to their next step.</doc>
+          <request>
+            <param name="op" style="query" default="" type="xs:string">
+              <doc>The operation to be performed on the request. Mandatory. Currently only next_step is supported.</doc>
+            </param>
+            <param name="release_item" style="query" default="false" type="xs:string">
+              <doc>Boolean flag for indicating whether to release the item from the request</doc>
+            </param>
+          </request>
+          <response>
+            <doc title="401652">General Error - An error has occurred while processing the request.</doc>
+            <doc title="401907">Failed to find a request for the given request ID.</doc>
+            <doc title="402205">Input parameter X (Y) is not numeric.</doc>
+            <doc title="401932">Request X is not a Digitization request</doc>
+            <doc title="401933">Cannot move forward in workflow. Request ID: X, Step: Y</doc>
+            <doc title="401934">Move digitization request to next step in workflow has failed. Request ID: X</doc>
+            <doc title="401666">X parameter is not valid.</doc>
+            <representation mediaType="application/xml">
+              <doc title="Request">rest_user_request.xsd</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc title="Request">rest_user_request.xsd</doc>
+            </representation>
+          </response>
+        </method>
+        <method name="PUT">
+          <doc title="Update Title Request">This web service updates a request for a library resource.</doc>
+          <request>
+            <representation mediaType="application/xml">
+              <doc>This method takes a UserRequest object.</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc>This method takes a UserRequest object.</doc>
+            </representation>
+          </request>
+          <response>
+            <representation mediaType="application/xml">
+              <doc title="User Request">rest_user_request.xsd</doc>
+            </representation>
+            <representation mediaType="application/json">
+              <doc title="User Request">rest_user_request.xsd</doc>
+            </representation>
+          </response>
+        </method>
+      </resource>
+    </resource>
+  </resources>
+</application>

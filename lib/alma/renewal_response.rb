@@ -1,10 +1,12 @@
 module Alma
   class RenewalResponse
 
+    include Alma::Error
+
     def initialize(response)
+      @response = response
       @success  = response.fetch('item_loan', {})
-      @error    = response.fetch('web_service_result', {})
-      @renewed  = @error.empty?
+      @renewed  = error.empty?
     end
 
     def renewed?
@@ -18,10 +20,6 @@ module Alma
 
     def due_date_pretty
       Time.parse(due_date).strftime('%m-%e-%y %H:%M')
-    end
-
-    def error_message
-      (renewed?) ? '' : @error['errorList']['error']['errorMessage']
     end
 
     def item_title
@@ -39,5 +37,6 @@ module Alma
         "#{item_title} could not be renewed."
       end
     end
+
   end
 end

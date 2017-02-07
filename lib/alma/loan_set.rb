@@ -1,22 +1,17 @@
 module Alma
-  class LoanSet
+  class LoanSet < ResultSet
 
-    attr_reader :total_record_count, :list
 
-    def initialize(ws_response)
-      @ws_response = ws_response
-      @total_record_count = ws_response.fetch('total_record_count', 0)
-      @list ||= list_results
+    def top_level_key
+      'item_loans'
     end
 
-    def response_records
-      @ws_response['item_loans'].fetch('item_loan',[])
+    def response_records_key
+      'item_loan'
     end
 
-    def list_results
-      response_records.map do |loan|
-        Alma::Loan.new(loan)
-      end
+    def single_record_class
+      Alma::Loan
     end
 
   end
