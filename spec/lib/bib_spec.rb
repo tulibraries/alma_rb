@@ -1,15 +1,6 @@
 require "spec_helper"
 
 
-RSpec.configure do |config|
-  config.before(:each) do
-    stub_request(:get, /.*\.exlibrisgroup\.com\/almaws\/v1\/bibs/).
-        to_return(:status => 200,
-                  :body => File.open(SPEC_ROOT + '/fixtures/multiple_bibs.xml').read,
-                  :headers => { 'content-type' => ['application/xml;charset=UTF-8']})
-  end
-end
-
 describe Alma::Bib do
   before(:all) do
     Alma.configure

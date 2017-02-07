@@ -18,7 +18,7 @@ module Alma
       @list ||= list_results
     end
 
-    private
+
     def top_level_key
       raise NotImplementedError 'Subclasses of ResultSet Need to define the top level key'
     end
@@ -27,7 +27,7 @@ module Alma
       raise NotImplementedError 'Subclasses of ResultSet Need to define the key for response records'
     end
 
-
+    private
     def response_records
       @response[top_level_key].fetch(response_records_key,[])
     end
