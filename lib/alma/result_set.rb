@@ -2,9 +2,10 @@ module Alma
   class ResultSet
     extend Forwardable
 
+		include Enumerable
     include Alma::Error
 
-    def_delegators :list, :size, :each, :map
+    def_delegators :list, :each
 
     def initialize(ws_response)
       @response = ws_response
