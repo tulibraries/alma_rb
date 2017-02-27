@@ -80,6 +80,8 @@ Now you can access those configuration attributes with `Alma.configuration.apike
  
 ```
 
+Each fine object reflects the available fields in the returned XML,[as documented on the Ex Libris Api docs](https://developers.exlibrisgroup.com/alma/apis/xsd/rest_fees.xsd?tags=GET)
+
 #### Get details on a users loans
  
 ```ruby
@@ -101,6 +103,7 @@ loans.list.first.due_date
 "2016-12-26z
  
 ```
+Each loan object reflects the available fields in the returned XML,[as documented on the Ex Libris Api docs](https://developers.exlibrisgroup.com/alma/apis/xsd/rest_item_loans.xsd?tags=GET)
 
 To renew an item you can can call the Loan objects renew method
 
@@ -137,7 +140,8 @@ requests.list.first.request_status
 > "In Process"
  
 ```
- 
+Each request object reflects the available fields in the returned XML,[as documented on the Ex Libris Api docs](https://developers.exlibrisgroup.com/alma/apis/xsd/rest_user_requests.xsd?tags=GET)
+
  Loans, fines and Requests can also be accessed statically
   
 ```ruby
