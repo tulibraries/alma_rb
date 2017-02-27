@@ -5,7 +5,7 @@ module Alma
 		include Enumerable
     include Alma::Error
 
-    def_delegators :list, :each
+    def_delegators :list, :each, :size
 
     def initialize(ws_response)
       @response = ws_response
