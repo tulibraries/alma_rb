@@ -25,8 +25,18 @@ module Alma
 
     def renew_loan(loan_id)
       response = self.class.renew_loan({user_id: self.id, loan_id: loan_id})
-      @recheck_loans = true if response.renewed?
+      if response.renewed?
+        @recheck_loans ||= true
+      end
       response
+    end
+
+    def renew_multiple_loans(array_of_loan_ids)
+      array_of_loan_ids.map { |id| renew_loan(id) }
+    end
+
+    def renew_all_loans
+      renew_multiple_loans(loans.map(&:loan_id))
     end
 
     def recheck_loans?

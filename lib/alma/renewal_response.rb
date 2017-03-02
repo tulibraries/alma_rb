@@ -32,7 +32,7 @@ module Alma
 
     def message
       if @success
-        "#{item_title} is now due #{new_due_date}"
+        "#{item_title} is now due #{due_date}"
       else
         "#{item_title} could not be renewed."
       end
