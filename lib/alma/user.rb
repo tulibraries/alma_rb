@@ -1,5 +1,3 @@
-
-
 module Alma
   class  User < AlmaRecord
     extend Alma::Api
@@ -31,8 +29,8 @@ module Alma
       response
     end
 
-    def renew_multiple_loans(array_of_loan_ids)
-      array_of_loan_ids.map { |id| renew_loan(id) }
+    def renew_multiple_loans(loan_ids)
+      loan_ids.map { |id| renew_loan(id) }
     end
 
     def renew_all_loans
@@ -114,6 +112,25 @@ module Alma
         response = resources.almaws_v1_users.user_id_loans_loan_id.post(params)
         RenewalResponse.new(response)
       end
+
+      # Attempts to renew a multiple items for a user
+      # @param [Hash] args
+      # @option args [String] :user_id The unique id of the user
+      # @option args [Array<String>] :loan_ids Array of loan ids
+      # @option args [String] :user_id_type Type of identifier being used to search. OPTIONAL
+      # @return [Array<RenewalResponse>] Object indicating the renewal message
+      def renew_multiple_loans(args)
+
+        if args.fetch(:loans_ids, nil).respond_to? :map
+          args.delete(:loan_ids).map do |loan_id|
+            renew_loan(args.merge(loan_id: loan_id))
+          end
+        else
+          []
+        end
+      end
+
+
 
 
       def set_wadl_filename
