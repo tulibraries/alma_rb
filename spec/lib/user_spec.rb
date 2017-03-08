@@ -106,36 +106,6 @@ describe Alma::User do
 
     end
 
-    describe "#{described_class}.renew_loan" do
-      let(:renew){described_class.renew_loan({user_id: 'johns', loan_id: "RENEWED_ID"})}
-
-      context 'Successful renewal' do
-
-        it '#renewed? should be true' do
-          expect(renew.renewed?).to be true
-        end
-
-        it 'provides a renwal date string' do
-          expect(renew.due_date).to eql '2014-06-23T14:00:00.000Z'
-        end
-
-        it 'provides the title' do
-          expect(renew.item_title).to eql 'History'
-        end
-
-        it 'returns an empty error message' do
-          expect(renew.error_message).to be_empty
-        end
-
-
-      end
-
-      context 'Failed Renewal' do
-
-      end
-
-    end
-
     describe "#{described_class}.authenticate" do
       let(:auth_success) {described_class.authenticate({user_id: 'johns', password: 'right_password'}) }
       let(:auth_fail) {described_class.authenticate({user_id: 'johns', password: 'wrong_password'}) }
