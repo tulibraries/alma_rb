@@ -45,17 +45,9 @@ describe Alma::User do
 
   describe 'Static Methods' do
 
-    describe "#{described_class}.find_by_id" do
-
-      let(:user) {described_class.find_by_id({:user_id => "johns"})}
-
-      it 'returns a User object' do
-        expect(user).to be_a Alma::User
-      end
-    end
 
     describe "#{described_class}.fines" do
-      let(:fines) {described_class.get_fines({:user_id => "johns"})}
+      let(:fines) {described_class.fines("johns")}
 
 
       it 'responds to total_records' do

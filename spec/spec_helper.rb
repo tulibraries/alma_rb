@@ -11,14 +11,14 @@ RSpec.configure do |config|
     # User details
     stub_request(:get, /.*\.exlibrisgroup\.com\/almaws\/v1\/users\/.*\/.*/).
         to_return(:status => 200,
-                  :body => File.open(SPEC_ROOT + '/fixtures/single_user.xml').read,
-                  :headers => { 'content-type' => ['application/xml;charset=UTF-8']})
+                  :body => File.open(SPEC_ROOT + '/fixtures/single_user.json').read,
+                  :headers => { 'content-type' => ['application/json;charset=UTF-8']})
 
     #fees / fines
     stub_request(:get, /.*\.exlibrisgroup\.com\/almaws\/v1\/users\/.*\/fees\/.*/).
         to_return(:status => 200,
-                  :body => File.open(SPEC_ROOT + '/fixtures/fines.xml').read,
-                  :headers => { 'content-type' => ['application/xml;charset=UTF-8']})
+                  :body => File.open(SPEC_ROOT + '/fixtures/fines.json').read,
+                  :headers => { 'content-type' => ['application/json;charset=UTF-8']})
 
     # user requests
     stub_request(:get, /.*\.exlibrisgroup\.com\/almaws\/v1\/users\/.*\/requests\/.*/).
