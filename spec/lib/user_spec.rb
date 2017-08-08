@@ -64,7 +64,7 @@ describe Alma::User do
       end
     end
 
-    xdescribe "#{described_class}.authenticate" do
+    describe "#{described_class}.authenticate" do
       let(:auth_success) {described_class.authenticate({user_id: 'johns', password: 'right_password'}) }
       let(:auth_fail) {described_class.authenticate({user_id: 'johns', password: 'wrong_password'}) }
 
