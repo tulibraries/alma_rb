@@ -1,7 +1,9 @@
 module Alma
   class  User
+    extend Forwardable
 
-    #extend Alma::UserRequest
+   # The User object can respond directly to Hash like access of attributes
+   def_delegators :response, :[], :has_key?, :keys
 
     def initialize(response_body)
       @response = response_body
@@ -10,23 +12,16 @@ module Alma
 
 
     def method_missing(name)
-      if response.has_key?(name.to_s) and response[name.to_s].is_a? Hash
-        return response[name.to_s]['desc'] if response[name.to_s].has_key? 'desc'
-      end
-      return response[name.to_s] if response.has_key?(name.to_s)
+      return response[name.to_s] if has_key?(name.to_s)
       super.method_missing name
     end
 
     def respond_to_missing?(name, include_private = false)
-      response.has_key?(name.to_s) || super
+      has_key?(name.to_s) || super
     end
 
     def id
-      response['primary_id'].to_s
-    end
-
-    def method_name
-
+      primary_id
     end
 
     def response
@@ -35,16 +30,17 @@ module Alma
 
 
     def fines
-      self.class.fines(self.id)
+      self.class.fines(id)
     end
-    #
-    # def loans
-    #   unless @loans && !recheck_loans?
-    #     @loans = self.class.get_loans({user_id: self.id})
-    #     @recheck_loans = false
-    #   end
-    #   @loans
-    # end
+
+    def loans
+      unless @loans && !recheck_loans?
+        @loans = self.class.loans(id)
+        @recheck_loans = false
+      end
+      @loans
+    end
+
     #
     # def renew_loan(loan_id)
     #   response = self.class.renew_loan({user_id: self.id, loan_id: loan_id})
@@ -66,9 +62,9 @@ module Alma
     #   @recheck_loans
     # end
     #
-    # def requests
-    #   self.class.get_requests({user_id:self.id})
-    # end
+    def requests
+      self.class.requests(id)
+    end
 
     class << self
       # Static methods that do the actual querying
@@ -94,6 +90,22 @@ module Alma
         end
       end
 
+      def loans(user_id)
+        #TODO Handle Additional Parameters
+        #TODO Handle Pagination
+        #TODO Handle looping through all results
+        response = HTTParty.get("#{users_base_path}/#{user_id}/loans", headers: headers)
+        Alma::LoanSet.new(body(response))
+      end
+
+      def requests(user_id)
+        #TODO Handle Additional Parameters
+        #TODO Handle Pagination
+        #TODO Handle looping through all results
+        response = HTTParty.get("#{users_base_path}/#{user_id}/requests", headers: headers)
+        Alma::RequestSet.new(body(response))
+      end
+
 
       private
       def body(response)
@@ -116,24 +128,9 @@ module Alma
       end
 
 
+
+
       #
-      # def get_loans(args)
-      #   #TODO Handle Additional Parameters
-      #   #TODO Handle Pagination
-      #   #TODO Handle looping through all results
-      #   params = query_merge args
-      #   response = resources.almaws_v1_users.user_id_loans.get(params)
-      #   Alma::LoanSet.new(response)
-      # end
-      #
-      # def get_requests(args)
-      #   #TODO Handle Additional Parameters
-      #   #TODO Handle Pagination
-      #   #TODO Handle looping through all results
-      #   params = query_merge args
-      #   response = resources.almaws_v1_users.user_id_requests.get(params)
-      #   Alma::RequestSet.new(response)
-      # end
       #
       # def authenticate(args)
       #   # Authenticates a Alma user with their Alma Password

@@ -21,9 +21,9 @@ RSpec.configure do |config|
                   :headers => { 'content-type' => ['application/json;charset=UTF-8']})
 
     # user requests
-    stub_request(:get, /.*\.exlibrisgroup\.com\/almaws\/v1\/users\/.*\/requests\/.*/).
+    stub_request(:get, /.*\.exlibrisgroup\.com\/almaws\/v1\/users\/.*\/requests/).
         to_return(:status => 200,
-                  :body => File.open(SPEC_ROOT + '/fixtures/requests.xml').read,
+                  :body => File.open(SPEC_ROOT + '/fixtures/requests.json').read,
                   :headers => { 'content-type' => ['application/xml;charset=UTF-8']})
 
     # successful user authentication

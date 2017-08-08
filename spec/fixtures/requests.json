@@ -1,0 +1,17 @@
+{
+  "total_record_count": 1,
+  "user_request":
+    [
+      {
+        "request_id": 83013520000121,
+        "request_type": "HOLD",
+        "title": "Test title",
+        "pickup_location": "Burns",
+        "pickup_location_type": "LIBRARY",
+        "pickup_location_library": "BURNS",
+        "material_type": "BK",
+        "request_status": "Not Started",
+        "request_date": "2013-11-12Z"
+      }
+    ]
+}
