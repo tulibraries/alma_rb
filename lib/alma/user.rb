@@ -42,6 +42,17 @@ module Alma
       @loans
     end
 
+    def email
+      u = self.class.find(id)
+      u["contact_info"]["email"].first["email_address"]
+    end
+
+    def expire_email!
+      u = self.class.find(id)
+      u["contact_info"]["email"].first["email_address"] = "blank@expired.temple.edu"
+      response = self.class.update_user(id, u.response)
+    end
+
     #
     def renew_loan(loan_id)
       response = self.class.renew_loan({user_id: id, loan_id: loan_id})
