@@ -63,10 +63,22 @@ describe Alma::User do
         expect(user.fines).to be_a Alma::FineSet
       end
     end
+    
+    describe '#update' do
+      it 'is responded to' do
+        expect(user).to respond_to :update
+      end
+    end
 
     describe '#email' do
       it 'is responded to' do
         expect(user).to respond_to :email
+      end
+    end
+    
+    describe '#update_email!' do
+      it 'is responded to' do
+        expect(user).to respond_to :update_email!
       end
     end
 

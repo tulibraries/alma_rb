@@ -41,15 +41,19 @@ module Alma
       end
       @loans
     end
+    
+    def update(details)
+      respones = self.class.update_user(details)
+    end
 
     def email
       u = self.class.find(id)
       u["contact_info"]["email"].first["email_address"]
     end
-
-    def expire_email!
+    
+  def update_email!(email)
       u = self.class.find(id)
-      u["contact_info"]["email"].first["email_address"] = "blank@expired.temple.edu"
+      u["contact_info"]["email"].first["email_address"] = email
       response = self.class.update_user(id, u.response)
     end
 
