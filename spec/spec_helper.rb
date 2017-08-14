@@ -9,7 +9,7 @@ RSpec.configure do |config|
   config.before(:each) do
 
     # User details
-    stub_request(:get, /.*\.exlibrisgroup\.com\/almaws\/v1\/users\/.*\/.*/).
+    stub_request(:get, /.*\.exlibrisgroup\.com\/almaws\/v1\/users\/.*/).
         to_return(:status => 200,
                   :body => File.open(SPEC_ROOT + '/fixtures/single_user.json').read)
 

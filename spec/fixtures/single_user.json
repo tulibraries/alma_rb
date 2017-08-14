@@ -82,6 +82,17 @@
             "desc": "Personal"
           }
         ]
+      },
+      {
+        "description": null,
+        "preferred": false,
+        "email_address": "johns@myOTHERlib.org",
+        "email_type": [
+          {
+            "value": "personal",
+            "desc": "Personal"
+          }
+        ]
       }
     ],
     "phone": [

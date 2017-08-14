@@ -5,7 +5,11 @@ describe Alma::RenewalResponse do
     Alma.configure
   end
 
-  let(:renewal) { Alma::User.renew_loan({loan_id: 'RENEWED_ID', user_id: 'ID1234'})}
+
+  let(:renewal) do
+    response_hash =  JSON.load(open(File.join(SPEC_ROOT,'fixtures','renewal_success.json')))
+    Alma::RenewalResponse.new response_hash
+  end
 
   context 'successful renewal' do
     describe '#renewed?' do
