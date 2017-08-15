@@ -83,7 +83,7 @@ module Alma
       response.code == 204
     end
 
-    def update_user(user_id, content)
+    def save!(user_id, content)
       response = HTTParty.put("#{users_base_path}/#{user_id}", headers: headers, body: content.to_json)
       body(response)
     end
