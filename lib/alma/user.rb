@@ -42,19 +42,18 @@ module Alma
       @loans
     end
     
-    def update(details)
-      respones = self.class.update_user(details)
-    end
-
-    def email
-      u = self.class.find(id)
-      u["contact_info"]["email"].first["email_address"]
+    def update(user_hash)
+      response = self.class.save!(id, user_hash)
     end
     
-  def update_email!(email)
+    def preferred_email
+      user_hash = self.class.find(id).response
+      user_hash["contact_info"]["email"].select { |k, v| k["preferred"] }.first["email_address"]
+    end
+    
+    def email
       u = self.class.find(id)
-      u["contact_info"]["email"].first["email_address"] = email
-      response = self.class.update_user(id, u.response)
+      u["contact_info"]["email"].map { |e| e["email_address"] }
     end
 
     #
