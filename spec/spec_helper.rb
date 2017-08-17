@@ -11,37 +11,33 @@ RSpec.configure do |config|
     # User details
     stub_request(:get, /.*\.exlibrisgroup\.com\/almaws\/v1\/users\/.*\/.*/).
         to_return(:status => 200,
-                  :body => File.open(SPEC_ROOT + '/fixtures/single_user.xml').read,
-                  :headers => { 'content-type' => ['application/xml;charset=UTF-8']})
+                  :body => File.open(SPEC_ROOT + '/fixtures/single_user.json').read)
 
     #fees / fines
     stub_request(:get, /.*\.exlibrisgroup\.com\/almaws\/v1\/users\/.*\/fees\/.*/).
         to_return(:status => 200,
-                  :body => File.open(SPEC_ROOT + '/fixtures/fines.xml').read,
-                  :headers => { 'content-type' => ['application/xml;charset=UTF-8']})
+                  :body => File.open(SPEC_ROOT + '/fixtures/fines.json'))
 
     # user requests
-    stub_request(:get, /.*\.exlibrisgroup\.com\/almaws\/v1\/users\/.*\/requests\/.*/).
+    stub_request(:get, /.*\.exlibrisgroup\.com\/almaws\/v1\/users\/.*\/requests/).
         to_return(:status => 200,
-                  :body => File.open(SPEC_ROOT + '/fixtures/requests.xml').read,
-                  :headers => { 'content-type' => ['application/xml;charset=UTF-8']})
+                  :body => File.open(SPEC_ROOT + '/fixtures/requests.json'))
 
     # successful user authentication
-    stub_request(:post, /.*\.exlibrisgroup\.com\/almaws\/v1\/users\/.*\/.*/).
+    stub_request(:post, /.*\.exlibrisgroup\.com\/almaws\/v1\/users\/.*/).
         with(query: hash_including({password: 'right_password'})).
         to_return(:status => 204)
 
     # failed user authentication
-    stub_request(:post, /.*\.exlibrisgroup\.com\/almaws\/v1\/users\/.*\/.*/).
+    stub_request(:post, /.*\.exlibrisgroup\.com\/almaws\/v1\/users\/.*/).
         with(query: hash_including({password: 'wrong_password'})).
         to_return(:status => 400)
 
     # renew user loan
-    stub_request(:post, /.*\.exlibrisgroup\.com\/almaws\/v1\/users\/.*\/loans\/.*\/.*/).
-        with(query: hash_including({loan_id: 'RENEWED_ID'})).
+    stub_request(:post, /.*\.exlibrisgroup\.com\/almaws\/v1\/users\/.*\/loans\/.*/).
+        with(query: hash_including({op: 'renew'})).
         to_return(:status => 200,
-                  :body => File.open(SPEC_ROOT + '/fixtures/renewal_success.xml').read,
-                  :headers => { 'content-type' => ['application/xml;charset=UTF-8']})
+                  :body => File.open(SPEC_ROOT + '/fixtures/renewal_success.json'))
 
     # Request bibs info
     stub_request(:get, /.*\.exlibrisgroup\.com\/almaws\/v1\/bibs/).

@@ -1,0 +1,177 @@
+{
+  "gender": {
+    "value": "FEMALE",
+    "desc": "Female"
+  },
+  "password": "",
+  "status": {
+    "value": "ACTIVE",
+    "desc": "Active"
+  },
+  "link": null,
+  "record_type": {
+    "value": "PUBLIC",
+    "desc": "Public"
+  },
+  "primary_id": "johns",
+  "first_name": "John",
+  "middle_name": "",
+  "last_name": "Smith",
+  "pin_number": "",
+  "job_category": {
+    "value": "Cataloger",
+    "desc": "Cataloger"
+  },
+  "job_description": "The best cataloger",
+  "user_group": {
+    "value": "08",
+    "desc": "Staff"
+  },
+  "campus_code": {
+    "value": "Main",
+    "desc": "Main Campus"
+  },
+  "web_site_url": "",
+  "preferred_language": {
+    "value": "en",
+    "desc": "English"
+  },
+  "birth_date": "1979-01-11Z",
+  "expiry_date": "2030-01-16Z",
+  "purge_date": "2021-01-20Z",
+  "account_type": {
+    "value": "INTERNAL",
+    "desc": "Internal"
+  },
+  "external_id": "",
+  "force_password_change": "",
+  "contact_info": {
+    "address": [
+      {
+        "line1": "Main Street 1",
+        "line2": "Nice building near the corner",
+        "line3": null,
+        "line4": null,
+        "line5": null,
+        "city": "London",
+        "country": {
+          "value": null,
+          "desc": null
+        },
+        "preferred": null,
+        "state_province": "",
+        "postal_code": "",
+        "address_note": "",
+        "start_date": "2013-12-26Z",
+        "address_type": [
+          {
+            "value": "home",
+            "desc": "Home"
+          }
+        ]
+      }
+    ],
+    "email": [
+      {
+        "description": null,
+        "preferred": true,
+        "email_address": "johns@mylib.org",
+        "email_type": [
+          {
+            "value": "personal",
+            "desc": "Personal"
+          }
+        ]
+      }
+    ],
+    "phone": [
+      {
+        "preferred": true,
+        "phone_number": "123456789",
+        "preferred_sms": null,
+        "phone_type": [
+          {
+            "value": "home",
+            "desc": "Home"
+          },
+          {
+            "value": "office",
+            "desc": "Office"
+          }
+        ]
+      }
+    ]
+  },
+  "user_identifier": [
+    {
+      "value": "johns02",
+      "note": null,
+      "status": "ACTIVE",
+      "id_type": {
+        "value": "02",
+        "desc": "User ID"
+      }
+    }
+  ],
+  "user_role": [
+    {
+      "status": {
+        "value": "ACTIVE",
+        "desc": "Active"
+      },
+      "scope": {
+        "value": "110.121",
+        "desc": "Main Campus"
+      },
+      "role_type": {
+        "value": "200",
+        "desc": "Patron"
+      }
+    },
+    {
+      "status": {
+        "value": "ACTIVE",
+        "desc": "Active"
+      },
+      "scope": {
+        "value": "110.121",
+        "desc": "Main Campus"
+      },
+      "role_type": {
+        "value": "204",
+        "desc": "Cataloger"
+      }
+    }
+  ],
+  "user_block": [
+    {
+      "block_type": {
+        "value": "GENERAL",
+        "desc": "General"
+      },
+      "block_description": {
+        "value": "02-GLOBAL",
+        "desc": "Block (02)(GLOBAL)"
+      },
+      "block_status": "ACTIVE"
+    }
+  ],
+  "user_note": [
+    {
+      "note_type": {
+        "value": "ADDRESS",
+        "desc": "Address"
+      },
+      "note_text": "His address was changed a month ago",
+      "user_viewable": true
+    }
+  ],
+  "user_statistic": [
+    {
+      "statistic_category": {
+        "value": "Graduate",
+        "desc": "Graduate"
+      }
+    }
+  ]
+}

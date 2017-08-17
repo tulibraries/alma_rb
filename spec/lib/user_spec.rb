@@ -7,17 +7,18 @@ describe Alma::User do
 
   describe '#new' do
     let(:response_hash) {  {
-        'primary_id'=>'testymc',
-        'first_name'=>'Testy',
-        'middle_name'=>nil,
-        'last_name'=>'McTesterson',
-        'full_name'=>'Testy McTesterson',
-        'other_field' => {'nested' => 'value'}
+        'primary_id'  =>'testymc',
+        'first_name'  =>'Testy',
+        'middle_name' =>nil,
+        'last_name'   =>'McTesterson',
+        'full_name'   =>'Testy McTesterson',
+        'other_field' => {'nested' => 'value'},
+        'desc_field'  => {'desc' => "How is a rspec like writing a desc", 'value' => 'a value' }
 
     }}
     let(:user){described_class.new response_hash}
 
-    it 'defines and id attribute' do
+    it 'defines an id attribute' do
       expect(user.id).to eql 'testymc'
     end
 
@@ -33,77 +34,52 @@ describe Alma::User do
       expect(user.middle_name).to eql nil
     end
 
-    it 'responds to loans' do
-      expect(user).to respond_to :loans
+    it 'returns a hash for a field that is a hash' do
+      expect(user.other_field).to be_a Hash
     end
 
-    it 'responds to fines' do
-      expect(user).to respond_to :fines
+    it 'allows values to be accessed via hash nested keys' do
+      expect(user['desc_field']['desc']).to eql 'How is a rspec like writing a desc'
     end
 
-  end
-
-  describe 'Static Methods' do
-
-    describe "#{described_class}.find_by_id" do
-
-      let(:user) {described_class.find_by_id({:user_id => "johns"})}
-
-      it 'returns a User object' do
-        expect(user).to be_a Alma::User
-      end
-    end
-
-    describe "#{described_class}.fines" do
-      let(:fines) {described_class.get_fines({:user_id => "johns"})}
-
-
-      it 'responds to total_records' do
-        expect(fines).to respond_to :total_record_count
+    describe '#loans' do
+      it 'is responded to' do
+        expect(user).to respond_to :loans
       end
 
-      it 'lists the expected number of results' do
-        expect(fines.total_record_count).to eql 4
+      it 'returns a LoanSet object' do
+        expect(user.loans).to be_a Alma::LoanSet
       end
 
-      it 'has the expected number of results' do
-        expect(fines.list.size).to eql 4
-      end
-
-      it 'responds to sum' do
-        expect(fines).to respond_to :sum
-      end
-
-      it 'lists the expected summed total' do
-        expect(fines.sum).to eql "415.0"
-      end
 
     end
 
-    describe "#{described_class}.requests" do
-      let(:requests) {described_class.get_requests({:user_id => "johns"})}
-
-
-      it 'responds to total_records' do
-        expect(requests).to respond_to :total_record_count
+    describe '#fines' do
+      it 'is responded to' do
+        expect(user).to respond_to :fines
       end
 
-      it 'lists the expected number of results' do
-        expect(requests.total_record_count).to eql 1
+      it 'returns a FineSet object' do
+        expect(user.fines).to be_a Alma::FineSet
       end
-
-      it 'responds to list' do
-        expect(requests).to respond_to :list
+    end
+    
+    describe '#update' do
+      it 'is responded to' do
+        expect(user).to respond_to :update
       end
+    end
 
-      it 'returns an array when list is called' do
-        expect(requests.list).to be_an Array
+    describe '#email' do
+      it 'is responded to' do
+        expect(user).to respond_to :email
       end
-
-      it 'has the expected number of results' do
-        expect(requests.list.size).to eql 1
+    end
+    
+    describe '#preferred_email' do
+      it 'is responded to' do
+        expect(user).to respond_to :preferred_email
       end
-
     end
 
     describe "#{described_class}.authenticate" do

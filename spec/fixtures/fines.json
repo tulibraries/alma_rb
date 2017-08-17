@@ -1,0 +1,90 @@
+{
+  "fee": [
+    {
+      "id": "950645520000121",
+      "type": {
+        "value": "OVERDUEFINE",
+        "desc": "Overdue fine"
+      },
+      "status": {
+        "value": "ACTIVE",
+        "desc": "Active"
+      },
+      "balance": 400,
+      "original_amount": 400,
+      "creation_time": 1413879432450,
+      "comment": "Date generated: 10/21/2014, Due: 06/23/2014, Fine Policy: Overdue Fine for All Hours, Action: Renewed",
+      "title": "History",
+      "barcode": null,
+      "link": "/almaws/v1/users/johns/fees/950645520000121"
+    },
+    {
+      "id": "950645580000121",
+      "type": {
+        "value": "RENEWFEE",
+        "desc": "Renew fee"
+      },
+      "status": {
+        "value": "ACTIVE",
+        "desc": "Active"
+      },
+      "balance": 10,
+      "original_amount": 10,
+      "creation_time": 1413879432709,
+      "comment": null,
+      "title": "History",
+      "barcode": null,
+      "link": "/almaws/v1/users/johns/fees/950645580000121"
+    },
+    {
+      "id": "711924990000121",
+      "type": {
+        "value": "OVERDUEFINE",
+        "desc": "Overdue fine"
+      },
+      "status": {
+        "value": "ACTIVE",
+        "desc": "Active"
+      },
+      "balance": 55,
+      "original_amount": 77,
+      "creation_time": 1405413632630,
+      "comment": "Date generated: 15/07/2014, Due: 23/06/2014, Fine Policy: Overdue Fine for All Hours, Action: Lost with overdue charge",
+      "title": "History",
+      "barcode": null,
+      "transaction": [
+        {
+          "type": {
+            "value": "PAYMENT",
+            "desc": "Payment"
+          },
+          "amount": 22,
+          "created_by": "Ex Libris",
+          "transaction_time": 1413811614144
+        }
+      ],
+      "link": "/almaws/v1/users/johns/fees/711924990000121"
+    },
+    {
+      "id": "950644660000121",
+      "type": {
+        "value": "CREDIT",
+        "desc": "Credit"
+      },
+      "status": {
+        "value": "ACTIVE",
+        "desc": "Active"
+      },
+      "balance": -50,
+      "original_amount": -50,
+      "creation_time": 1413877503188,
+      "comment": null,
+      "title": "History",
+      "barcode": null,
+      "link": "/almaws/v1/users/johns/fees/950644660000121"
+    }
+  ],
+  "currency": "USD",
+  "total_record_count": 4,
+  "total_sum": 415
+}

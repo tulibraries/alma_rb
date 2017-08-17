@@ -1,20 +1,19 @@
 module Alma
   class RenewalResponse
 
-    include Alma::Error
+
 
     def initialize(response)
       @response = response
-      @success  = response.fetch('item_loan', {})
-      @renewed  = error.empty?
+      @success  = response.has_key?('loan_id')
     end
 
     def renewed?
-      @renewed
+      @success
     end
 
     def due_date
-      @success.fetch('due_date', '')
+      @response.fetch('dueDate', '')
     end
 
 
@@ -23,19 +22,23 @@ module Alma
     end
 
     def item_title
-      if @success
-        @success['title']
+      if renewed?
+        @response['title']
       else
         'This Item'
       end
     end
 
     def message
-      if @success
+      if renewed?
         "#{item_title} is now due #{due_date}"
       else
         "#{item_title} could not be renewed."
       end
+    end
+
+    def error_message
+        @response unless renewed?
     end
 
   end
