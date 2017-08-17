@@ -76,9 +76,9 @@ describe Alma::User do
       end
     end
     
-    describe '#update_email!' do
+    describe '#preferred_email' do
       it 'is responded to' do
-        expect(user).to respond_to :update_email!
+        expect(user).to respond_to :preferred_email
       end
     end
 
