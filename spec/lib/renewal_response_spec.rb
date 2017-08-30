@@ -16,7 +16,7 @@ describe Alma::RenewalResponse do
 
     describe '#due_date' do
       it 'returns a timestamp of the new due date' do
-        expect(renewal.due_date).to eql '2014-06-23T14:00:00.000Z'
+        expect(renewal.due_date).to eql '2014-06-23T14:00:00Z'
       end
     end
 
@@ -29,7 +29,7 @@ describe Alma::RenewalResponse do
 
     describe '#error_message' do
       it 'is empty' do
-        expect(renewal.error_message).to be_empty
+        expect(renewal.error_message).to be_nil
       end
     end
 
