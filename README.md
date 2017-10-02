@@ -36,27 +36,20 @@ end
 Now you can access those configuration attributes with `Alma.configuration.apikey`
 
 ### Making Requests
-
-#### Get a list of Users
-```ruby
- users = Alma::User.find
- 
- users.total count
- > 402
- 
- users.list.first.id 
- > 123456789
-```
  
 #### Get a Single user
 ```ruby
- user = Alma::User.find({:user_id => 123456789})
+ user = Alma::User.find(123456789)
  
  user.first_name
  > Chad
  
  user.email
  > chad.nelson@fictional.edu
+ 
+ user.keys
+ >{first_name: "Chad",
+ ...}
 ```
  
 #### Get details on a users fines
@@ -69,18 +62,18 @@ Now you can access those configuration attributes with `Alma.configuration.apike
  fines.total_record_count
  > "2"
  
- fines.list
+ fines
  > [#<Alma::AlmaRecord:0x000000038b7b50
     ...>,
     #<Alma::AlmaRecord:0x000000038b7b28
      ...>]
  
- fines.list.first.title
+ fines.first.title
  > "Practical Object Oriented Design with Ruby"
  
 ```
 
-Each fine object reflects the available fields in the returned XML,[as documented on the Ex Libris Api docs](https://developers.exlibrisgroup.com/alma/apis/xsd/rest_fees.xsd?tags=GET)
+Each fine object reflects the available fields in the returned JSON,[as documented on the Ex Libris Api docs](https://developers.exlibrisgroup.com/alma/apis/xsd/rest_fees.xsd?tags=GET)
 
 #### Get details on a users loans
  
@@ -90,37 +83,23 @@ loans = user.loans
 loans.total_record_count
 > "2"
  
-loans.list
+loans
 > [#<Alma::Loan:0x000000038c6b79
   ...>,
   #<Alma::Loan:0x000000038c6b34
    ...>]
  
-loans.list.first.title
+loans.first.title
  > "Javascript: The Good Parts"
  
-loans.list.first.due_date
+loans.first.due_date
 "2016-12-26z
  
 ```
 Each loan object reflects the available fields in the returned XML,[as documented on the Ex Libris Api docs](https://developers.exlibrisgroup.com/alma/apis/xsd/rest_item_loans.xsd?tags=GET)
 
-To renew an item you can can call the Loan objects renew method
 
-```ruby
-renewal = loans.list.first.renew
-
-renewal.renewed?
-> True
-
-renewal.message 
-> "Javascript: The Good Parts is now due 02-20-17"
-
-```
-
-
-
-#### Get details on a users requests
+#### Get details on a users requests - WIP
 ```ruby
 requests = user.requests
 
