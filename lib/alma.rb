@@ -36,6 +36,8 @@ module Alma
           'k' => 'call_number_type',
           'p' => 'priority',
           'q' => 'library',
+          't' => 'holding_info',
+          '8' => 'holding_id',  
       },
       'AVD' => {
           'INVENTORY_TYPE' => 'digital',
@@ -47,12 +49,15 @@ module Alma
       },
       'AVE' => {
           'INVENTORY_TYPE' => 'electronic',
+          'c' => 'collection_id',
+          'e' => 'activation_status',
           'l' => 'library_code',
           'm' => 'collection',
           'n' => 'public_note',
           's' => 'coverage_statement',
           't' => 'interface_name',
           'u' => 'link_to_service_page',
+          '8' => 'portfolio_pid',
       }
   }
 
