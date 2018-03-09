@@ -20,8 +20,8 @@ describe Alma::AvailabilityResponse do
     it 'has the exepected value' do
       expected = 
         {"991023558879703811"=>
-         {"holdings"=>
-          [{nil=>"m",
+         {holdings:
+          [{
           "holding_id"=>"22277782420003811",
           "institution"=>"01TULI_INST",
           "library_code"=>"MAIN",
@@ -35,7 +35,7 @@ describe Alma::AvailabilityResponse do
           "priority"=>"1",
           "library"=>"Paley Library",
           "inventory_type"=>"physical"},
-           {nil=>"a",
+           {
           "holding_id"=>"22277782440003811",
           "institution"=>"01TULI_INST",
           "library_code"=>"AMBLER",
@@ -50,8 +50,8 @@ describe Alma::AvailabilityResponse do
           "library"=>"Ambler Campus Library",
           "inventory_type"=>"physical"}]},
        "991036880906903811"=>
-        {"holdings"=>
-          [{nil=>"m",
+        {holdings:
+          [{
           "holding_id"=>"22413618700003811",
           "institution"=>"01TULI_INST",
           "library_code"=>"MAIN",
@@ -73,14 +73,14 @@ describe Alma::AvailabilityResponse do
 
     describe 'availability hash members value' do
       it 'has the expected keys' do
-        expect(availability['991023558879703811']).to have_key 'holdings'
+        expect(availability['991023558879703811']).to have_key :holdings
       end
     end
 
     describe 'holdings data in availability hash' do
       it 'has the expected keys' do
         keys = %w{availability location call_number inventory_type}
-        expect(availability['991023558879703811']['holdings'].first.keys).to include(*keys)
+        expect(availability['991023558879703811'][:holdings].first.keys).to include(*keys)
       end
     end
   end
