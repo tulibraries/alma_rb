@@ -8,25 +8,21 @@ module Alma
 
     def initialize(response)
       @availability = parse_bibs_data(response.list)
-     #binding.pry
-
     end
 
+    # Data structure for holdings information of bib records.    
+    # A hash with mms ids as keys, with values of an array of
+    # one or more hashes of holdings info
     def parse_bibs_data(bibs)
-
       bibs.reduce(Hash.new) { |acc, bib|
         acc.merge({"#{bib.id}" => {holdings: build_holdings_for(bib)}})
       }
-      
     end
 
-
     def build_holdings_for(bib)
-
       get_inventory_fields_for(bib).map do |inventory_field|
         # Use the mapping for this inventory type
         subfield_codes = Alma::INVENTORY_SUBFIELD_MAPPING[inventory_field['tag']]
-
          
         inventory_field.
           # Get all the subfields for this inventory field

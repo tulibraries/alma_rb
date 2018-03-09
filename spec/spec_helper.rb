@@ -44,11 +44,5 @@ RSpec.configure do |config|
         to_return(:status => 200,
                   :body => File.open(SPEC_ROOT + '/fixtures/multiple_bibs.json'))
 
-    stub_request(:get, /.*\.exlibrisgroup\.com\/almaws\/v1\/bibs/).
-        with(query: hash_including({expand: 'p_avail,e_avail,d_avail', mms_id: '1,2' })).
-        to_return(:status => 200,
-                  :body => File.open(SPEC_ROOT + '/fixtures/availability_response.xml').read,
-                  :headers => { 'content-type' => ['application/xml;charset=UTF-8']})
-
   end
 end
