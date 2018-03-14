@@ -1,6 +1,5 @@
 module Alma
-  class  Bib #< AlmaRecord
-    #extend Alma::Api
+  class  Bib
     extend Forwardable
     
     def self.find(ids, args)
