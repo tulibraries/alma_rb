@@ -1,3 +1,5 @@
+require 'xmlsimple'
+
 module Alma
   class AvailabilityResponse
 
@@ -6,45 +8,84 @@ module Alma
 
     def initialize(response)
       @availability = parse_bibs_data(response.list)
-
     end
 
+    # Data structure for holdings information of bib records.    
+    # A hash with mms ids as keys, with values of an array of
+    # one or more hashes of holdings info
     def parse_bibs_data(bibs)
-
-      bibs.map do |bib|
-        record = Hash.new
-
-        record['mms_id'] = bib.id
-        record['holdings'] = build_holdings_for(bib)
-
-        record
-      end.reduce(Hash.new) do |acc, avail|
-        acc[avail['mms_id']] = avail.select { |k, v| k != 'mms_id' }
-        acc
-      end
+      bibs.reduce(Hash.new) { |acc, bib|
+        acc.merge({"#{bib.id}" => {holdings: build_holdings_for(bib)}})
+      }
     end
-
 
     def build_holdings_for(bib)
-
       get_inventory_fields_for(bib).map do |inventory_field|
-        subfield_codes_to_fieldnames = Alma::INVENTORY_TO_SUBFIELD_TO_FIELDNAME[inventory_field['tag']]
-
-        # make sure subfields is always an Array (which isn't the case if there's only one subfield element)
-        subfields = [inventory_field.fetch('subfield', [])].flatten(1)
-
-        holding = subfields.reduce(Hash.new) do |acc, subfield|
-          fieldname = subfield_codes_to_fieldnames[subfield['code']]
-          acc[fieldname] = subfield['__content__']
-          acc
-        end
-        holding['inventory_type'] = subfield_codes_to_fieldnames['INVENTORY_TYPE']
-        holding
+        # Use the mapping for this inventory type
+        subfield_codes = Alma::INVENTORY_SUBFIELD_MAPPING[inventory_field['tag']]
+         
+        inventory_field.
+          # Get all the subfields for this inventory field
+          fetch('subfield', []).
+          # Limit to only subfields codes for which we have a mapping
+          select {|sf| subfield_codes.key? sf['code'] }.
+          # Transform the array of subfields into a hash with mapped code as key 
+          reduce(Hash.new) { |acc, subfield| 
+            acc.merge({"#{subfield_codes[subfield['code']]}" => subfield['content']})
+           }.
+          # Include the inventory type
+          merge({'inventory_type' => subfield_codes['INVENTORY_TYPE']})
       end
     end
 
     def get_inventory_fields_for(bib)
-      bib.record.fetch('datafield', []).select { |df| Alma::INVENTORY_TO_SUBFIELD_TO_FIELDNAME.key?(df['tag']) } || []
+      # Return only the datafields with tags AVA, AVD, or AVE  
+      bib.record
+        .fetch('datafield', [])
+        .select { |df| Alma::INVENTORY_SUBFIELD_MAPPING.key?(df['tag']) }
     end
   end
+
+  INVENTORY_SUBFIELD_MAPPING =
+  {
+     'AVA' => {
+         'INVENTORY_TYPE' => 'physical',
+         'a' => 'institution',
+         'b' => 'library_code',
+         'c' => 'location',
+         'd' => 'call_number',
+         'e' => 'availability',
+         'f' => 'total_items',
+         'g' => 'non_available_items',
+         'j' => 'location_code',
+         'k' => 'call_number_type',
+         'p' => 'priority',
+         'q' => 'library',
+         't' => 'holding_info',
+         '8' => 'holding_id',  
+     },
+     'AVD' => {
+         'INVENTORY_TYPE' => 'digital',
+         'a' => 'institution',
+         'b' => 'representations_id',
+         'c' => 'representation',
+         'd' => 'repository_name',
+         'e' => 'label',
+     },
+     'AVE' => {
+         'INVENTORY_TYPE' => 'electronic',
+         'c' => 'collection_id',
+         'e' => 'activation_status',
+         'l' => 'library_code',
+         'm' => 'collection',
+         'n' => 'public_note',
+         's' => 'coverage_statement',
+         't' => 'interface_name',
+         'u' => 'link_to_service_page',
+         '8' => 'portfolio_pid',
+     }
+ }
+
+
+
 end

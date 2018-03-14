@@ -1,21 +1,30 @@
 module Alma
-  class BibSet < ResultSet
+  class BibSet
 
-    def top_level_key
-      'bibs'
+    extend Forwardable
+    include Enumerable
+    #include Alma::Error
+
+    attr_reader :response
+    def_delegators :list, :each, :size
+    def_delegators :response, :[], :fetch
+
+    def initialize(response_body_hash)
+      @response = response_body_hash
     end
 
-    def response_records_key
+    def list
+      @list ||= response.fetch(key, []).map do |record|
+        Alma::Bib.new(record)
+      end
+    end
+
+    def key
       'bib'
     end
 
-    def single_record_class
-      Alma::Bib
-    end
-
-    # Doesn't seem to actually return a total record count as documented.
     def total_record_count
-      (response_records.is_a? Array) ? size : 1
+      size
     end
 
   end
