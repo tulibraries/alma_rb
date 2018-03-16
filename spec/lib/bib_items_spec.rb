@@ -8,41 +8,40 @@ describe Alma::BibItems do
   end
 
   let(:mms_id) { "991004101219703811" }
-  let(:options) { {holding_id: "9987654321"} }
+  let(:args) { {holding_id: "9987654321", user_id: "test_id"} }
 
   describe "class method find" do
+    let(:mms_only) { described_class.find(mms_id) }
+    let(:with_options) { described_class.find(mms_id, args) }
+    let(:with_invalid_options) { described_class.find(mms_id, args={bad: "option"}) }
+
     describe "can accept paramaters" do
-
-      let(:mms_only) { described_class.find(mms_id) }
-      let(:with_options) { described_class.find(mms_id, options) }
-
       it 'of a lone mms_id' do
         allow(described_class).to receive(:find).with(instance_of(String))
       end
 
-      it 'of an optional options Hash' do
+      it 'of an mms_is and an args Hash' do
         allow(described_class)
           .to receive(:find).with(instance_of(String), instance_of(Hash))
       end
     end
 
     it 'uses ALL as the default holdings id if a holdings id is not passed' do
-      response = described_class.find(mms_id)
-      expect(response.request.uri.to_s).to include("holdings/ALL")
+      expect(mms_only.request.uri.to_s).to include("holdings/ALL")
     end
 
-    it 'returns an #{described_class} object'
+    it 'passes optional args as request queries' do
+      expect(with_options.request.options[:query].keys).to include :user_id
+    end
 
+    it 'filters invalid optional args' do
+      expect(with_invalid_options.request.options[:query].keys).not_to include :bad
+    end
   end
 
-
-
-
-  it "fetches the data from the api endpoint" do
-    mms_id = "991029347659703811"
-
-    api_call = described_class.find(mms_id)
-
-    expect(api_call.response.code).to eq "200"
+  describe "#{described_class} instance" do
+    it "responds to items"
+    it "it delegates hash access to items"
+    it "responds to raw_response"
   end
 end
