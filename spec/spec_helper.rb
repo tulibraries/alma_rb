@@ -8,7 +8,6 @@ SPEC_ROOT = File.dirname __FILE__
 RSpec.configure do |config|
   config.before(:each) do
 
-    WebMock.disable_net_connect!(allow: %r{https://api-na.hosted.exlibrisgroup.com/almaws/v1/bibs/991029347659703811/holdings/22240472680003811})
 
     # User details
     stub_request(:get, /.*\.exlibrisgroup\.com\/almaws\/v1\/users\/.*/).
