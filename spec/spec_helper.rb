@@ -8,6 +8,7 @@ SPEC_ROOT = File.dirname __FILE__
 RSpec.configure do |config|
   config.before(:each) do
 
+
     # User details
     stub_request(:get, /.*\.exlibrisgroup\.com\/almaws\/v1\/users\/.*/).
         to_return(:status => 200,
@@ -39,10 +40,14 @@ RSpec.configure do |config|
         to_return(:status => 200,
                   :body => File.open(SPEC_ROOT + '/fixtures/renewal_success.json'))
 
+    stub_request(:get, /.*\.exlibrisgroup\.com\/almaws\/v1\/bibs\/.*\/holdings\/.*\/items/).
+        to_return(:status => 200,
+        :body => File.open(SPEC_ROOT + '/fixtures/bib_items.json'))
+
     # Request bibs info
+
     stub_request(:get, /.*\.exlibrisgroup\.com\/almaws\/v1\/bibs/).
         to_return(:status => 200,
                   :body => File.open(SPEC_ROOT + '/fixtures/multiple_bibs.json'))
-
   end
 end

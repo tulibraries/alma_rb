@@ -15,6 +15,7 @@ require 'alma/bib_set'
 require 'alma/request_set'
 require 'alma/renewal_response'
 require 'alma/availability_response'
+require 'alma/bib_items'
 
 module Alma
 
