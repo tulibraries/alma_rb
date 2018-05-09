@@ -25,7 +25,7 @@ describe Alma::RenewalResponse do
     end
 
     describe '#item_title' do
-      it 'rturns the title of the renewed object' do
+      it 'returns the title of the renewed object' do
         expect(renewal.item_title).to eql 'History'
       end
     end

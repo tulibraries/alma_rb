@@ -1,0 +1,24 @@
+{
+    "request_option": [
+        {
+            "type": {
+                "value": "HOLD",
+                "desc": "Hold"
+            },
+            "request_url": "https://api-na.hosted.exlibrisgroup.com/almaws/v1/users/915602377/requests/"
+        },
+        {
+            "type": {
+                "value": "BOOKING",
+                "desc": "Booking"
+            },
+            "request_url": "https://api-na.hosted.exlibrisgroup.com/almaws/v1/users/915602377/requests/"
+        },
+        {
+            "type": {
+                "value": "PURCHASE",
+                "desc": "Purchase"
+            }
+        }
+    ]
+}
