@@ -1,0 +1,10 @@
+{
+    "request_option": [
+        {
+            "type": {
+                "value": "PURCHASE",
+                "desc": "Purchase"
+            }
+        }
+    ]
+}

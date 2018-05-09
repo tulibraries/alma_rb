@@ -20,7 +20,7 @@ describe Alma::BibItems do
         allow(described_class).to receive(:find).with(instance_of(String))
       end
 
-      it 'of an mms_is and an args Hash' do
+      it 'of an mms_id and an args Hash' do
         allow(described_class)
           .to receive(:find).with(instance_of(String), instance_of(Hash))
       end

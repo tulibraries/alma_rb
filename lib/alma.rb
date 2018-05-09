@@ -16,6 +16,7 @@ require 'alma/request_set'
 require 'alma/renewal_response'
 require 'alma/availability_response'
 require 'alma/bib_items'
+require 'alma/request_options'
 
 module Alma
 

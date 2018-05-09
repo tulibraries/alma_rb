@@ -49,5 +49,16 @@ RSpec.configure do |config|
     stub_request(:get, /.*\.exlibrisgroup\.com\/almaws\/v1\/bibs/).
         to_return(:status => 200,
                   :body => File.open(SPEC_ROOT + '/fixtures/multiple_bibs.json'))
+
+    # Request options
+
+    stub_request(:get, /.*\.exlibrisgroup\.com\/almaws\/v1\/bibs\/.*\/request-options/).
+        to_return(:status => 200,
+                  :body => File.open(SPEC_ROOT + '/fixtures/request_options.json'))
+
+    stub_request(:get, /.*\.exlibrisgroup\.com\/almaws\/v1\/bibs\/NOHOLD\/request-options/).
+        to_return(:status => 200,
+                  :body => File.open(SPEC_ROOT + '/fixtures/request_options_no_hold.json'))
+
   end
 end
