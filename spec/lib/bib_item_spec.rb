@@ -21,7 +21,7 @@ describe Alma::BibItem do
       end
 
       it 'of an mms_id and an args Hash' do
-          expect {with_options}.not_to raise_error
+        expect {with_options}.not_to raise_error
       end
     end
 
@@ -137,14 +137,20 @@ describe Alma::BibItem do
           "alternative_call_number" => "ALT CALL",
           "call_number" =>"PR4167.J2 1962",
           "temp_call_number" => "",
-          }
-          }
         }
-      let(:item) {described_class.new(alt_call)}
-      it "returns the alternate call number" do
-        expect(item.call_number).to eql "ALT CALL"
-      end
+      }
+    }
+    let(:item) {described_class.new(alt_call)}
+    it "returns the alternate call number" do
+      expect(item.call_number).to eql "ALT CALL"
     end
   end
 
+  describe '#missing_or_lost?' do
+    it "correctly identifies missing items" do
+      missing = {"item_data" => {"process_type" => {"value" => "MISSING"} } }
+      expect(described_class.new(missing).missing_or_lost?).to be true
+    end
+  end
+end
 end

@@ -1,6 +1,10 @@
 require 'alma/bib_item_set'
 module Alma
   class BibItem
+    extend Forwardable
+
+    attr_reader :item
+    def_delegators :item, :[], :has_key?, :keys, :to_json
 
     PERMITTED_ARGS  = [
       :limit, :offset, :expand, :user_id, :current_library,
