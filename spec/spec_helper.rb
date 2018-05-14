@@ -2,6 +2,8 @@ $LOAD_PATH.unshift File.expand_path("../../lib", __FILE__)
 require "alma"
 require 'pry'
 require 'webmock/rspec'
+require 'simplecov'
+SimpleCov.start
 
 SPEC_ROOT = File.dirname __FILE__
 
@@ -40,9 +42,6 @@ RSpec.configure do |config|
         to_return(:status => 200,
                   :body => File.open(SPEC_ROOT + '/fixtures/renewal_success.json'))
 
-    stub_request(:get, /.*\.exlibrisgroup\.com\/almaws\/v1\/bibs\/.*\/holdings\/.*\/items/).
-        to_return(:status => 200,
-        :body => File.open(SPEC_ROOT + '/fixtures/bib_items.json'))
 
     # Request bibs info
 
@@ -50,7 +49,11 @@ RSpec.configure do |config|
         to_return(:status => 200,
                   :body => File.open(SPEC_ROOT + '/fixtures/multiple_bibs.json'))
 
-    # Request options
+    stub_request(:get, /.*\.exlibrisgroup\.com\/almaws\/v1\/bibs\/.*\/holdings\/.*\/items/).
+        to_return(:status => 200,
+                  :body => File.open(SPEC_ROOT + '/fixtures/bib_items.json'))
+
+        # Request options
 
     stub_request(:get, /.*\.exlibrisgroup\.com\/almaws\/v1\/bibs\/.*\/request-options/).
         to_return(:status => 200,
@@ -59,6 +62,8 @@ RSpec.configure do |config|
     stub_request(:get, /.*\.exlibrisgroup\.com\/almaws\/v1\/bibs\/NOHOLD\/request-options/).
         to_return(:status => 200,
                   :body => File.open(SPEC_ROOT + '/fixtures/request_options_no_hold.json'))
+
+
 
   end
 end
