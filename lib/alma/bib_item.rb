@@ -1,6 +1,10 @@
 require 'alma/bib_item_set'
 module Alma
   class BibItem
+    extend Forwardable
+
+    attr_reader :item
+    def_delegators :item, :[], :has_key?, :keys, :to_json
 
     PERMITTED_ARGS  = [
       :limit, :offset, :expand, :user_id, :current_library,
@@ -115,7 +119,7 @@ module Alma
     end
 
     def missing_or_lost?
-      process_type.match?(/MISSING|LOST_LOAN/)
+      !!process_type.match(/MISSING|LOST_LOAN/)
     end
 
     def base_status
