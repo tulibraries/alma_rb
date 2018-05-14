@@ -119,7 +119,7 @@ module Alma
     end
 
     def missing_or_lost?
-      process_type.match?(/MISSING|LOST_LOAN/)
+      !!process_type.match(/MISSING|LOST_LOAN/)
     end
 
     def base_status
