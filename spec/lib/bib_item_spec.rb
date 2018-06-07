@@ -109,7 +109,7 @@ describe Alma::BibItem do
       end
 
       it "has a physical_material_type" do
-        expect(item.physical_material_type).to eql "BOOK"
+        expect(item.physical_material_type["value"]).to eql "BOOK"
       end
     end
 

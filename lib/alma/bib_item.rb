@@ -143,7 +143,7 @@ module Alma
     end
 
     def physical_material_type
-      item_data.dig("physical_material_type", "value") || ""
+      item_data.dig("physical_material_type") || ""
     end
 
     def public_note
