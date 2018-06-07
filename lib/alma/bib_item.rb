@@ -143,7 +143,7 @@ module Alma
     end
 
     def physical_material_type
-      item_data.fetch("physical_material_type") || ""
+      item_data.fetch("physical_material_type")
     end
 
     def public_note
