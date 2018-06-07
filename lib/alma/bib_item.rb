@@ -142,6 +142,10 @@ module Alma
       item_data.fetch("description", "")
     end
 
+    def physical_material_type
+      item_data.dig("physical_material_type", "value") || ""
+    end
+
     def public_note
       item_data.fetch("public_note", "")
     end

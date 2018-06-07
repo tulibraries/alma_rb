@@ -56,7 +56,8 @@ describe Alma::BibItem do
           "location" => {"value"=>"stacks", "desc"=>"Main Stacks"},
           "base_status" => {"value" => "1", "desc" => "Item in place"},
           "description" => "a description",
-          "public_note" => "a public note"
+          "public_note" => "a public note",
+          "physical_material_type" => {"value" => "BOOK", "desc" => "Book"}
         }
       }
     }
@@ -105,6 +106,10 @@ describe Alma::BibItem do
 
       it "has a description" do
         expect(item.description).to eql "a description"
+      end
+
+      it "has a physical_material_type" do
+        expect(item.physical_material_type).to eql "BOOK"
       end
     end
 
