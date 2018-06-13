@@ -51,7 +51,17 @@ describe Alma::User do
         expect(user.loans).to be_a Alma::LoanSet
       end
 
+      it 'expands renewableby default' do
+        user.loans
+        expect(WebMock).to have_requested(:get, /.*\.exlibrisgroup\.com/)
+          .with(query: hash_including({expand: "renewable"}))
+      end
 
+      it 'passes extra arguments as query params' do
+        user.loans(limit: 25)
+        expect(WebMock).to have_requested(:get, /.*\.exlibrisgroup\.com/)
+          .with(query: hash_including({limit: "25"}))
+      end
     end
 
     describe '#fines' do

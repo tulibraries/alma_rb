@@ -77,9 +77,9 @@ module Alma
     end
 
 
-    def loans
+    def loans(args={})
       unless @loans && !recheck_loans?
-        @loans = send_loans_request
+        @loans = send_loans_request(args)
         @recheck_loans = false
       end
       @loans
@@ -121,11 +121,12 @@ module Alma
 
     private
 
-    def send_loans_request
-      #TODO Handle Additional Parameters
-      #TODO Handle Pagination
+    def send_loans_request(args={})
       #TODO Handle looping through all results
-      response = HTTParty.get("#{users_base_path}/#{id}/loans", headers: headers)
+
+      # Always expand renewable unless you really don't want to
+      args["expand"] ||= "renewable"
+      response = HTTParty.get("#{users_base_path}/#{id}/loans", query: args, headers: headers)
       Alma::LoanSet.new(get_body_from(response))
     end
 
