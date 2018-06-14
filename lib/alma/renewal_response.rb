@@ -12,8 +12,12 @@ module Alma
       @success
     end
 
+    def has_error?
+      !renewed?
+    end
+
     def due_date
-      @response.fetch('dueDate', '')
+      @response.fetch('due_date', '')
     end
 
 

@@ -13,7 +13,7 @@ module Alma
     end
 
     def list
-      fetch(key, [])
+      @response[key].map{|item| Alma::AlmaRecord.new(item)}
     end
 
     def total_record_count
