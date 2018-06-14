@@ -10,7 +10,7 @@
   },
   "userId": "ID1234",
   "itemBarcode": "000237055710000121",
-  "dueDate": "2014-06-23T14:00:00Z",
+  "due_date": "2014-06-23T14:00:00Z",
   "loanStatus": "ACTIVE",
   "loanDate": "2014-06-22T11:00:28Z",
   "processStatus": "NORMAL",
