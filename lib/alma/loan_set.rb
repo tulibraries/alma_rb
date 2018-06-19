@@ -13,7 +13,7 @@ module Alma
     end
 
     def list
-      @response[key].map{|item| Alma::Loan.new(item)}
+      @response.fetch(key, []).map{|item| Alma::Loan.new(item)}
     end
 
     def key
