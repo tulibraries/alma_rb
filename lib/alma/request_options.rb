@@ -23,6 +23,10 @@ module Alma
       !request_options.select {|option| option["type"]["value"] == "HOLD" }.empty?
     end
 
+    def digitization_allowed?
+      !request_options.select {|option| option["type"]["value"] == "DIGITIZATION" }.empty?
+    end
+
     private
 
     def self.region

@@ -43,4 +43,17 @@ describe Alma::RequestOptions do
       expect(no_hold.hold_allowed?).to be false
     end
   end
+
+  describe "instance method digitization_allowed?", :focus do
+    let(:ro) { described_class.get("991030169919703811")}
+    let(:no_hold) { described_class.get("NOHOLD")}
+
+    it 'returns true when a digitization option is present' do
+      expect(ro.digitization_allowed?).to be true
+    end
+
+    it 'returns false when a digitization option is not present' do
+      expect(no_hold.digitization_allowed?).to be false
+    end
+  end
 end
