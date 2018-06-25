@@ -49,11 +49,11 @@ describe Alma::RequestOptions do
     let(:no_hold) { described_class.get("NOHOLD")}
 
     it 'returns true when a digitization option is present' do
-      expect(ro.hold_allowed?).to be true
+      expect(ro.digitization_allowed?).to be true
     end
 
     it 'returns false when a digitization option is not present' do
-      expect(no_hold.hold_allowed?).to be false
+      expect(no_hold.digitization_allowed?).to be false
     end
   end
 end
