@@ -86,11 +86,10 @@ module Alma
     end
 
     def renew_loan(loan_id)
-      response = send_loan_renewal_request({user_id: id, loan_id: loan_id})
+      response = self.class.send_loan_renewal_request({user_id: id, loan_id: loan_id})
       if response.renewed?
         @recheck_loans ||= true
       end
-      get_body_from response
     end
 
 
@@ -136,14 +135,24 @@ module Alma
     # @option args [String] :loan_id The unique id of the loan
     # @option args [String] :user_id_type Type of identifier being used to search. OPTIONAL
     # @return [RenewalResponse] Object indicating the renewal message
-    def send_loan_renewal_request(args)
-      user_id = args.delete(:user_id) { raise ArgumentError }
+    def self.send_loan_renewal_request(args)
       loan_id = args.delete(:loan_id) { raise ArgumentError }
+      user_id = args.delete(:user_id) { raise ArgumentError }
       params = {op: 'renew'}
-      response = HTTParty.post("#{users_base_path}/#{id}/loans/#{loan_id}", query: params, headers: headers)
-      RenewalResponse.new(get_body_from(response))
+      response = HTTParty.post("#{users_base_path}/#{user_id}/loans/#{loan_id}", query: params, headers: headers)
+      RenewalResponse.new(JSON.parse(response.body))
     end
 
+    # Attempts to renew multiple items for a user
+    # @param [Hash] args
+    # @option args [String] :user_id The unique id of the user
+    # @option args [Array<String>] :loan_ids The unique ids of the loans
+    # @option args [String] :user_id_type Type of identifier being used to search. OPTIONAL
+    # @return [Array<RenewalResponse>] Array of Objects indicating the renewal messages
+    def self.send_multiple_loan_renewal_requests(args)
+      loan_ids = args.delete(:loan_ids) { raise ArgumentError }
+      loan_ids.map { |id| Alma::User.send_loan_renewal_request(args.merge(loan_id: id))}
+    end
 
     def get_body_from(response)
       JSON.parse(response.body)
@@ -174,5 +183,5 @@ module Alma
       Alma.configuration.apikey
     end
 
-    end
   end
+end
