@@ -5,15 +5,19 @@ module Alma
     #include Alma::Error
 
     attr_reader :response
-    def_delegators :list, :each, :size
     def_delegators :response, :[], :fetch
 
     def initialize(response_body_hash)
       @response = response_body_hash
     end
 
-    def list
+    def each
       @response.fetch(key, []).map{|item| Alma::AlmaRecord.new(item)}
+    end
+    alias list each
+
+    def size
+      each.count
     end
 
     def total_record_count
