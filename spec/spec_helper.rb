@@ -63,6 +63,12 @@ RSpec.configure do |config|
         to_return(:status => 200,
                   :body => File.open(SPEC_ROOT + '/fixtures/request_options_no_hold.json'))
 
+    stub_request(:post, /.*\.exlibrisgroup\.com\/almaws\/v1\/bibs\/foo\/requests/).
+        to_return(:status => 200)
+
+    stub_request(:get,/.*\/error/).
+    to_return(:status => 400,
+              :body => File.open(SPEC_ROOT + '/fixtures/error.json'))
 
 
   end
