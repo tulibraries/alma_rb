@@ -72,11 +72,11 @@ RSpec.configure do |config|
 
     # Item Level Request options
 
-    stub_request(:get, /.*\.exlibrisgroup\.com\/almaws\/v1\/bibs\/NOHOLD\/holdings\/123\/items\/456\/request-options/).
+    stub_request(:get, /.*\.exlibrisgroup\.com\/almaws\/v1\/bibs\/.*\/holdings\/.*\/items\/.*\/request-options/).
         to_return(:status => 200,
                   :body => File.open(SPEC_ROOT + '/fixtures/request_options.json'))
 
-    stub_request(:get, /.*\.exlibrisgroup\.com\/almaws\/v1\/bibs\/NOHOLD\/holdings\/123\/items\/456\/request-options/).
+    stub_request(:get, /.*\.exlibrisgroup\.com\/almaws\/v1\/bibs\/ITEMNOHOLD\/holdings\/123\/items\/456\/request-options/).
         to_return(:status => 200,
                   :body => File.open(SPEC_ROOT + '/fixtures/request_options_no_hold.json'))
 

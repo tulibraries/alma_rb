@@ -34,28 +34,28 @@ describe Alma::ItemRequestOptions do
   end
 
   describe "instance method hold_allowed?" do
-    let(:ro) { described_class.get("991030169919703811", "22242987750003811", "23242987720003811")}
-    let(:no_hold) { described_class.get("NOHOLD", 123, 456)}
+    let(:item_ro) { described_class.get("991030169919703811", "22242987750003811", "23242987720003811")}
+    let(:item_no_hold) { described_class.get("ITEMNOHOLD", 123, 456)}
 
     it 'returns true when a hold option is present' do
-      expect(ro.hold_allowed?).to be true
+      expect(item_ro.hold_allowed?).to be true
     end
 
     it 'returns false when a hold option is not present' do
-      expect(no_hold.hold_allowed?).to be false
+      expect(item_no_hold.hold_allowed?).to be false
     end
   end
 
   describe "instance method digitization_allowed?" do
-    let(:ro) { described_class.get("991030169919703811", "22242987750003811", "23242987720003811")}
-    let(:no_hold) { described_class.get("NOHOLD", 123, 456)}
+    let(:item_ro) { described_class.get("991030169919703811", "22242987750003811", "23242987720003811")}
+    let(:item_no_hold) { described_class.get("ITEMNOHOLD", 123, 456)}
 
     it 'returns true when a digitization option is present' do
-      expect(ro.digitization_allowed?).to be true
+      expect(item_ro.digitization_allowed?).to be true
     end
 
     it 'returns false when a digitization option is not present' do
-      expect(no_hold.digitization_allowed?).to be false
+      expect(item_no_hold.digitization_allowed?).to be false
     end
   end
 end
