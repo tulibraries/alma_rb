@@ -18,6 +18,7 @@ require 'alma/renewal_response'
 require 'alma/availability_response'
 require 'alma/bib_item'
 require 'alma/request_options'
+require 'alma/item_request_options'
 require 'alma/request'
 
 module Alma

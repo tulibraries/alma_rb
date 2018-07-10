@@ -53,7 +53,7 @@ RSpec.configure do |config|
         to_return(:status => 200,
                   :body => File.open(SPEC_ROOT + '/fixtures/bib_items.json'))
 
-        # Request options
+    # Request options
 
     stub_request(:get, /.*\.exlibrisgroup\.com\/almaws\/v1\/bibs\/.*\/request-options/).
         to_return(:status => 200,
@@ -67,8 +67,19 @@ RSpec.configure do |config|
         to_return(:status => 200)
 
     stub_request(:get,/.*\/error/).
-    to_return(:status => 400,
-              :body => File.open(SPEC_ROOT + '/fixtures/error.json'))
+        to_return(:status => 400,
+                  :body => File.open(SPEC_ROOT + '/fixtures/error.json'))
+
+    # Item Level Request options
+
+    stub_request(:get, /.*\.exlibrisgroup\.com\/almaws\/v1\/bibs\/.*\/holdings\/.*\/items\/.*\/request-options/).
+        to_return(:status => 200,
+                  :body => File.open(SPEC_ROOT + '/fixtures/request_options.json'))
+
+    stub_request(:get, /.*\.exlibrisgroup\.com\/almaws\/v1\/bibs\/ITEMNOHOLD\/holdings\/123\/items\/456\/request-options/).
+        to_return(:status => 200,
+                  :body => File.open(SPEC_ROOT + '/fixtures/request_options_no_hold.json'))
+
 
 
   end
