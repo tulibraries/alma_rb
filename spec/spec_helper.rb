@@ -80,7 +80,7 @@ RSpec.configure do |config|
         to_return(:status => 200,
                   :body => File.open(SPEC_ROOT + '/fixtures/request_options_no_hold.json'))
 
-    stub_request(:post, /.*\.exlibrisgroup\.com\/almaws\/v1\/bibs\/foo\/holdings\/hold\/items\/pid\/requests/).
+    stub_request(:post, /.*\.exlibrisgroup\.com\/almaws\/v1\/bibs\/.*\/holdings\/.*\/items\/.*\/requests/).
         to_return(:status => 200)
 
   end
