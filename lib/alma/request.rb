@@ -67,4 +67,34 @@ module Alma
       end
     end
   end
+
+  class ItemRequest < BibRequest
+    def self.submit(args)
+      request = new(args)
+      response = HTTParty.post(
+        "#{bibs_base_path}/#{request.mms_id}/holdings/#{request.holding_id}/items/#{request.item_pid}/requests",
+        query: {user_id: request.user_id},
+        headers: headers,
+        body: request.body.to_json
+        )
+        Alma::Response.new(response)
+    end
+
+    attr_reader :holding_id, :item_pid
+    def initialize(args)
+      super(args)
+      @holding_id = args.delete(:holding_id) { raise ArgumentError.new(":holding_id option must be specified to create request") }
+      @item_pid = args.delete(:item_pid) { raise ArgumentError.new(":item_pid option must be specified to create request") }
+    end
+
+    def digitization_validation(args)
+      super(args)
+
+      args.fetch(:description) do
+        raise ArgumentError.new(
+        ":description option must be specified when request_type is DIGITIZATION"
+        )
+      end
+    end
+  end
 end
