@@ -136,21 +136,6 @@ describe Alma::BibItem do
       end
     end
 
-    describe 'has alternate call number and call number' do
-      let(:alt_call) {
-        {"item_data" => {
-          "alternative_call_number" => "ALT CALL",
-          "call_number" =>"PR4167.J2 1962",
-          "temp_call_number" => "",
-        }
-      }
-    }
-    let(:item) {described_class.new(alt_call)}
-    it "returns the alternate call number" do
-      expect(item.call_number).to eql "ALT CALL"
-    end
-  end
-
   describe '#missing_or_lost?' do
     it "correctly identifies missing items" do
       missing = {"item_data" => {"process_type" => {"value" => "MISSING"} } }

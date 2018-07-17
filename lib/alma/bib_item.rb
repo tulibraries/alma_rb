@@ -93,13 +93,11 @@ module Alma
     end
 
     def call_number
-        if has_temp_call_number?
-          holding_data.fetch("temp_call_number")
-        elsif has_alt_call_number?
-          alt_call_number
-        else
-          holding_data.fetch("call_number","")
-        end
+      if has_temp_call_number?
+        holding_data.fetch("temp_call_number")
+      else
+        holding_data.fetch("call_number","")
+      end
     end
 
     def has_alt_call_number?
