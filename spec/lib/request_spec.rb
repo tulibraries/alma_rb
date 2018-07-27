@@ -94,6 +94,41 @@ describe Alma::BibRequest do
         end
       end
     end
+
+    context 'booking requests' do
+      let(:base_options) { { mms_id: "foo", user_id: "user"} }
+
+      context 'when it receives required options' do
+        let(:submit_request) do
+          described_class.submit(base_options.merge(
+          {
+            request_type: "BOOKING",
+            pickup_location_type: "LIBRARY",
+            pickup_location_library: "MAIN",
+            booking_start_date: "7-20-18",
+            booking_end_date: "7-27-18"
+          }
+          ))
+        end
+
+        it 'sends a post to the expected url' do
+          submit_request
+          expect(WebMock).to have_requested(:post, /.*\/bibs\/foo/)
+            .with(
+              query: hash_including({ user_id: "user"}),
+              body: hash_including({request_type: "BOOKING"})
+            )
+        end
+
+        it 'returns a request_response object' do
+          expect(submit_request).to be_a Alma::Response
+        end
+
+        it 'was sucessful' do
+          expect(submit_request.success?).to be true
+        end
+      end
+    end
   end
 end
 
