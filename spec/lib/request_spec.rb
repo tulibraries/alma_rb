@@ -27,6 +27,32 @@ describe Alma::BibRequest do
         options = {mms_id: "foo", user_id: "user", request_type: "invalid"}
         expect {described_class.submit(options)}.to raise_error(ArgumentError, /:request_type option/)
       end
+
+      it 'raises an Error when pickup_location_library is not an included option' do
+        expect {described_class.submit({mms_id: "foo", user_id: "user", request_type: "HOLD", pickup_location_type: "LIBRARY" })}.to raise_error(ArgumentError, /:pickup_location_library option/)
+      end
+
+      it 'raises an Error when booking_start_date is not an included option' do
+        expect {described_class.submit({mms_id: "foo", user_id: "user", request_type: "BOOKING", booking_end_date: "7/20/18" })}.to raise_error(ArgumentError, /:booking_start_date option/)
+      end
+
+      it 'raises an Error when booking_end_date is not an included option' do
+        expect {described_class.submit({mms_id: "foo", user_id: "user", request_type: "BOOKING", booking_start_date: "7/20/18" })}.to raise_error(ArgumentError, /:booking_end_date option/)
+      end
+
+      it 'raises an Error when target_destination is not an included option' do
+        expect {described_class.submit({mms_id: "foo", user_id: "user", request_type: "DIGITIZATION" })}.to raise_error(ArgumentError, /:target_destination option/)
+      end
+
+      it 'raises an Error when partial_digitization is not an included option' do
+        expect {described_class.submit({mms_id: "foo", user_id: "user", request_type: "DIGITIZATION", target_destination: "target" })}.to raise_error(ArgumentError, /:partial_digitization option/)
+      end
+
+      it 'raises an Error when comments is not an included option when partial digitization is true' do
+        expect {described_class.submit({mms_id: "foo", user_id: "user", request_type: "DIGITIZATION", target_destination: "target", partial_digitization: true })}.to raise_error(ArgumentError, /:comment option/)
+      end
+
+
     end
 
     context 'digitization requests' do
