@@ -27,18 +27,34 @@ module Alma
 
 
     def normalize!(args)
-      digitization_normalization(args) if digitization_request?
+      request_type_normalization!(args)
+      additional_normalization!(args)
+    end
+
+    def request_type_normalization!(args)
+      method = "#{@request_type.downcase}_normalization".to_sym
+      send(method, args) if respond_to? method
+    end
+
+    # Intended to be overridden by subclasses, allowing extra normalization logic to be provided
+    def additional_normalization!(args)
     end
 
     def validate!(args)
       unless REQUEST_TYPES.include?(request_type)
         raise ArgumentError.new(":request_type option must be specified and one of #{REQUEST_TYPES.join(", ")} to submit a request")
       end
-      digitization_validation(args) if digitization_request?
+      request_type_validation!(args)
+      additional_validation!(args)
     end
 
-    def digitization_request?
-      request_type == "DIGITIZATION"
+    def request_type_validation!(args)
+      method = "#{@request_type.downcase}_validation".to_sym
+      send(method, args) if respond_to? method
+    end
+
+    # Intended to be overridden by subclasses, allowing extra validation logic to be provided
+    def additional_validation!(args)
     end
 
     def digitization_normalization(args)
@@ -66,6 +82,54 @@ module Alma
         end
       end
     end
+
+    def booking_normalization(args)
+      if args[:material_type].is_a? String
+        args[:material_type] = { value: args[:material_type] }
+      end
+    end
+
+    def booking_validation(args)
+      args.fetch(:booking_start_date) do
+        raise ArgumentError.new(
+        ":booking_start_date option must be specified when request_type is BOOKING"
+        )
+      end
+      args.fetch(:booking_end_date) do
+        raise ArgumentError.new(
+        ":booking_end_date option must be specified when request_type is BOOKING"
+        )
+      end
+      args.fetch(:pickup_location_type) do
+        raise ArgumentError.new(
+        ":pickup_location_type option must be specified when request_type is BOOKING"
+        )
+      end
+      args.fetch(:pickup_location_library) do
+        raise ArgumentError.new(
+        ":pickup_location_library option must be specified when request_type is BOOKING"
+        )
+      end
+    end
+
+    def hold_normalization(args)
+      # if args[:material_type].is_a? String
+      #   args[:material_type] = { value: args[:material_type] }
+      # end
+    end
+
+    def hold_validation(args)
+      args.fetch(:pickup_location_type) do
+        raise ArgumentError.new(
+        ":pickup_location_type option must be specified when request_type is HOLD"
+        )
+      end
+      args.fetch(:pickup_location_library) do
+        raise ArgumentError.new(
+        ":pickup_location_library option must be specified when request_type is HOLD"
+        )
+      end
+    end
   end
 
   class ItemRequest < BibRequest
@@ -87,9 +151,7 @@ module Alma
       @item_pid = args.delete(:item_pid) { raise ArgumentError.new(":item_pid option must be specified to create request") }
     end
 
-    def digitization_validation(args)
-      super(args)
-
+    def additional_validation!(args)
       args.fetch(:description) do
         raise ArgumentError.new(
         ":description option must be specified when request_type is DIGITIZATION"
