@@ -27,6 +27,10 @@ module Alma
       !request_options.select {|option| option["type"]["value"] == "DIGITIZATION" }.empty?
     end
 
+    def booking_allowed?
+      !request_options.select {|option| option["type"]["value"] == "BOOKING" }.empty?
+    end
+
     private
 
     def self.region

@@ -27,14 +27,28 @@ module Alma
 
 
     def normalize!(args)
-      digitization_normalization(args) if digitization_request?
+      case args
+      when digitization_request?
+        digitization_normalization(args)
+      when booking_request?
+        booking_normalization(args)
+      when hold_request?
+        hold_normalization(args)
+      end
     end
 
     def validate!(args)
       unless REQUEST_TYPES.include?(request_type)
         raise ArgumentError.new(":request_type option must be specified and one of #{REQUEST_TYPES.join(", ")} to submit a request")
       end
-      digitization_validation(args) if digitization_request?
+      case args
+      when digitization_request?
+        digitization_validation(args)
+      when booking_request?
+        booking_validation(args)
+      when hold_request?
+        hold_validation(args)
+      end
     end
 
     def digitization_request?
@@ -64,6 +78,62 @@ module Alma
           ":comment option must be specified when :request_type is DIGITIZATION and :partial_digitization is true"
           )
         end
+      end
+    end
+
+    def booking_request?
+      request_type == "BOOKING"
+    end
+
+    def booking_normalization(args)
+      if args[:material_type].is_a? String
+        args[:material_type] = { value: args[:material_type] }
+      end
+    end
+
+    def booking_validation(args)
+      args.fetch(:booking_start_date) do
+        raise ArgumentError.new(
+        ":booking_start_date option must be specified when request_type is BOOKING"
+        )
+      end
+      args.fetch(:booking_end_date) do
+        raise ArgumentError.new(
+        ":booking_end_date option must be specified when request_type is BOOKING"
+        )
+      end
+      args.fetch(:pickup_location_type) do
+        raise ArgumentError.new(
+        ":pickup_location_type option must be specified when request_type is BOOKING"
+        )
+      end
+      args.fetch(:pickup_location_library) do
+        raise ArgumentError.new(
+        ":pickup_location_library option must be specified when request_type is BOOKING"
+        )
+      end
+    end
+
+    def hold_request?
+      request_type == "HOLD"
+    end
+
+    def hold_normalization(args)
+      # if args[:material_type].is_a? String
+      #   args[:material_type] = { value: args[:material_type] }
+      # end
+    end
+
+    def hold_validation(args)
+      args.fetch(:pickup_location_type) do
+        raise ArgumentError.new(
+        ":pickup_location_type option must be specified when request_type is HOLD"
+        )
+      end
+      args.fetch(:pickup_location_library) do
+        raise ArgumentError.new(
+        ":pickup_location_library option must be specified when request_type is HOLD"
+        )
       end
     end
   end

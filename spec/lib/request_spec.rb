@@ -30,7 +30,7 @@ describe Alma::BibRequest do
     end
 
     context 'digitization requests' do
-      let(:base_options) { { mms_id: "foo", user_id: "user"} }
+      let(:base_options) { { mms_id: "foo", user_id: "user" } }
 
       context 'when it receives required options' do
         let(:submit_request) do
@@ -49,6 +49,39 @@ describe Alma::BibRequest do
             .with(
               query: hash_including({ user_id: "user"}),
               body: hash_including({request_type: "DIGITIZATION", partial_digitization: false})
+            )
+        end
+
+        it 'returns a request_response object' do
+          expect(submit_request).to be_a Alma::Response
+        end
+
+        it 'was sucessful' do
+          expect(submit_request.success?).to be true
+        end
+      end
+    end
+
+    context 'hold requests' do
+      let(:base_options) { { mms_id: "foo", user_id: "user"} }
+
+      context 'when it receives required options' do
+        let(:submit_request) do
+          described_class.submit(base_options.merge(
+          {
+            request_type: "HOLD",
+            pickup_location_type: "LIBRARY",
+            pickup_location_library: "MAIN"
+          }
+          ))
+        end
+
+        it 'sends a post to the expected url' do
+          submit_request
+          expect(WebMock).to have_requested(:post, /.*\/bibs\/foo/)
+            .with(
+              query: hash_including({ user_id: "user"}),
+              body: hash_including({request_type: "HOLD"})
             )
         end
 
@@ -87,7 +120,6 @@ describe Alma::ItemRequest do
         options = {mms_id: "foo", holding_id: "hold", item_pid: "pid", user_id: "user", request_type: "DIGITIZATION", target_destination: "DIGI_DEPT_INST", partial_digitization: false }
         expect {described_class.submit(options)}.to raise_error(ArgumentError, /:description option/)
       end
-
 
       it 'raises an Error when request_type is not an included option' do
         expect {described_class.submit({mms_id: "foo", user_id: "user"})}.to raise_error(ArgumentError, /:request_type option/)
