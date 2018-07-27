@@ -27,32 +27,34 @@ module Alma
 
 
     def normalize!(args)
-      case args
-      when digitization_request?
-        digitization_normalization(args)
-      when booking_request?
-        booking_normalization(args)
-      when hold_request?
-        hold_normalization(args)
-      end
+      request_type_normalization!(args)
+      additional_normalization!(args)
+    end
+
+    def request_type_normalization!(args)
+      method = "#{@request_type.downcase}_normalization".to_sym
+      send(method, args) if respond_to? method
+    end
+
+    # Intended to be overridden by subclasses, allowing extra normalization logic to be provided
+    def additional_normalization!(args)
     end
 
     def validate!(args)
       unless REQUEST_TYPES.include?(request_type)
         raise ArgumentError.new(":request_type option must be specified and one of #{REQUEST_TYPES.join(", ")} to submit a request")
       end
-      case args
-      when digitization_request?
-        digitization_validation(args)
-      when booking_request?
-        booking_validation(args)
-      when hold_request?
-        hold_validation(args)
-      end
+      request_type_validation!(args)
+      additional_validation!(args)
     end
 
-    def digitization_request?
-      request_type == "DIGITIZATION"
+    def request_type_validation!(args)
+      method = "#{@request_type.downcase}_validation".to_sym
+      send(method, args) if respond_to? method
+    end
+
+    # Intended to be overridden by subclasses, allowing extra validation logic to be provided
+    def additional_validation!(args)
     end
 
     def digitization_normalization(args)
@@ -79,10 +81,6 @@ module Alma
           )
         end
       end
-    end
-
-    def booking_request?
-      request_type == "BOOKING"
     end
 
     def booking_normalization(args)
@@ -112,10 +110,6 @@ module Alma
         ":pickup_location_library option must be specified when request_type is BOOKING"
         )
       end
-    end
-
-    def hold_request?
-      request_type == "HOLD"
     end
 
     def hold_normalization(args)
@@ -157,9 +151,7 @@ module Alma
       @item_pid = args.delete(:item_pid) { raise ArgumentError.new(":item_pid option must be specified to create request") }
     end
 
-    def digitization_validation(args)
-      super(args)
-
+    def additional_validation!(args)
       args.fetch(:description) do
         raise ArgumentError.new(
         ":description option must be specified when request_type is DIGITIZATION"
