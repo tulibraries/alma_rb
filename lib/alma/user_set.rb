@@ -3,7 +3,6 @@ module Alma
 
     def top_level_key
       'users'
-
     end
 
     def response_records_key

@@ -1,10 +1,7 @@
 module Alma
-  class BibItemSet
+  class BibItemSet < Alma::Enumerable
     extend Forwardable
 
-    # Let BibItemSet respond to the Enumerable duck type
-    # by delegating responsibility for #each to items
-    include Enumerable
     attr_accessor :items
     def_delegators :items, :each
 
@@ -21,12 +18,12 @@ module Alma
     end
 
     def grouped_by_library
-      group_by(&:library)
+      each.group_by(&:library)
     end
 
     def filter_missing_and_lost
       clone = dup
-      clone.items = reject(&:missing_or_lost?)
+      clone.items = each.reject(&:missing_or_lost?)
       clone
     end
   end

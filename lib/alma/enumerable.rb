@@ -2,13 +2,11 @@
 
 require "forwardable"
 
-module Alma::Enumerable
+class Alma::Enumerable
   extend ::Forwardable
+  include Enumerable
 
-  def self.included(mod)
-    alias list each
-    def_delegators :each, :each_with_index
-  end
+  def_delegators :each, :each_with_index, :size
 
   def initialize(response_body_hash)
     @response = response_body_hash

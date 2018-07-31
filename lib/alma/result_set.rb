@@ -1,15 +1,9 @@
 module Alma
-  class ResultSet
+  class ResultSet < Alma::Enumerable
     extend Forwardable
-
-		include Enumerable
     include Alma::Error
 
     def_delegators :list, :each, :size
-
-    def initialize(ws_response)
-      @response = ws_response
-    end
 
     def total_record_count
       @response[top_level_key].fetch('total_record_count', 0).to_i
@@ -18,7 +12,6 @@ module Alma
     def list
       @list ||= list_results
     end
-
 
     def top_level_key
       raise NotImplementedError 'Subclasses of ResultSet Need to define the top level key'

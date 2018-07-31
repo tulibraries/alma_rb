@@ -1,18 +1,12 @@
 module Alma
-  class LoanSet
+  class LoanSet < Alma::Enumerable
     extend Forwardable
-    include Enumerable
-    include Alma::Enumerable
 
     attr_reader :response
     def_delegators :response, :[], :fetch
 
     def each
       @response.fetch(key, []).map{|item| Alma::Loan.new(item)}
-    end
-
-    def size
-      each.count
     end
 
     def key

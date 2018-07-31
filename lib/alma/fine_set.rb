@@ -1,8 +1,6 @@
 module Alma
-  class FineSet
+  class FineSet < Alma::Enumerable
     extend Forwardable
-    include Enumerable
-    include Alma::Enumerable
 
     attr_reader :response
     def_delegators :response, :[], :fetch

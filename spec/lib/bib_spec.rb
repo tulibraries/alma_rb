@@ -14,8 +14,8 @@ describe Alma::Bib do
         expect(bibs).to be_a Alma::BibSet
       end
 
-      it 'has items in list' do
-        expect(bibs.list).to_not be_empty
+      it 'has items in each' do
+        expect(bibs.each).to_not be_empty
       end
 
     end
