@@ -1,9 +1,13 @@
 # frozen_string_literal: true
 
+require "forwardable"
+
 module Alma::Enumerable
+  extend ::Forwardable
+
   def self.included(mod)
     alias list each
-    delegate :each_with_index, to: :each
+    def_delegators :each, :each_with_index
   end
 
   def initialize(response_body_hash)
