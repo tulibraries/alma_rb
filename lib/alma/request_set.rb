@@ -2,19 +2,10 @@ module Alma
   class RequestSet
     extend Forwardable
     include Enumerable
-    #include Alma::Error
+    include Alma::Enumerable
 
     attr_reader :response
     def_delegators :response, :[], :fetch
-
-    def initialize(response_body_hash)
-      @response = response_body_hash
-    end
-
-    def each
-      @response.fetch(key, []).map{|item| Alma::AlmaRecord.new(item)}
-    end
-    alias list each
 
     def size
       each.count

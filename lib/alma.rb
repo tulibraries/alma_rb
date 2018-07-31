@@ -2,6 +2,7 @@ require 'alma/version'
 require 'alma/config'
 require 'alma/api_defaults'
 require 'alma/error'
+require 'alma/enumerable'
 require 'alma/alma_record'
 require 'alma/response'
 require 'alma/user'
@@ -25,6 +26,4 @@ module Alma
   require 'httparty'
 
   ROOT = File.dirname __dir__
-
-
 end
