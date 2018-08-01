@@ -14,12 +14,12 @@ module Alma
     end
 
     def grouped_by_library
-      each.group_by(&:library)
+      group_by(&:library)
     end
 
     def filter_missing_and_lost
       clone = dup
-      clone.items = each.reject(&:missing_or_lost?)
+      clone.items = reject(&:missing_or_lost?)
       clone
     end
   end

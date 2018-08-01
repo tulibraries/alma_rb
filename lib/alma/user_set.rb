@@ -1,6 +1,5 @@
 module Alma
   class UserSet
-
     def top_level_key
       'users'
     end
@@ -12,6 +11,5 @@ module Alma
     def single_record_class
       Alma::User
     end
-
   end
 end

@@ -8,10 +8,6 @@ module Alma
       'fee'
     end
 
-    def size
-      each.count
-    end
-
     def sum
       fetch('total_sum', 0)
     end
