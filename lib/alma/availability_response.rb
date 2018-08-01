@@ -7,7 +7,7 @@ module Alma
     attr_accessor :availability
 
     def initialize(response)
-      @availability = parse_bibs_data(response.list)
+      @availability = parse_bibs_data(response.each)
     end
 
     # Data structure for holdings information of bib records.    

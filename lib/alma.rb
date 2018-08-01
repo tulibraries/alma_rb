@@ -25,6 +25,4 @@ module Alma
   require 'httparty'
 
   ROOT = File.dirname __dir__
-
-
 end
