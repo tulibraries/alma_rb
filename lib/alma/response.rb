@@ -1,9 +1,13 @@
+# frozen_string_literal: true
+
+require "forwardable"
+
 module Alma
   class Response
-    extend Forwardable
+    extend ::Forwardable
 
-   attr_reader :raw_response
-   def_delegators :raw_response, :body, :success?, :response ,:request
+    attr_reader :raw_response
+    def_delegators :raw_response, :body, :success?, :response, :request
 
     def initialize(response)
       @raw_response = response

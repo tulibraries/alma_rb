@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 module Alma
-  class BibItemSet < Alma::Enumerable
+  class BibItemSet < ResultSet
     attr_accessor :items
     attr_reader :raw_response, :total_record_count
 

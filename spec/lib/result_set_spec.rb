@@ -13,11 +13,11 @@ describe Alma::ResultSet do
 
     describe '#list' do
       it 'returns  an array' do
-        expect(set.list).to be_an Array
+        expect(set.each).to be_an Array
       end
 
       it 'has the expected number of items' do
-        expect(set.list.size).to be 1
+        expect(set.each.size).to be 1
       end
     end
 
@@ -56,50 +56,24 @@ end
 
 class TestSet < Alma::ResultSet
 
-  def top_level_key
+  def key
     'results'
   end
-
-  def response_records_key
-    'result'
-  end
-
 end
 
 module Response
   def self.single_response
-      {"results" =>
            {
-               "result" =>
+               "results" =>
+                   [
                    {
                        'result_id' => 'result1',
                        'field1' => 'value1',
                        'field2' => 'value2',
-                   },
+                   }
+                   ],
                'total_record_count' => '1'
            }
-      }
   end
 
-
-
-  def self.multiple_response
-      {'results' =>
-           {'result' =>
-                [
-                    {
-                        'result_id' => "result1",
-                        'field1' => "value1",
-                        'field2' => "value2"
-                    },
-                    {
-                        'result_id' => "result2",
-                        'field1' => "value1",
-                        'field2' => "value2"
-                    },
-                ],
-            'total_record_count' => "2"
-           }
-      }
-  end
 end

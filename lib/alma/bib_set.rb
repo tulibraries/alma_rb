@@ -1,15 +1,13 @@
+# frozen_string_literal: true
+
 module Alma
-  class BibSet < Alma::Enumerable
-    attr_reader :response
-
-    def_delegators :response, :[], :fetch
-
-    def each
-      @list ||= @response.fetch(key, []).map { |item| Alma::Bib.new(item) }
+  class BibSet < ResultSet
+    def key
+      "bib"
     end
 
-    def key
-      'bib'
+    def single_record_class
+      Alma::Bib
     end
 
     def total_record_count

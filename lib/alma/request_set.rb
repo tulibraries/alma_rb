@@ -1,17 +1,11 @@
+# frozen_string_literal: true
+
 module Alma
-  class RequestSet < Alma::Enumerable
-    attr_reader :response
-
-    def_delegators :response, :[], :fetch
-
-    def total_record_count
-      fetch('total_record_count', 0)
-    end
-
+  class RequestSet < ResultSet
     alias :total_records :total_record_count
 
     def key
-      'user_request'
+      "user_request"
     end
   end
 end

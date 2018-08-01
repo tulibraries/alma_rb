@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 module Alma
   class UserSet
     def top_level_key
-      'users'
+      "users"
     end
 
     def response_records_key
-      'user'
+      "user"
     end
 
     def single_record_class
