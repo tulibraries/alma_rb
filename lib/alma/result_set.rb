@@ -1,6 +1,5 @@
 module Alma
   class ResultSet < Alma::Enumerable
-    extend Forwardable
     include Alma::Error
 
     def_delegators :list, :each, :size

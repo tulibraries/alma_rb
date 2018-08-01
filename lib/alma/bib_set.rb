@@ -1,8 +1,7 @@
 module Alma
   class BibSet < Alma::Enumerable
-    extend Forwardable
-
     attr_reader :response
+
     def_delegators :response, :[], :fetch
 
     def each

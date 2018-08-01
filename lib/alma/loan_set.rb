@@ -1,8 +1,7 @@
 module Alma
   class LoanSet < Alma::Enumerable
-    extend Forwardable
-
     attr_reader :response
+
     def_delegators :response, :[], :fetch
 
     def each
@@ -16,6 +15,7 @@ module Alma
     def total_record_count
       fetch('total_record_count', 0)
     end
+
     alias :total_records :total_record_count
   end
 end

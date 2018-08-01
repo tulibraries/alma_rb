@@ -1,8 +1,7 @@
 module Alma
   class RequestSet < Alma::Enumerable
-    extend Forwardable
-
     attr_reader :response
+
     def_delegators :response, :[], :fetch
 
     def total_record_count
@@ -14,6 +13,5 @@ module Alma
     def key
       'user_request'
     end
-
   end
 end
