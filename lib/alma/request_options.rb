@@ -20,7 +20,8 @@ module Alma
     end
 
     def hold_allowed?
-      !request_options.select {|option| option["type"]["value"] == "HOLD" }.empty?
+      !request_options.nil? &&
+        !request_options.select {|option| option["type"]["value"] == "HOLD" }.empty?
     end
 
     def digitization_allowed?
