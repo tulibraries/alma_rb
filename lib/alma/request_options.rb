@@ -20,15 +20,18 @@ module Alma
     end
 
     def hold_allowed?
-      !request_options.select {|option| option["type"]["value"] == "HOLD" }.empty?
+      !request_options.nil? &&
+        !request_options.select {|option| option["type"]["value"] == "HOLD" }.empty?
     end
 
     def digitization_allowed?
-      !request_options.select {|option| option["type"]["value"] == "DIGITIZATION" }.empty?
+      !request_options.nil? &&
+        !request_options.select {|option| option["type"]["value"] == "DIGITIZATION" }.empty?
     end
 
     def booking_allowed?
-      !request_options.select {|option| option["type"]["value"] == "BOOKING" }.empty?
+      !request_options.nil? &&
+        !request_options.select {|option| option["type"]["value"] == "BOOKING" }.empty?
     end
 
     private
