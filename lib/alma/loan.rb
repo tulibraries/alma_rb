@@ -18,6 +18,8 @@ module Alma
     def self.fetch(user_id, args={})
       # Always expand renewable unless you really don't want to
       args["expand"] ||= "renewable"
+      # Its safer to just ask for all of them
+      args["limit"] ||= 100
       response = HTTParty.get(
         "#{users_base_path}/#{user_id}/loans",
         query: args,
