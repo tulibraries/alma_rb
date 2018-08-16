@@ -36,11 +36,29 @@ RSpec.configure do |config|
         with(query: hash_including({password: 'wrong_password'})).
         to_return(:status => 400)
 
-    # renew user loan
+    # user loans
+    stub_request(:get, /.*\/users\/.*\/loans.*/).
+        to_return(:status => 200,
+                  :body => File.open(SPEC_ROOT + '/fixtures/loans-pg1.json'))
+
+    stub_request(:get, /.*\/users\/.*\/loans.*/).
+        with(query: hash_including({offset: "100" })).
+        to_return(:status => 200,
+                  :body => File.open(SPEC_ROOT + '/fixtures/loans-pg2.json'))
+
+    stub_request(:get, /.*\/users\/.*\/loans.*/).
+          with(query: hash_including({offset: "200" })).
+          to_return(:status => 200,
+                   :body => File.open(SPEC_ROOT + '/fixtures/loans-pg3.json'))
+
+    # loan renewal
     stub_request(:post, /.*\.exlibrisgroup\.com\/almaws\/v1\/users\/.*\/loans\/.*/).
         with(query: hash_including({op: 'renew'})).
         to_return(:status => 200,
                   :body => File.open(SPEC_ROOT + '/fixtures/renewal_success.json'))
+
+
+
 
 
     # Request bibs info
