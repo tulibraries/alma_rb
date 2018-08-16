@@ -7,7 +7,7 @@ module Alma
         if response.code == 200
           Alma::User.new JSON.parse(response.body)
         else
-          raise StandardError, parse(response.body)
+          raise StandardError, JSON.parse(response.body)
         end
       end
 
