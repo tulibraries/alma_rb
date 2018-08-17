@@ -30,7 +30,7 @@ describe Alma::Loan do
   describe '.renewable?' do
 
       it "returns false when renew json attribute is null" do
-        loan = described_class.new JSON.parse("{\"loan_id\": \"6\",\"renew\": null}")
+        loan = described_class.new JSON.parse("{\"loan_id\": \"6\",\"renewable\": null}")
         expect(loan.renewable?).to be false
       end
 
@@ -40,7 +40,7 @@ describe Alma::Loan do
       end
 
       it "returns true when renew json attribute is set" do
-        loan = described_class.new JSON.parse("{\"loan_id\": \"6\",\"renew\": true}")
+        loan = described_class.new JSON.parse("{\"loan_id\": \"6\",\"renewable\": true}")
         expect(loan.renewable?).to be true
       end
   end
