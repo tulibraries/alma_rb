@@ -20,7 +20,7 @@ module Alma
       Enumerator.new do |yielder|
         offset = 0
         loop do
-          r = (offset == 0) ? self : Alma::Loan.fetch(user_id, {limit: 100, offset: offset})
+          r = (offset == 0) ? self : single_record_class.where_user(user_id, {limit: 100, offset: offset})
           unless r.empty?
             r.map { |item| yielder << item }
             offset += 100
@@ -33,6 +33,10 @@ module Alma
 
     def each(&block)
        @results.each(&block)
+    end
+
+    def success?
+      raw_response.response.code.to_s == "200"
     end
 
     def key

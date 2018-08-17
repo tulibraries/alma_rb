@@ -5,7 +5,7 @@ describe Alma::LoanSet do
     Alma.configure
   end
 
-  let(:loans) { Alma::Loan.fetch(123) }
+  let(:loans) { Alma::Loan.where_user(123) }
 
   it 'responds to total_record_count' do
     expect(loans).to respond_to :total_record_count
@@ -45,7 +45,9 @@ describe Alma::LoanSet do
     end
   end
 
-
-
-
+  describe "success?" do
+    it "returns true when response code is 200" do
+      expect(loans.success?).to be true
+    end
+  end
 end

@@ -17,14 +17,24 @@ RSpec.configure do |config|
                   :body => File.open(SPEC_ROOT + '/fixtures/single_user.json').read)
 
     #fees / fines
-    stub_request(:get, /.*\.exlibrisgroup\.com\/almaws\/v1\/users\/.*\/fees\/.*/).
+    stub_request(:get, /.*\/users\/.*\/fees.*/).
         to_return(:status => 200,
                   :body => File.open(SPEC_ROOT + '/fixtures/fines.json'))
 
     # user requests
-    stub_request(:get, /.*\.exlibrisgroup\.com\/almaws\/v1\/users\/.*\/requests/).
+    stub_request(:get, /.*\/users\/.*\/requests.*/).
         to_return(:status => 200,
                   :body => File.open(SPEC_ROOT + '/fixtures/requests.json'))
+
+    stub_request(:get, /.*\/users\/.*\/requests.*/).
+        with(query: hash_including({offset: "100" })).
+        to_return(:status => 200,
+                  :body => File.open(SPEC_ROOT + '/fixtures/requests-pg2.json'))
+
+    stub_request(:get, /.*\/users\/.*\/requests.*/).
+        with(query: hash_including({offset: "200" })).  
+        to_return(:status => 200,
+                  :body => File.open(SPEC_ROOT + '/fixtures/requests-pg3.json'))
 
     # successful user authentication
     stub_request(:post, /.*\.exlibrisgroup\.com\/almaws\/v1\/users\/.*/).

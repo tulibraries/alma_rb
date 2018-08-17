@@ -5,18 +5,22 @@ describe Alma::User do
     Alma.configure
   end
 
-  describe '#new' do
-    let(:response_hash) {  {
-        'primary_id'  =>'testymc',
-        'first_name'  =>'Testy',
-        'middle_name' =>nil,
-        'last_name'   =>'McTesterson',
-        'full_name'   =>'Testy McTesterson',
-        'other_field' => {'nested' => 'value'},
-        'desc_field'  => {'desc' => "How is a rspec like writing a desc", 'value' => 'a value' }
-
-    }}
+  describe '#find' do
     let(:user){Alma::User.find('johns')}
+
+    it 'includes expand parameters by default' do
+      user
+      expect(WebMock).to have_requested(:get, /.*\/users.*/).
+        with(query: hash_including({expand: "fees,requests,loans"}))
+    end
+
+    it 'allows extra parameters to be included' do
+      Alma::User.find('johns', {expand: "fee,fi,fo,fum"})
+      expect(WebMock).to have_requested(:get, /.*\/users.*/).
+        with(query: hash_including({expand: "fee,fi,fo,fum"}))
+    end
+
+
 
     it 'defines an id attribute' do
       expect(user.id).to eql 'johns'
@@ -41,6 +45,17 @@ describe Alma::User do
     it 'allows values to be accessed via hash nested keys' do
       expect(user['preferred_language']['value']).to eql 'en'
     end
+
+    describe '#total methods' do
+      it 'returns the expected total if the element is present' do
+        expect(user.total_loans).to eql "14"
+      end
+
+      it 'returns 0 if the element is missing' do
+        expect(user.total_fines).to eql "0"
+      end
+    end
+
 
     describe '#loans' do
       it 'is responded to' do

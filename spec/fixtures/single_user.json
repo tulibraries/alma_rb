@@ -3,6 +3,9 @@
     "value": "FEMALE",
     "desc": "Female"
   },
+  "loans": {
+    "value": "14"
+  },
   "password": "",
   "status": {
     "value": "ACTIVE",

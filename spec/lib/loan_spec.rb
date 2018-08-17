@@ -5,23 +5,23 @@ describe Alma::Loan do
     Alma.configure
   end
 
-  describe "#fetch" do
+  describe "#fetch_for_all" do
     it 'is responded to' do
-      expect(described_class).to respond_to :fetch
+      expect(described_class).to respond_to :where_user
     end
 
     it 'returns a LoanSet object' do
-      expect(described_class.fetch(123)).to be_a Alma::LoanSet
+      expect(described_class.where_user(123)).to be_a Alma::LoanSet
     end
 
     it 'expands renewableby default' do
-      described_class.fetch(123)
+      described_class.where_user(123)
       expect(WebMock).to have_requested(:get, /.*\.exlibrisgroup\.com/)
       .with(query: hash_including({expand: "renewable"}))
     end
 
     it 'passes extra arguments as query params' do
-      described_class.fetch(123, limit: 25, order_by: "due_date")
+      described_class.where_user(123, limit: 25, order_by: "due_date")
       expect(WebMock).to have_requested(:get, /.*\.exlibrisgroup\.com/)
       .with(query: hash_including({limit: "25", order_by: "due_date"}))
     end
