@@ -2,8 +2,9 @@ module Alma
   class  User
     extend Forwardable
 
-      def self.find(user_id)
-        response = HTTParty.get("#{self.users_base_path}/#{user_id}", headers: headers)
+      def self.find(user_id, args={})
+        args[:expand] ||= "fees,requests,loans"
+        response = HTTParty.get("#{self.users_base_path}/#{user_id}", query: args, headers: headers)
         if response.code == 200
           Alma::User.new JSON.parse(response.body)
         else
@@ -29,7 +30,6 @@ module Alma
 
     def initialize(response_body)
       @response = response_body
-      @recheck_loans = true
     end
 
     def response
@@ -38,6 +38,18 @@ module Alma
 
     def id
       self['primary_id']
+    end
+
+    def total_fines
+      response.dig('fees','value') || "0"
+    end
+
+    def total_requests
+      response.dig('requests','value') || "0"
+    end
+
+    def total_loans
+      response.dig('loans','value') || "0"
     end
 
 
@@ -60,29 +72,16 @@ module Alma
 
 
     def fines
-      response = HTTParty.get("#{users_base_path}/#{id}/fees", headers: headers)
-      if response.code == 200
-        Alma::FineSet.new get_body_from(response)
-      else
-        raise StandardError, get_body_from(response)
-      end
+      Alma::Fine.where_user(id)
     end
 
     def requests
-      #TODO Handle Additional Parameters
-      #TODO Handle Pagination
-      #TODO Handle looping through all results
-      response = HTTParty.get("#{users_base_path}/#{id}/requests", headers: headers)
-      Alma::RequestSet.new(get_body_from(response))
+      Alma::UserRequest.where_user(id)
     end
 
 
     def loans(args={})
-      unless @loans && !recheck_loans?
-        @loans = send_loans_request(args)
-        @recheck_loans = false
-      end
-      @loans
+        @loans ||= Alma::Loan.where_user(id, args)
     end
 
     def renew_loan(loan_id)
@@ -97,16 +96,9 @@ module Alma
       loan_ids.map { |id| renew_loan(id) }
     end
 
-
     def renew_all_loans
       renew_multiple_loans(loans.map(&:loan_id))
     end
-
-
-    def recheck_loans?
-      @recheck_loans
-    end
-
 
     def preferred_email
       self["contact_info"]["email"].select { |k, v| k["preferred"] }.first["email_address"]
@@ -119,15 +111,6 @@ module Alma
 
 
     private
-
-    def send_loans_request(args={})
-      #TODO Handle looping through all results
-
-      # Always expand renewable unless you really don't want to
-      args["expand"] ||= "renewable"
-      response = HTTParty.get("#{users_base_path}/#{id}/loans", query: args, headers: headers)
-      Alma::LoanSet.new(get_body_from(response))
-    end
 
     # Attempts to renew a single item for a user
     # @param [Hash] args

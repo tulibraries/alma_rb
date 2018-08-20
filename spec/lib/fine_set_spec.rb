@@ -1,8 +1,11 @@
 require "spec_helper"
 
 describe Alma::FineSet do
-  let(:response_hash) { JSON.load(open(File.join(SPEC_ROOT,'fixtures','fines.json'))) }
-  let(:fines){described_class.new response_hash}
+  before(:all) do
+    Alma.configure
+  end
+
+  let(:fines){Alma::Fine.where_user(123)}
 
   it 'returns the expected sum' do
     expect(fines.sum).to eql 415
@@ -31,6 +34,12 @@ describe Alma::FineSet do
 
     it 'has the expected number of results in the results array' do
       expect(fines.size).to eql 4
+    end
+  end
+
+  describe "success?" do
+    it "returns true when response code is 200" do
+      expect(fines.success?).to be true
     end
   end
 

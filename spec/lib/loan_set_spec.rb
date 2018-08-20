@@ -1,8 +1,11 @@
 require 'spec_helper'
 
 describe Alma::LoanSet do
-  let(:response_hash) { JSON.load(open(File.join(SPEC_ROOT,'fixtures','loans.json'))) }
-  let(:loans) { described_class.new response_hash }
+  before(:all) do
+    Alma.configure
+  end
+
+  let(:loans) { Alma::Loan.where_user(123) }
 
   it 'responds to total_record_count' do
     expect(loans).to respond_to :total_record_count
@@ -17,10 +20,34 @@ describe Alma::LoanSet do
       expect(loans).to be_a_kind_of Enumerable
     end
 
-    it 'has the expected number of results in the results array' do
-      expect(loans.size).to eql 3
+    it 'maps over the expected number of  records' do
+      expect(loans.map(&:renewable?).size).to eql 100
     end
   end
 
+  describe 'all' do
+    it 'responds to all' do
+      expect(loans).to respond_to :all
+    end
 
+    it 'should make three calls to the api' do
+      # OUr fixture object has 145 records
+      loans.all.map(&:renewable?)
+      expect(WebMock).to have_requested(:get, /.*\/users\/.*\/loans.*/).times(3)
+    end
+
+    it "loops over multiple pages of results" do
+      expect(loans.all.map(&:renewable?).size).to eql 145
+    end
+
+    it 'has Alma::Loan object for eac item' do
+      expect(loans.all.first).to be_a Alma::Loan
+    end
+  end
+
+  describe "success?" do
+    it "returns true when response code is 200" do
+      expect(loans.success?).to be true
+    end
+  end
 end
