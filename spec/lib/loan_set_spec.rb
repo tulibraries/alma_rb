@@ -5,7 +5,7 @@ describe Alma::LoanSet do
     Alma.configure
   end
 
-  let(:loans) { Alma::Loan.where_user(123) }
+  let(:loans) { Alma::Loan.where_user(123, sort_by: "due_date") }
 
   it 'responds to total_record_count' do
     expect(loans).to respond_to :total_record_count
@@ -33,7 +33,9 @@ describe Alma::LoanSet do
     it 'should make three calls to the api' do
       # OUr fixture object has 145 records
       loans.all.map(&:renewable?)
-      expect(WebMock).to have_requested(:get, /.*\/users\/.*\/loans.*/).times(3)
+      expect(WebMock).to have_requested(:get, /.*\/users\/.*\/loans.*/).
+        with(query: hash_including(sort_by: 'due_date')).
+        times(3)
     end
 
     it "loops over multiple pages of results" do
