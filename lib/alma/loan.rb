@@ -29,7 +29,7 @@ module Alma
         query: args,
         headers: headers
         )
-      Alma::LoanSet.new(response)
+      Alma::LoanSet.new(response, args)
     end
 
 

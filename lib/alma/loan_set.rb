@@ -8,11 +8,15 @@ module Alma
     attr_reader :results, :raw_response
     def_delegators :results, :empty?
 
-    def initialize(raw_response)
+    def initialize(raw_response, search_args={})
       @raw_response = raw_response
       @response = JSON.parse(raw_response.body)
       @results = @response.fetch(key, [])
         .map { |item| single_record_class.new(item) }
+      # args passed to the search that returned this set
+      # such as limit, expand, order_by, etc
+      @search_args = search_args
+
     end
 
 
@@ -20,7 +24,8 @@ module Alma
       Enumerator.new do |yielder|
         offset = 0
         loop do
-          r = (offset == 0) ? self : single_record_class.where_user(user_id, {limit: 100, offset: offset})
+          extra_args = @search_args.merge({limit: 100, offset: offset})
+          r = (offset == 0) ? self : single_record_class.where_user(user_id, extra_args)
           unless r.empty?
             r.map { |item| yielder << item }
             offset += 100
