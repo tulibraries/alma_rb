@@ -56,4 +56,30 @@ describe Alma::RequestOptions do
       expect(no_hold.digitization_allowed?).to be false
     end
   end
+
+  describe "instance method booking_allowed?" do
+    let(:ro) { described_class.get("991030169919703811")}
+    let(:no_hold) { described_class.get("NOHOLD")}
+
+    it 'returns true when a booking option is present' do
+      expect(ro.booking_allowed?).to be true
+    end
+
+    it 'returns false when a booking option is not present' do
+      expect(no_hold.booking_allowed?).to be false
+    end
+  end
+
+  describe "instance method resource_sharing_broker_allowed?" do
+    let(:ro) { described_class.get("991030169919703811")}
+    let(:no_hold) { described_class.get("NOHOLD")}
+
+    it 'returns true when a booking option is present' do
+      expect(ro.resource_sharing_broker_allowed?).to be true
+    end
+
+    it 'returns false when a booking option is not present' do
+      expect(no_hold.resource_sharing_broker_allowed?).to be false
+    end
+  end
 end

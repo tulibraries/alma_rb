@@ -34,6 +34,12 @@ module Alma
         !request_options.select {|option| option["type"]["value"] == "BOOKING" }.empty?
     end
 
+    def resource_sharing_broker_allowed?
+      !request_options.nil? &&
+        !request_options.select {|option| option["type"]["value"] == "RS_BROKER" }.empty?
+
+    end
+
     private
 
     def self.region

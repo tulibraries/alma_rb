@@ -26,6 +26,17 @@
                 "value": "PURCHASE",
                 "desc": "Purchase"
             }
+        },
+        {
+            "type": {
+                "value": "RS_BROKER",
+                "desc": "Resource Sharing Broker"
+            },
+            "request_url": "https://e-zborrow.relais-host.com/user/login.html?group=patron&LS=TEMPLE&dest=discovery&PI=915602377&RK=915602377&rft.stitle=A+Black+woman%27s+journey+from+cotton+picking+to+college+professor+%3A&rft.pub=Peter+Lang%2C&rft.place=New+York+%3A&rft.isbn=1433149745&rft.btitle=A+Black+woman%27s+journey+from+cotton+picking+to+college+professor+%3A+lessons+about+race%2C+class%2C+and+gender+in+America+%2F&rft.genre=book&rft.object_type=BOOK&rft.publisher=Peter+Lang%2C&rft.au=Pratt-Clarke%2C+Menah+A.+E.%2C+author.&rft.pubdate=%5B2018%5D&rft.oclcnum=1010505668&rft.title=A+Black+woman%27s+journey+from+cotton+picking+to+college+professor+%3A+lessons+about+race%2C+class%2C+and+gender+in+America+%2F",
+            "rs_broker_details": {
+                "code": "EZBORROW",
+                "name": "Request from another library"
+            }
         }
     ]
 }
