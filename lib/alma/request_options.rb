@@ -37,8 +37,12 @@ module Alma
     def resource_sharing_broker_allowed?
       !request_options.nil? &&
         !request_options.select {|option| option["type"]["value"] == "RS_BROKER" }.empty?
-
     end
+
+    def ez_borrow_link
+      broker = request_options.select {|option| option["type"]["value"] == "RS_BROKER" }
+      broker.collect { |opt| opt["request_url"] }.first
+  end
 
     private
 
