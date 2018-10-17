@@ -82,4 +82,12 @@ describe Alma::RequestOptions do
       expect(no_hold.resource_sharing_broker_allowed?).to be false
     end
   end
+
+  describe "instance method ez_borrow_link" do
+    let(:ro) { described_class.get("991030169919703811")}
+
+    it 'returns a string with the request_url' do
+      expect(ro.ez_borrow_link).to eq "https://e-zborrow.relais-host.com"
+    end
+  end
 end
