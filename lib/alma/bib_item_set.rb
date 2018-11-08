@@ -24,5 +24,11 @@ module Alma
       clone.items = reject(&:missing_or_lost?)
       clone
     end
+
+    def filter_techserv_unassigned_and_intref
+      clone = dup
+      clone.items = reject(&:techserv_unassigned_or_intref?)
+      clone
+    end
   end
 end

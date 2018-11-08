@@ -120,6 +120,10 @@ module Alma
       !!process_type.match(/MISSING|LOST_LOAN/)
     end
 
+    def techserv_unassigned_or_intref?
+      !!holding_location.match(/techserv|UNASSIGNED|intref/)
+    end
+
     def base_status
       item_data.dig("base_status","value")|| ""
     end

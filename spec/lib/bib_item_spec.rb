@@ -142,5 +142,12 @@ describe Alma::BibItem do
       expect(described_class.new(missing).missing_or_lost?).to be true
     end
   end
+
+  describe '#techserv_unassigned_or_intref?' do
+    it "correctly identifies location codes" do
+      techserv = {"item_data" => {"location" => {"value" => "techserv"} } }
+      expect(described_class.new(techserv).techserv_unassigned_or_intref?).to be true
+    end
+  end
 end
 end

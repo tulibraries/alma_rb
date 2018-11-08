@@ -21,6 +21,12 @@ describe Alma::BibItemSet do
       expect(bib_item_set.filter_missing_and_lost.size).to eq 2
     end
 
+    describe '#filter_techserv_unassigned_and_intref' do
+      it 'filters specific locaation codes' do
+      expect(bib_item_set.filter_techserv_unassigned_and_intref.size).to eq 3
+      end
+    end
+
     describe '#grouped_by_library' do
       let(:grouped) {bib_item_set.grouped_by_library}
       it 'returns the items grouped by library' do
