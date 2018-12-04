@@ -16,7 +16,7 @@ module Alma
       options.select! {|k,_| PERMITTED_ARGS.include? k }
       url = "#{bibs_base_path}/#{mms_id}/holdings/#{holding_id}/items"
       response = HTTParty.get(url, headers: headers, query: options)
-      BibItemSet.new(response)
+      BibItemSet.new(response, options.merge({mms_id: mms_id, holding_id: holding_id}))
     end
 
     def initialize(item)
@@ -50,7 +50,6 @@ module Alma
     def location_name
       in_temp_location? ? temp_location_name : holding_location_name
     end
-
 
     def holding_library
       item_data.dig("library", "value")

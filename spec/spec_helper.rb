@@ -32,7 +32,7 @@ RSpec.configure do |config|
                   :body => File.open(SPEC_ROOT + '/fixtures/requests-pg2.json'))
 
     stub_request(:get, /.*\/users\/.*\/requests.*/).
-        with(query: hash_including({offset: "200" })).  
+        with(query: hash_including({offset: "200" })).
         to_return(:status => 200,
                   :body => File.open(SPEC_ROOT + '/fixtures/requests-pg3.json'))
 
@@ -67,19 +67,36 @@ RSpec.configure do |config|
         to_return(:status => 200,
                   :body => File.open(SPEC_ROOT + '/fixtures/renewal_success.json'))
 
-
-
-
-
     # Request bibs info
 
     stub_request(:get, /.*\.exlibrisgroup\.com\/almaws\/v1\/bibs/).
         to_return(:status => 200,
                   :body => File.open(SPEC_ROOT + '/fixtures/multiple_bibs.json'))
 
-    stub_request(:get, /.*\.exlibrisgroup\.com\/almaws\/v1\/bibs\/.*\/holdings\/.*\/items/).
+    stub_request(:get, /.*\.exlibrisgroup\.com\/almaws\/v1\/bibs\/foo\/holdings\/.*\/items/).
         to_return(:status => 200,
                   :body => File.open(SPEC_ROOT + '/fixtures/bib_items.json'))
+
+    # Bib items sets
+
+    stub_request(:get, /.*\.exlibrisgroup\.com\/almaws\/v1\/bibs\/991026207509703811\/holdings\/.*\/items.*/).
+        to_return(:status => 200,
+                  :body => File.open(SPEC_ROOT + '/fixtures/bib_items-pg1.json'))
+
+    stub_request(:get, /.*\.exlibrisgroup\.com\/almaws\/v1\/bibs\/991026207509703811\/holdings\/.*\/items.*/).
+        with(query: hash_including({offset: "100" })).
+        to_return(:status => 200,
+                  :body => File.open(SPEC_ROOT + '/fixtures/bib_items-pg2.json'))
+
+    stub_request(:get, /.*\.exlibrisgroup\.com\/almaws\/v1\/bibs\/991026207509703811\/holdings\/.*\/items.*/).
+        with(query: hash_including({offset: "200" })).
+        to_return(:status => 200,
+                  :body => File.open(SPEC_ROOT + '/fixtures/bib_items-pg3.json'))
+
+    stub_request(:get, /.*\.exlibrisgroup\.com\/almaws\/v1\/bibs\/991026207509703811\/holdings\/.*\/items.*/).
+        with(query: hash_including({offset: "300" })).
+        to_return(:status => 200,
+                  :body => File.open(SPEC_ROOT + '/fixtures/bib_items-pg4.json'))
 
     # Request options
 
