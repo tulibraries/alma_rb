@@ -9,12 +9,12 @@ module Alma
   end
 
   class Configuration
-    attr_accessor :apikey, :region
+    attr_accessor :apikey, :region, :enable_loggable
 
     def initialize
       @apikey = "TEST_API_KEY"
       @region = 'https://api-na.hosted.exlibrisgroup.com'
+      @enable_loggable = false
     end
-
   end
 end

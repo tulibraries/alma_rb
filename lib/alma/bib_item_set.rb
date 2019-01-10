@@ -1,7 +1,12 @@
 # frozen_string_literal: true
 
 module Alma
+
   class BibItemSet < ResultSet
+
+    class ResponseError < ::Alma::StandardError
+    end
+
     attr_accessor :items
     attr_reader :raw_response, :total_record_count
 
@@ -10,11 +15,27 @@ module Alma
 
     def initialize(response, options={})
       @raw_response = response
-      parsed = JSON.parse(response.body)
+      parsed = response.parsed_response
       @total_record_count = parsed["total_record_count"]
       @options = options
       @mms_id = @options.delete(:mms_id)
+
+      validate(response)
       @items = parsed.fetch(key, []).map { |item| single_record_class.new(item) }
+    end
+
+    def loggable
+      { total_record_count: @total_record_count,
+        mms_id: @mms_id,
+        uri: @raw_response&.request&.uri.to_s
+      }.select { |k, v| !(v.nil? || v.empty?) }
+    end
+
+    def validate(response)
+      if response.code != 200
+        log = loggable.merge(response.parsed_response)
+        raise ResponseError.new("Could not get bib items.", log)
+      end
     end
 
     def grouped_by_library

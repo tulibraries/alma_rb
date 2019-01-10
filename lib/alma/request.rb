@@ -1,5 +1,8 @@
 module Alma
   class BibRequest
+    class  ItemAlreadyExists < Alma::StandardError
+    end
+
     extend Alma::ApiDefaults
 
     REQUEST_TYPES = %w[HOLD DIGITIZATION BOOKING]

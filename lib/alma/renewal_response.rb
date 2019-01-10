@@ -1,11 +1,15 @@
 module Alma
   class RenewalResponse
 
-
-
     def initialize(response)
-      @response = response
+      @raw_response = response
+      @response = response.parsed_response
       @success  = response.has_key?('loan_id')
+    end
+
+    def loggable
+      { uri: @raw_response&.request&.uri.to_s
+      }.select { |k, v| !(v.nil? || v.empty?) }
     end
 
     def renewed?

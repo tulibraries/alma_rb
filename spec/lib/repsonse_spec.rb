@@ -9,16 +9,25 @@ describe Alma::Response do
 
   describe 'errors method' do
     let(:http_response) { HTTParty.get("http://foo.com/error") }
-    it 'returns an array of errors' do
-      expect(response.errors).to be_an Array
+    it 'raises a response error' do
+      expect { response }.to raise_error(Alma::Response::StandardError)
     end
 
-    it 'returns one error' do
-      expect(response.errors.count).to eql 1
-    end
+    context "loggable is enabled" do
+      it "puts errors in error message as JSON" do
+        Alma.configure { |c| c.enable_loggable = true }
 
-    it 'returns an error with expected keys' do
-      expect(response.errors.first.keys).to include("errorCode","errorMessage")
+        message =
+          begin
+            response
+          rescue => e
+            JSON.parse(e.message)
+          end
+
+        expect(message["error"]).to eq("Invalid Response.")
+        expect(message["uri"]).to eq("http://foo.com/error")
+        expect(message["errorList"]["error"]).to be_an(Array)
+      end
     end
   end
 

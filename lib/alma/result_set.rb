@@ -16,6 +16,11 @@ class Alma::ResultSet
     @response = response_body_hash
   end
 
+  def loggable
+    { uri: @response&.request&.uri&.to_s }
+      .select { |k, v| !(v.nil? || v.empty?) }
+  end
+
   def each
     @results ||= @response.fetch(key, [])
       .map { |item| single_record_class.new(item) }

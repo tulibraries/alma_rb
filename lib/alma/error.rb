@@ -11,5 +11,16 @@ module Alma::Error
   def error
     @response.fetch('web_service_result', {})
   end
+end
 
+module Alma
+  class StandardError < ::StandardError
+    def initialize(message, loggable = {})
+      if Alma.configuration.enable_loggable
+        message = { error: message }.merge(loggable).to_json
+      end
+
+      super message
+    end
+  end
 end

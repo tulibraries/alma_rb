@@ -1,15 +1,14 @@
 module Alma
   class  User
+    class ResponseError < Alma::StandardError
+    end
     extend Forwardable
 
       def self.find(user_id, args={})
         args[:expand] ||= "fees,requests,loans"
         response = HTTParty.get("#{self.users_base_path}/#{user_id}", query: args, headers: headers)
-        if response.code == 200
-          Alma::User.new JSON.parse(response.body)
-        else
-          raise StandardError, JSON.parse(response.body)
-        end
+
+        Alma::User.new response
       end
 
       # Authenticates a Alma user with their Alma Password
@@ -28,8 +27,23 @@ module Alma
     # The User object can respond directly to Hash like access of attributes
     def_delegators :response, :[], :[]=, :has_key?, :keys, :to_json
 
-    def initialize(response_body)
-      @response = response_body
+    def initialize(response)
+      @raw_response = response
+      @response = response.parsed_response
+      validate(response)
+    end
+
+    def loggable
+      { uri: @raw_response&.request&.uri.to_s
+      }.select { |k, v| !(v.nil? || v.empty?) }
+    end
+
+    def validate(response)
+      if response.code != 200
+        log = loggable.merge(response.parsed_response)
+        error = "The user was not found."
+        raise ResponseError.new(error, log)
+      end
     end
 
     def response
@@ -123,7 +137,7 @@ module Alma
       user_id = args.delete(:user_id) { raise ArgumentError }
       params = {op: 'renew'}
       response = HTTParty.post("#{users_base_path}/#{user_id}/loans/#{loan_id}", query: params, headers: headers)
-      RenewalResponse.new(JSON.parse(response.body))
+      RenewalResponse.new(response)
     end
 
     # Attempts to renew multiple items for a user
