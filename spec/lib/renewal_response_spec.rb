@@ -7,8 +7,7 @@ describe Alma::RenewalResponse do
 
 
   let(:renewal) do
-    response_hash =  JSON.load(open(File.join(SPEC_ROOT,'fixtures','renewal_success.json')))
-    Alma::RenewalResponse.new response_hash
+    Alma::User.send_loan_renewal_request(user_id: "foo", loan_id: "bar")
   end
 
   context 'successful renewal' do

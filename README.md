@@ -30,6 +30,9 @@ Alma.configure do |config|
   config.apikey     = 'EXAMPLE_EL_DEV_NETWORK_APPLICATION_KEY'
   # Alma gem defaults to querying Ex Libris's North American  Api servers. You can override that here.
   config.region   = "https://api-eu.hosted.exlibrisgroup.com
+
+  # By default enable_loggagle is set to false
+  config.enable_loggagle = false
 end
 ```
 
@@ -230,7 +233,10 @@ item.public_note
 
 ```
 
+### Logging
+This gem exposes a loggable interface to responses.  Thus a response will respond to `loggable` and return a hash with state values that may be of use to log.
 
+As a bonus, when we enable this feature using the `enable_loggable` configuration, error messages will contain the loggable values and be formatted as JSON.
 
 ## Development
 

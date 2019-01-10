@@ -1,5 +1,8 @@
 module Alma
   class RequestOptions
+    class ResponseError < Alma::StandardError
+    end
+
     extend Forwardable
 
     attr_accessor :request_options, :raw_response
@@ -9,14 +12,27 @@ module Alma
 
     def initialize(response)
       @raw_response = response
-      @request_options = JSON.parse(response.body)["request_option"]
+      validate(response)
+      @request_options = response.parsed_response["request_option"]
     end
+
 
     def self.get(mms_id, options={})
       url = "#{bibs_base_path}/#{mms_id}/request-options"
       options.select! {|k,_|  REQUEST_OPTIONS_PERMITTED_ARGS.include? k }
       response = HTTParty.get(url, headers: headers, query: options)
       new(response)
+    end
+
+    def loggable
+      { uri: @raw_response&.request&.uri.to_s
+      }.select { |k, v| !(v.nil? || v.empty?) }
+    end
+
+    def validate(response)
+      if response.code != 200
+        raise ResponseError.new("Could not get request options.", loggable.merge(response.parsed_response))
+      end
     end
 
     def hold_allowed?

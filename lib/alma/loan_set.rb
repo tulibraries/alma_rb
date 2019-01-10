@@ -2,6 +2,9 @@
 
 module Alma
   class LoanSet < ResultSet
+    class ResponseError < Alma::StandardError
+    end
+
     alias :total_records :total_record_count
 
 
@@ -10,15 +13,28 @@ module Alma
 
     def initialize(raw_response, search_args={})
       @raw_response = raw_response
-      @response = JSON.parse(raw_response.body)
+      @response = raw_response.parsed_response
+      @search_args = search_args
+      validate(raw_response)
       @results = @response.fetch(key, [])
         .map { |item| single_record_class.new(item) }
       # args passed to the search that returned this set
       # such as limit, expand, order_by, etc
-      @search_args = search_args
-
     end
 
+    def loggable
+      { search_args: @search_args,
+        uri: @raw_response&.request&.uri.to_s
+      }.select { |k, v| !(v.nil? || v.empty?) }
+    end
+
+    def validate(response)
+      if response.code != 200
+        error = "Could not find loans info."
+        log = loggable.merge(response.parsed_response)
+        raise ResponseError.new(error, log)
+      end
+    end
 
     def all
       Enumerator.new do |yielder|
