@@ -33,6 +33,9 @@ Alma.configure do |config|
 
   # By default enable_loggagle is set to false
   config.enable_loggagle = false
+
+  # By default timeout is set to 5 seconds
+  config.timeout = 10
 end
 ```
 

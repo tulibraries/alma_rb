@@ -10,11 +10,13 @@ module Alma
 
   class Configuration
     attr_accessor :apikey, :region, :enable_loggable
+    attr_accessor :timeout
 
     def initialize
       @apikey = "TEST_API_KEY"
       @region = 'https://api-na.hosted.exlibrisgroup.com'
       @enable_loggable = false
+      @timeout = 5
     end
   end
 end

@@ -22,5 +22,9 @@ module Alma
     def users_base_path
       "#{self.region}/almaws/v1/users"
     end
+
+    def timeout
+      Alma.configuration.timeout
+    end
   end
 end

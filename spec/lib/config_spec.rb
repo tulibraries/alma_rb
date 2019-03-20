@@ -32,11 +32,14 @@ describe 'Configuring Alma' do
       expect(Alma.configuration.region).to eql  'https://api-na.hosted.exlibrisgroup.com'
     end
 
-    after(:all) do
-      Alma.configuration = nil
+    it 'sets a default timeout value' do
+      expect(Alma.configuration.timeout).to eql 5
     end
 
 
+    after(:all) do
+      Alma.configuration = nil
+    end
   end
 
 
