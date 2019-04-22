@@ -1,6 +1,7 @@
 require 'alma/bib_item_set'
 module Alma
   class BibItem
+    extend Alma::ApiDefaults
     extend Forwardable
 
     attr_reader :item
@@ -15,7 +16,7 @@ module Alma
       holding_id = options.delete(:holding_id) || "ALL"
       options.select! {|k,_| PERMITTED_ARGS.include? k }
       url = "#{bibs_base_path}/#{mms_id}/holdings/#{holding_id}/items"
-      response = HTTParty.get(url, headers: headers, query: options)
+      response = HTTParty.get(url, headers: headers, query: options, timeout: timeout)
       BibItemSet.new(response, options.merge({mms_id: mms_id, holding_id: holding_id}))
     end
 
@@ -146,26 +147,5 @@ module Alma
     def public_note
       item_data.fetch("public_note", "")
     end
-
-    private
-
-    def self.region
-      Alma.configuration.region
-    end
-
-    def self.bibs_base_path
-      "#{region}/almaws/v1/bibs"
-    end
-
-    def self.headers
-      { "Authorization": "apikey #{apikey}",
-       "Accept": "application/json",
-       "Content-Type": "application/json" }
-    end
-
-    def self.apikey
-      Alma.configuration.apikey
-    end
   end
-
 end

@@ -27,11 +27,10 @@ module Alma
       response = HTTParty.get(
         "#{users_base_path}/#{user_id}/loans",
         query: args,
-        headers: headers
+        headers: headers,
+        timeout: timeout
         )
       Alma::LoanSet.new(response, args)
     end
-
-
   end
 end

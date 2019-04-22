@@ -3,10 +3,11 @@ module Alma
     class ResponseError < Alma::StandardError
     end
     extend Forwardable
+    extend Alma::ApiDefaults
 
       def self.find(user_id, args={})
         args[:expand] ||= "fees,requests,loans"
-        response = HTTParty.get("#{self.users_base_path}/#{user_id}", query: args, headers: headers)
+        response = HTTParty.get("#{self.users_base_path}/#{user_id}", query: args, headers: headers, timeout: timeout)
 
         Alma::User.new response
       end
@@ -19,7 +20,7 @@ module Alma
       def self.authenticate(args)
         user_id = args.delete(:user_id) { raise ArgumentError }
         args.merge!({op: 'auth'})
-        response = HTTParty.post("#{users_base_path}/#{user_id}", query: args, headers: headers)
+        response = HTTParty.post("#{users_base_path}/#{user_id}", query: args, headers: headers, timeout: timeout)
         response.code == 204
       end
 
@@ -80,7 +81,7 @@ module Alma
 
     # Persist the user in it's current state back to Alma
     def save!
-      response = HTTParty.put("#{users_base_path}/#{id}", headers: headers, body: to_json)
+      response = HTTParty.put("#{users_base_path}/#{id}", timeout: timeout, headers: headers, body: to_json)
       get_body_from(response)
     end
 
@@ -164,21 +165,8 @@ module Alma
       self.class.users_base_path
     end
 
-    def self.headers
-      { "Authorization": "apikey #{self.apikey}",
-      "Accept": "application/json",
-      "Content-Type": "application/json" }
-    end
-
-
     def headers
       self.class.headers
     end
-
-
-    def self.apikey
-      Alma.configuration.apikey
-    end
-
   end
 end

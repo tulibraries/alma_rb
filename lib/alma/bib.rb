@@ -1,5 +1,6 @@
 module Alma
   class  Bib
+    extend Alma::ApiDefaults
     extend Forwardable
     
     def self.find(ids, args)
@@ -10,7 +11,8 @@ module Alma
       response = HTTParty.get(
         self.bibs_base_path, 
         query: {mms_id: ids_from_array(ids)}, 
-        headers: headers
+        headers: headers,
+        timeout: timeout
         )
 
       if response.code == 200
@@ -48,32 +50,12 @@ module Alma
 
       private
 
-      def self.bibs_base_path
-        "#{self.region}/almaws/v1/bibs"
-      end
-
       def bibs_base_path
         self.class.bibs_base_path
       end
 
-      def self.headers
-        { "Authorization": "apikey #{self.apikey}",
-        "Accept": "application/json",
-        "Content-Type": "application/json" }
-      end
-  
-  
       def headers
         self.class.headers
-      end
-  
-  
-      def self.apikey
-        Alma.configuration.apikey
-      end
-      
-      def self.region
-        Alma.configuration.region
       end
 
       def self.get_body_from(response)

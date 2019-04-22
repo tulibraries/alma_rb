@@ -8,10 +8,10 @@ module Alma
       response = HTTParty.get(
         "#{users_base_path}/#{user_id}/requests",
         query: args,
-        headers: headers
+        headers: headers,
+        timeout: timeout
       )
       Alma::RequestSet.new(response)
-
     end
   end
 end
