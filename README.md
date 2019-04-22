@@ -26,15 +26,15 @@ You'll need to configure the Alma gem to ensure you query the appropriate data. 
 
 ```ruby
 Alma.configure do |config|
-  # You have to set te apikey
+  # You have to set the apikey
   config.apikey     = 'EXAMPLE_EL_DEV_NETWORK_APPLICATION_KEY'
-  # Alma gem defaults to querying Ex Libris's North American  Api servers. You can override that here.
-  config.region   = "https://api-eu.hosted.exlibrisgroup.com
+  # Alma gem defaults to querying Ex Libris's North American API servers. You can override that here.
+  config.region   = "https://api-eu.hosted.exlibrisgroup.com"
 
-  # By default enable_loggagle is set to false
-  config.enable_loggagle = false
+  # By default enable_loggable is set to false
+  config.enable_loggable = false
 
-  # By default timeout is set to 5 seconds
+  # By default timeout is set to 5 seconds; can only provide integers
   config.timeout = 10
 end
 ```
@@ -99,7 +99,7 @@ loans.first.title
  > "Javascript: The Good Parts"
 
 loans.first.due_date
-"2016-12-26z
+"2016-12-26z"
 
 ```
 Each loan object reflects the available fields in the returned XML,[as documented on the Ex Libris Api docs](https://developers.exlibrisgroup.com/alma/apis/xsd/rest_item_loans.xsd?tags=GET)
@@ -146,10 +146,10 @@ Wrappings for some of the API endpoints described by the [Bibliographic Records 
 Corresponds to the [Retrieve Items list](https://developers.exlibrisgroup.com/alma/apis/bibs/GET/gwPcGly021om4RTvtjbPleCklCGxeYAfEqJOcQOaLEvNcHQT0/ozqu3DGTurs/XxIP4LrexQUdc=/af2fb69d-64f4-42bc-bb05-d8a0ae56936e) api endpoint
 
 To get the list of items for all holdings of a bib record.
-`items = Alma::BibItems.find("EXAMPLE_MMS_ID")`
+`items = Alma::BibItem.find("EXAMPLE_MMS_ID")`
 
 You can also pass a holding ID as an option, if you only want that holdings items.
-`items = Alma::BibItems.find("EXAMPLE_MMS_ID", holding_id: EXAMPLE_HOLDING_ID)`
+`items = Alma::BibItem.find("EXAMPLE_MMS_ID", holding_id: EXAMPLE_HOLDING_ID)`
 
 
 The response is a BibItemSet which can be iterated over to access items:
@@ -226,7 +226,6 @@ item.temp_call_number
 item.alt_call_number
 
 
-
 # standard accessors
 item.process_type
 item.base_status
@@ -247,7 +246,7 @@ After checking out the repo, run `bin/setup` to install dependencies. Then, run 
 
 To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
 
-Use `bundle exec guard` to continuosly run specs while developing.
+Use `bundle exec guard` to continuously run specs while developing.
 
 ## Contributing
 
