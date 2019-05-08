@@ -36,6 +36,13 @@ describe 'Configuring Alma' do
       expect(Alma.configuration.timeout).to eql 5
     end
 
+    it "is possible to override the timeout configuration" do
+      Alma.configure do |config|
+        config.timeout = 10
+      end
+      expect(Alma.configuration.timeout).to eql 10
+    end
+
 
     after(:all) do
       Alma.configuration = nil
