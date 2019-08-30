@@ -20,8 +20,6 @@ describe Alma::User do
         with(query: hash_including({expand: "fee,fi,fo,fum"}))
     end
 
-
-
     it 'defines an id attribute' do
       expect(user.id).to eql 'johns'
     end
@@ -35,7 +33,7 @@ describe Alma::User do
     end
 
     it 'responds to attributes with empty value' do
-      expect(user.middle_name).to eql ''
+      expect(user.pin_number).to eql ""
     end
 
     it 'returns a hash for a field that is a hash' do
@@ -55,7 +53,6 @@ describe Alma::User do
         expect(user.total_fines).to eql "0"
       end
     end
-
 
     describe '#loans' do
       it 'is responded to' do
@@ -112,9 +109,53 @@ describe Alma::User do
 
       it 'returns the expected value' do
         expect(user.preferred_email).to eql 'johns@mylib.org'
+      end
+    end
 
+    describe '#preferred_first_name' do
+      it 'is responded to' do
+        expect(user).to respond_to :pref_first_name
       end
 
+      it 'returns the preferred name' do
+        expect(user.preferred_first_name).to eql 'Johnny'
+      end
+    end
+
+    describe '#preferred_middle_name' do
+      it 'is responded to' do
+        expect(user).to respond_to :pref_middle_name
+      end
+
+      it 'returns the middle name if preferred_middle_name is empty' do
+        expect(user.preferred_middle_name).to eql 'Appleseed'
+      end
+    end
+
+    describe '#preferred_last_name' do
+      it 'is responded to' do
+        expect(user).to respond_to :pref_last_name
+      end
+
+      it 'returns the last name if preferred_last_name is empty' do
+        expect(user.preferred_last_name).to eql "Smith"
+      end
+    end
+
+    describe '#preferred_suffix' do
+      it 'is responded to' do
+        expect(user).to respond_to :pref_name_suffix
+      end
+
+      it 'returns the suffix if preferred_name_suffix is provided' do
+        expect(user.preferred_suffix).to eql "Sr."
+      end
+    end
+
+    describe '#preferred_suffix' do
+      it 'returns the full name of the user' do
+        expect(user.preferred_name).to eql "Johnny Appleseed Smith Sr."
+      end
     end
 
     describe "#{described_class}.authenticate" do

@@ -119,10 +119,33 @@ module Alma
       self["contact_info"]["email"].select { |k, v| k["preferred"] }.first["email_address"]
     end
 
-
     def email
       self["contact_info"]["email"].map { |e| e["email_address"] }
     end
+
+    def preferred_first_name
+      pref_first = self["pref_first_name"] unless self["pref_first_name"] == ""
+      pref_first || self["first_name"] || ""
+    end
+
+    def preferred_middle_name
+      pref_middle = self["pref_middle_name"] unless self["pref_middle_name"] == ""
+      pref_middle  || self["middle_name"] || ""
+    end
+
+    def preferred_last_name
+      pref_last = self["pref_last_name"] unless self["pref_last_name"] == ""
+      pref_last || self["last_name"]
+    end
+
+    def preferred_suffix
+      self["pref_name_suffix"] || ""
+    end
+
+    def preferred_name
+      "#{preferred_first_name} #{preferred_middle_name} #{preferred_last_name} #{preferred_suffix}"
+    end
+
 
 
     private

@@ -18,7 +18,7 @@
   },
   "primary_id": "johns",
   "first_name": "John",
-  "middle_name": "",
+  "middle_name": "Appleseed",
   "last_name": "Smith",
   "pin_number": "",
   "job_category": {
@@ -116,6 +116,10 @@
       }
     ]
   },
+  "pref_first_name": "Johnny",
+  "pref_middle_name": "",
+  "pref_last_name": "",
+  "pref_name_suffix": "Sr.",
   "user_identifier": [
     {
       "value": "johns02",
