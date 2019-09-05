@@ -10,7 +10,7 @@ module Alma
     def self.get_bibs(ids, args={})
       response = HTTParty.get(
         self.bibs_base_path, 
-        query: {mms_id: ids_from_array(ids)}, 
+        query: {mms_id: ids_from_array(ids) }.merge(args),
         headers: headers,
         timeout: timeout
         )
