@@ -50,31 +50,12 @@ module Alma
 
     def all
       Enumerator.new do |yielder|
-        limit = 100
         offset = 0
-
         loop do
-          # This is to bypass an Alma API issue where total items fails for offset greater than 500.
-          # Once API issue is resolved we can remove log below.
-          # REF BL-877
-          raise StopIteration if offset > 500
-
-          r = (offset == 0) ? self : single_record_class.find(@mms_id, options=@options.merge({limit: limit, offset: offset}))
+          r = (offset == 0) ? self : single_record_class.find(@mms_id, options=@options.merge({limit: 100, offset: offset}))
           unless r.empty?
             r.map { |item| yielder << item }
-
-            # This is to bypass an Alma API issue where total items fails for offset greater than 500.
-            # Once API issue is resolved we can remove log below.
-            if offset == 300
-              limit = 99
-              offset += 100
-            elsif offset == 400
-              limit = 100
-              offset = 499
-            else
-              limit = 100
-              offset += 100
-            end
+            offset += 100
           else
             raise StopIteration
           end
