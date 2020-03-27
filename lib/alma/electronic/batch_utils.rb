@@ -166,7 +166,11 @@ module Alma
 
   private
     def log(params)
-      #LogUtils.json_request_logger(@@logger, params)
+      if LogUtils
+        LogUtils.json_request_logger(@@logger, params)
+      else
+        @@logger.info(params)
+      end
     end
 
     def get_id(type, params = {})
