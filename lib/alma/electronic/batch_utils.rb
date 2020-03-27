@@ -25,7 +25,7 @@ module Alma
       @ids = options.fetch(:ids, [])
       @type = options.fetch(:type, "collection")
       @tag = options.fetch(:tag, Time.now.to_s)
-      @@logger = options.fetch(:logger, Logger.new("log/electronic_batch_process.log"))
+      @@logger = options[:logger] || Logger.new("log/electronic_batch_process.log")
     end
 
     def get_collection_notes(ids = nil, options = {})
