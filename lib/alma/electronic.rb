@@ -2,6 +2,7 @@
 require "httparty"
 require "active_support"
 require "active_support/core_ext"
+require "alma/config"
 
 module Alma
   # Alma::Electronic APIs wrapper.
