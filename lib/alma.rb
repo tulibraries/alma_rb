@@ -22,6 +22,7 @@ require 'alma/request_options'
 require 'alma/item_request_options'
 require 'alma/request'
 require 'alma/user_request'
+require 'alma/electronic'
 
 module Alma
   require 'httparty'
