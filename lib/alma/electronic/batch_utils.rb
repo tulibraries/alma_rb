@@ -166,7 +166,7 @@ module Alma
 
   private
     def log(params)
-      if LogUtils
+      if defined?(LogUtils)
         LogUtils.json_request_logger(@@logger, params)
       else
         @@logger.info(params)
