@@ -25,6 +25,7 @@ module Alma
       @ids = options.fetch(:ids, [])
       @type = options.fetch(:type, "collection")
       @tag = options.fetch(:tag, Time.now.to_s)
+
       @@logger = options[:logger] || Logger.new("log/electronic_batch_process.log")
     end
 
@@ -71,7 +72,14 @@ module Alma
           notes
         end
       end
-      self.class.new(tag: tag, chain: true)
+      self.class.new(options.merge(
+        chain: chain,
+        ids: ids,
+        type: type,
+        tag: tag,
+        notes: notes,
+        logger: @@logger,
+      ))
     end
 
     def get_service_ids(ids = @ids, options = {})
@@ -161,7 +169,14 @@ module Alma
       File.open(filename, "w") do |file|
         file.write(JSON.pretty_generate(notes))
       end
-      self.class.new(tag: tag, chain: true)
+
+      self.class.new(options.merge(
+        chain: chain,
+        notes: notes,
+        type: type,
+        tag: tag,
+        logger: @@logger,
+      ))
     end
 
   private
