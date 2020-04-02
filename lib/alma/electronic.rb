@@ -12,7 +12,6 @@ module Alma
     end
 
     def self.get(params = {})
-      http_retries = Alma.configuration.http_retries
       retries_count = 0
       response = nil
       while retries_count < http_retries do
@@ -57,6 +56,10 @@ module Alma
         .flatten
     end
 
+    def self.http_retries
+      Alma.configuration.http_retries
+    end
+
   private
     class ElectronicAPI
       include ::HTTParty
@@ -72,12 +75,22 @@ module Alma
 
       def initialize(params = {})
         @params = params
-        response = self.class::get(url, headers: self.class::headers, query: params)
+        headers = self.class::headers
+        log.info(url: url, query: params)
+        response = self.class::get(url, headers: headers, query: params, timeout: timeout)
         @data = JSON.parse(response.body) rescue {}
       end
 
       def url
         "#{Alma.configuration.region}#{resource}"
+      end
+
+      def timeout
+        Alma.configuration.timeout
+      end
+
+      def log
+        Alma::Electronic.log
       end
 
       def resource
