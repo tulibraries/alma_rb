@@ -12,17 +12,39 @@ module Alma
     end
 
     def self.get(params = {})
-      get_api params
+      http_retries = Alma.configuration.http_retries
+      retries_count = 0
+      response = nil
+      while retries_count < http_retries do
+        begin
+          response = get_api(params)
+          break;
+
+        rescue Net::ReadTimeout
+          retries_count += 1
+          log.error("Retrying http after timeout with : #{params}")
+          no_more_retries_left = retries_count == http_retries
+
+          raise Net::ReadTimeout.new("Failed due to net timeout after #{http_retries}: #{params}") if no_more_retries_left
+        end
+      end
+
+      return response
     end
 
     def self.get_totals
       @totals ||= get(limit: "0").data["total_record_count"]
     end
 
+    def self.log
+      Alma.configuration.logger
+    end
+
     def self.get_ids
       total = get_totals()
       limit = 100
       offset = 0
+      log.info("Retrieving #{total} collection ids.")
       groups = Array.new(total / limit, limit) + [ total % limit ]
       @ids ||= groups.map { |limit|
         prev_offset = offset
