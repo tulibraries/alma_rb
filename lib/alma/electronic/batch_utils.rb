@@ -61,17 +61,9 @@ module Alma
           item = { "error" => e.message }
         end
 
-        data = {}
-        if item ["error"].present?
-          data.merge!(item.slice("error"))
-        end
-
-        if item["authentication_note"].present?
-          data.merge!(item.slice("authentication_note"))
-        end
-
-        if item["public_note"].present?
-          data.merge!(item.slice("public_note"))
+        data = ["error", "authentication_note", "public_note"].reduce({}) do |acc, field|
+          acc[field] = item[field] if item[field].present?
+          acc
         end
 
         unavailable = item.dig("service_temporarily_unavailable", "value")
