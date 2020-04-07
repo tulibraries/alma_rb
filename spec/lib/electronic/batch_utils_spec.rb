@@ -110,6 +110,18 @@ RSpec.describe Alma::Electronic::BatchUtils do
         expect(batch.notes).to eq({})
       end
     end
+
+    context "unavailable" do
+      let(:ids) { [ "foo" ] }
+      let(:data) { { service_temporarily_unavailable: { "value" => "true" } } }
+
+
+      it "gets temporary unavailable info" do
+        expect(batch.notes).to eq(
+          "foo" => { "service_temporarily_unavailable" => { "value" => "true" } },
+        )
+      end
+    end
   end
 
   describe "#build_notes" do

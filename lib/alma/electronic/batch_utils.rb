@@ -61,17 +61,33 @@ module Alma
           item = { "error" => e.message }
         end
 
-        log(params
-          .merge(type: type, start: start, tag: tag)
-          .merge(item.slice("authentication_note", "public_note", "error")))
-
-        if item.slice("authentication_note", "public_note").values.any?(&:present?)
-          notes[id] = item.slice("authentication_note", "public_note")
-          notes
-        else
-          notes
+        data = {}
+        if item ["error"].present?
+          data.merge!(item.slice("error"))
         end
+
+        if item["authentication_note"].present?
+          data.merge!(item.slice("authentication_note"))
+        end
+
+        if item["public_note"].present?
+          data.merge!(item.slice("public_note"))
+        end
+
+        unavailable = item.dig("service_temporarily_unavailable", "value")
+        if unavailable == "1" || unavailable == "true"
+          data.merge!(item.slice("service_temporarily_unavailable", "service_unavailable_date", "service_unavailable_reason"))
+        end
+
+        if data.present?
+          log(params.merge(data).merge(type: type, start: start, tag: tag))
+
+          notes[id] = data unless data["error"].present?
+        end
+
+        notes
       end
+
       self.class.new(options.merge(
         chain: chain,
         ids: ids,
