@@ -44,7 +44,7 @@ module Alma
       limit = 100
       offset = 0
       log.info("Retrieving #{total} collection ids.")
-      groups = Array.new(total / limit, limit) + [ total % limit ]
+      groups = Array.new(total / limit + 1, limit)
       @ids ||= groups.map { |limit|
         prev_offset = offset
         offset += limit
@@ -53,7 +53,7 @@ module Alma
         .map { |params|  Thread.new { self.get(params) } }
         .map(&:value).map(&:data)
         .map { |data| data["electronic_collection"].map { |coll| coll["id"] } }
-        .flatten
+        .flatten.uniq
     end
 
     def self.http_retries
