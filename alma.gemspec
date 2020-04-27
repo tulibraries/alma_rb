@@ -6,8 +6,8 @@ require 'alma/version'
 Gem::Specification.new do |spec|
   spec.name          = "alma"
   spec.version       = Alma::VERSION
-  spec.authors       = ["Chad Nelson"]
-  spec.email         = ["chad.nelson@temple.edu"]
+  spec.authors       = ["Jennifer Anton", "David Kinzer", "Chad Nelson"]
+  spec.email         = ["jennifer.anton@temple.edu", "david.kinzer@temple.edu", "chad.nelson@temple.edu"]
 
   spec.summary       = %q{Client for Ex Libris Alma Web Services}
   spec.description   = %q{Client for Ex Libris Alma Web Services}
