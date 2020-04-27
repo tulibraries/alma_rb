@@ -3,3 +3,9 @@ language: ruby
 rvm:
   - 2.4.1
 before_install: gem install bundler
+deploy:
+  provider: rubygems
+  gem: alma
+  api_key: "YOUR API KEY"
+  on:
+    tags: true
