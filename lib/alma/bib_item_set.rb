@@ -26,7 +26,7 @@ module Alma
     end
 
     def loggable
-      { total_record_count: @total_record_count,
+      { total_record_count: @total_record_count.to_s,
         mms_id: @mms_id,
         uri: @raw_response&.request&.uri.to_s
       }.select { |k, v| !(v.nil? || v.empty?) }

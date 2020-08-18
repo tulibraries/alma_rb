@@ -57,4 +57,16 @@ describe Alma::BibItemSet do
         expect(bib_item_set.success?).to be true
       end
     end
+
+    context "BibItemSet is initialized with a failed request" do
+      it "raises a ResponseError" do
+        response = instance_double(HTTParty::Response)
+        request = instance_double(HTTParty::Request)
+        allow(response).to receive(:request).and_return request
+        allow(request).to receive(:uri).and_return "http://example.com"
+        allow(response).to receive(:code).and_return 500
+        allow(response).to receive(:parsed_response).and_return({"total_record_count" => 1})
+        expect { Alma::BibItemSet.new(response) }.to raise_error(Alma::BibItemSet::ResponseError)
+      end
+    end
   end
