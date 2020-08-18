@@ -44,7 +44,7 @@ describe Alma::BibItemSet do
       it 'should make three calls to the api' do
         # Our fixture object has 290 records
         bib_item_set.all.map(&:item_data)
-        expect(WebMock).to have_requested(:get, /.*\.exlibrisgroup\.com\/almaws\/v1\/bibs\/991026207509703811\/holdings\/.*\/items/).times(4)
+        expect(WebMock).to have_requested(:get, /.*\.exlibrisgroup\.com\/almaws\/v1\/bibs\/991026207509703811\/holdings\/.*\/items/).times(3)
       end
 
       it "loops over multiple pages of results" do
