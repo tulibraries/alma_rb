@@ -3,6 +3,7 @@
 module Alma
 
   class BibItemSet < ResultSet
+    ITEMS_PER_PAGE = 100
 
     class ResponseError < ::Alma::StandardError
     end
@@ -49,16 +50,23 @@ module Alma
     end
 
     def all
+      @last_page_index ||= false
       Enumerator.new do |yielder|
         offset = 0
-        loop do
-          r = (offset == 0) ? self : single_record_class.find(@mms_id, options=@options.merge({limit: 100, offset: offset}))
+        while (!@last_page_index || @last_page_index >= offset / items_per_page) do
+          r = (offset == 0) ? self : single_record_class.find(@mms_id, options=@options.merge({limit: items_per_page, offset: offset}))
           unless r.empty?
             r.map { |item| yielder << item }
-            offset += 100
+            @last_page_index = (offset / items_per_page)
           else
-            raise StopIteration
+            @last_page_index = @last_page_index ? @last_page_index - 1 : -1
           end
+
+          if r.size == items_per_page
+            @last_page_index += 1
+          end
+
+          offset += items_per_page
         end
       end
     end
@@ -77,6 +85,10 @@ module Alma
 
     def single_record_class
       Alma::BibItem
+    end
+
+    def items_per_page
+      ITEMS_PER_PAGE
     end
   end
 end
