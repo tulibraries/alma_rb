@@ -25,6 +25,15 @@ describe Alma::BibItem do
       end
     end
 
+    describe ".find_by_barcode" do
+      it "searches by barcode and resolves it" do
+        output = described_class.find_by_barcode("32101108168939")
+
+        expect(a_request(:get, /.*items\/23195173880006421.*/)).to have_been_made
+        expect(output.library_name).to eq "Firestone Library"
+      end
+    end
+
     it 'uses ALL as the default holdings id if a holdings id is not passed' do
       mms_only
       expect(a_request(:get, /.*holdings\/ALL.*/)).to have_been_made

@@ -148,5 +148,14 @@ RSpec.configure do |config|
     stub_request(:post, /.*\.exlibrisgroup\.com\/almaws\/v1\/bibs\/.*\/holdings\/.*\/items\/.*\/requests/).
         to_return(:status => 200)
 
+    # Item from barcode
+    stub_request(:get, /.*\.exlibrisgroup\.com\/almaws\/v1\/items.*/).
+      to_return(:status => 302,
+                headers: { "Location" => "https://api-na.hosted.exlibrisgroup.com/almaws/v1/bibs/99117110763506421/holdings/22195173890006421/items/23195173880006421" }
+               )
+    stub_request(:get, /.*\.exlibrisgroup\.com\/almaws\/v1\/bibs\/99117110763506421\/holdings\/22195173890006421\/items\/23195173880006421.*/).
+      to_return(:status => 200,
+                 :headers => { "Content-Type" => "application/json" },
+                 :body => File.open(SPEC_ROOT + '/fixtures/item_from_barcode.json'))
   end
 end

@@ -20,6 +20,13 @@ module Alma
       BibItemSet.new(response, options.merge({mms_id: mms_id, holding_id: holding_id}))
     end
 
+    def self.find_by_barcode(barcode, options={})
+      response = HTTParty.get(items_base_path, headers: headers, query: { item_barcode: barcode }, timeout: timeout, follow_redirects: false)
+      location = response.headers["location"]
+      response = HTTParty.get(location, headers: headers, query: options, timeout: timeout)
+      new(response)
+    end
+
     def initialize(item)
       @item = item
     end
