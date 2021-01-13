@@ -151,7 +151,7 @@ RSpec.configure do |config|
     # Item from barcode
     stub_request(:get, /.*\.exlibrisgroup\.com\/almaws\/v1\/items.*/).
       to_return(:status => 302,
-                headers: { "Location" => "https://api-na.hosted.exlibrisgroup.com/almaws/v1/bibs/99117110763506421/holdings/22195173890006421/items/23195173880006421" }
+                headers: { "Location" => "/almaws/v1/bibs/99117110763506421/holdings/22195173890006421/items/23195173880006421" }
                )
     stub_request(:get, /.*\.exlibrisgroup\.com\/almaws\/v1\/bibs\/99117110763506421\/holdings\/22195173890006421\/items\/23195173880006421.*/).
       to_return(:status => 200,
