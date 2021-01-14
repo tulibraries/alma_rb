@@ -23,6 +23,7 @@ require 'alma/item_request_options'
 require 'alma/request'
 require 'alma/user_request'
 require 'alma/electronic'
+require 'alma/bib_holding'
 
 module Alma
   require 'httparty'
