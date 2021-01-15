@@ -10,6 +10,8 @@ module Alma
     end
 
     attr_reader :holding
+    def_delegators :holding, :[], :[]=, :has_key?, :keys, :to_json, :each
+
     def initialize(holding)
       @holding = holding
     end
