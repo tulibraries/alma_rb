@@ -27,7 +27,7 @@ module Alma
       "#{self.region}/almaws/v1/items"
     end
 
-    def configuraion_base_path
+    def configuration_base_path
       "#{self.region}/almaws/v1/conf"
     end
 

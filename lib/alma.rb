@@ -26,6 +26,8 @@ require 'alma/electronic'
 require 'alma/bib_holding'
 require 'alma/library'
 require 'alma/library_set'
+require 'alma/location'
+require 'alma/location_set'
 
 module Alma
   require 'httparty'

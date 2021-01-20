@@ -175,5 +175,17 @@ RSpec.configure do |config|
         to_return(:status => 200,
                   :headers => { "Content-Type" => "application/json" },
                   :body => File.open(SPEC_ROOT + '/fixtures/library.json'))
+
+    # locations
+    stub_request(:get, /.*\.exlibrisgroup\.com\/almaws\/v1\/conf\/libraries\/main\/locations$/).
+        to_return(:status => 200,
+                  :headers => { "Content-Type" => "application/json" },
+                  :body => File.open(SPEC_ROOT + '/fixtures/locations.json'))
+
+    # single location
+    stub_request(:get, /.*\.exlibrisgroup\.com\/almaws\/v1\/conf\/libraries\/main\/locations\/offsite/).
+        to_return(:status => 200,
+                  :headers => { "Content-Type" => "application/json" },
+                  :body => File.open(SPEC_ROOT + '/fixtures/location.json'))
   end
 end

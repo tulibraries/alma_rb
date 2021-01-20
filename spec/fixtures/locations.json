@@ -1,0 +1,330 @@
+{
+  "location": [
+    {
+      "code": "offsite",
+      "name": "Building 9",
+      "external_name": "Main Library Remote Storage Location",
+      "type": {
+        "value": "REMOTE",
+        "desc": "Remote Storage"
+      },
+      "remote_storage": "Offsite",
+      "map": "",
+      "suppress_from_publishing": "false",
+      "fulfillment_unit": {
+        "value": "General",
+        "desc": "General"
+      },
+      "accession_placement": {
+        "value": "none",
+        "desc": "None"
+      },
+      "call_number_type": {
+        "value": "0",
+        "desc": "Library of Congress classification"
+      },
+      "link": "https://api-eu.hosted.exlibrisgroup.com/almaws/v1/conf/libraries/MAIN/locations/offsite"
+    },
+    {
+      "code": "RESERVES",
+      "name": "Course Reserves",
+      "external_name": "",
+      "type": {
+        "value": "CLOSED",
+        "desc": "Closed"
+      },
+      "remote_storage": "",
+      "map": "",
+      "suppress_from_publishing": "false",
+      "fulfillment_unit": {
+        "value": "1HourLoan",
+        "desc": "1 hour loan"
+      },
+      "accession_placement": {
+        "value": "none",
+        "desc": "None"
+      },
+      "call_number_type": {
+        "value": "0",
+        "desc": "Library of Congress classification"
+      },
+      "link": "https://api-eu.hosted.exlibrisgroup.com/almaws/v1/conf/libraries/MAIN/locations/RESERVES"
+    },
+    {
+      "code": "govdocs",
+      "name": "Government Documents",
+      "external_name": "",
+      "type": {
+        "value": "OPEN",
+        "desc": "Open"
+      },
+      "remote_storage": "",
+      "map": "",
+      "suppress_from_publishing": "false",
+      "fulfillment_unit": {
+        "value": "General",
+        "desc": "General"
+      },
+      "accession_placement": {
+        "value": "none",
+        "desc": "None"
+      },
+      "call_number_type": {
+        "value": "3",
+        "desc": "Superintendent of Documents classification"
+      },
+      "link": "https://api-eu.hosted.exlibrisgroup.com/almaws/v1/conf/libraries/MAIN/locations/govdocs"
+    },
+    {
+      "code": "internat",
+      "name": "International Collection",
+      "external_name": "",
+      "type": {
+        "value": "OPEN",
+        "desc": "Open"
+      },
+      "remote_storage": "",
+      "map": "",
+      "suppress_from_publishing": "false",
+      "fulfillment_unit": {
+        "value": "General",
+        "desc": "General"
+      },
+      "accession_placement": {
+        "value": "none",
+        "desc": "None"
+      },
+      "call_number_type": {
+        "value": "0",
+        "desc": "Library of Congress classification"
+      },
+      "link": "https://api-eu.hosted.exlibrisgroup.com/almaws/v1/conf/libraries/MAIN/locations/internat"
+    },
+    {
+      "code": "edu-juv",
+      "name": "Juvenile Education Collection",
+      "external_name": "",
+      "type": {
+        "value": "OPEN",
+        "desc": "Open"
+      },
+      "remote_storage": "",
+      "map": "",
+      "suppress_from_publishing": "false",
+      "fulfillment_unit": {
+        "value": "General",
+        "desc": "General"
+      },
+      "accession_placement": {
+        "value": "none",
+        "desc": "None"
+      },
+      "call_number_type": {
+        "value": "0",
+        "desc": "Library of Congress classification"
+      },
+      "link": "https://api-eu.hosted.exlibrisgroup.com/almaws/v1/conf/libraries/MAIN/locations/edu-juv"
+    },
+    {
+      "code": "MEDIA",
+      "name": "Media Collection",
+      "external_name": "",
+      "type": {
+        "value": "OPEN",
+        "desc": "Open"
+      },
+      "remote_storage": "",
+      "map": "",
+      "suppress_from_publishing": "false",
+      "fulfillment_unit": {
+        "value": "Media",
+        "desc": "Media"
+      },
+      "accession_placement": {
+        "value": "none",
+        "desc": "None"
+      },
+      "call_number_type": {
+        "value": "8",
+        "desc": "Other scheme"
+      },
+      "link": "https://api-eu.hosted.exlibrisgroup.com/almaws/v1/conf/libraries/MAIN/locations/MEDIA"
+    },
+    {
+      "code": "microforms",
+      "name": "Microform Room",
+      "external_name": "",
+      "type": {
+        "value": "OPEN",
+        "desc": "Open"
+      },
+      "remote_storage": "",
+      "map": "",
+      "suppress_from_publishing": "false",
+      "fulfillment_unit": {
+        "value": "Limited",
+        "desc": "Limited"
+      },
+      "accession_placement": {
+        "value": "none",
+        "desc": "None"
+      },
+      "call_number_type": {
+        "value": "6",
+        "desc": "Shelved separately "
+      },
+      "link": "https://api-eu.hosted.exlibrisgroup.com/almaws/v1/conf/libraries/MAIN/locations/microforms"
+    },
+    {
+      "code": "new",
+      "name": "New Books Display",
+      "external_name": "",
+      "type": {
+        "value": "OPEN",
+        "desc": "Open"
+      },
+      "remote_storage": "",
+      "map": "",
+      "suppress_from_publishing": "false",
+      "fulfillment_unit": {
+        "value": "General",
+        "desc": "General"
+      },
+      "accession_placement": {
+        "value": "",
+        "desc": null
+      },
+      "call_number_type": {
+        "value": "",
+        "desc": null
+      },
+      "link": "https://api-eu.hosted.exlibrisgroup.com/almaws/v1/conf/libraries/MAIN/locations/new"
+    },
+    {
+      "code": "per-room",
+      "name": "Periodicals",
+      "external_name": "",
+      "type": {
+        "value": "OPEN",
+        "desc": "Open"
+      },
+      "remote_storage": "",
+      "map": "",
+      "suppress_from_publishing": "false",
+      "fulfillment_unit": {
+        "value": "Limited",
+        "desc": "Limited"
+      },
+      "accession_placement": {
+        "value": "none",
+        "desc": "None"
+      },
+      "call_number_type": {
+        "value": "0",
+        "desc": "Library of Congress classification"
+      },
+      "link": "https://api-eu.hosted.exlibrisgroup.com/almaws/v1/conf/libraries/MAIN/locations/per-room"
+    },
+    {
+      "code": "RARE",
+      "name": "Rare Books Collection",
+      "external_name": "",
+      "type": {
+        "value": "CLOSED",
+        "desc": "Closed"
+      },
+      "remote_storage": "",
+      "map": "",
+      "suppress_from_publishing": "false",
+      "fulfillment_unit": {
+        "value": "Closed",
+        "desc": "Closed"
+      },
+      "accession_placement": {
+        "value": "none",
+        "desc": "None"
+      },
+      "call_number_type": {
+        "value": "8",
+        "desc": "Other scheme"
+      },
+      "link": "https://api-eu.hosted.exlibrisgroup.com/almaws/v1/conf/libraries/MAIN/locations/RARE"
+    },
+    {
+      "code": "reference",
+      "name": "Reference",
+      "external_name": "",
+      "type": {
+        "value": "OPEN",
+        "desc": "Open"
+      },
+      "remote_storage": "",
+      "map": "",
+      "suppress_from_publishing": "false",
+      "fulfillment_unit": {
+        "value": "Limited",
+        "desc": "Limited"
+      },
+      "accession_placement": {
+        "value": "none",
+        "desc": "None"
+      },
+      "call_number_type": {
+        "value": "0",
+        "desc": "Library of Congress classification"
+      },
+      "link": "https://api-eu.hosted.exlibrisgroup.com/almaws/v1/conf/libraries/MAIN/locations/reference"
+    },
+    {
+      "code": "main",
+      "name": "Stacks",
+      "external_name": "",
+      "type": {
+        "value": "OPEN",
+        "desc": "Open"
+      },
+      "remote_storage": "",
+      "map": "",
+      "suppress_from_publishing": "false",
+      "fulfillment_unit": {
+        "value": "General",
+        "desc": "General"
+      },
+      "accession_placement": {
+        "value": "none",
+        "desc": "None"
+      },
+      "call_number_type": {
+        "value": "0",
+        "desc": "Library of Congress classification"
+      },
+      "link": "https://api-eu.hosted.exlibrisgroup.com/almaws/v1/conf/libraries/MAIN/locations/main"
+    },
+    {
+      "code": "SelfPickup",
+      "name": "预约柜",
+      "external_name": "预约柜",
+      "type": {
+        "value": "OPEN",
+        "desc": "Open"
+      },
+      "remote_storage": "",
+      "map": "",
+      "suppress_from_publishing": "false",
+      "fulfillment_unit": {
+        "value": "General",
+        "desc": "General"
+      },
+      "accession_placement": {
+        "value": "",
+        "desc": null
+      },
+      "call_number_type": {
+        "value": "",
+        "desc": null
+      },
+      "link": "https://api-eu.hosted.exlibrisgroup.com/almaws/v1/conf/libraries/MAIN/locations/SelfPickup"
+    }
+  ],
+  "total_record_count": 13
+}

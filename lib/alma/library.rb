@@ -3,7 +3,7 @@ module Alma
     extend Alma::ApiDefaults
 
     def self.all(args: {})
-      response = HTTParty.get("#{configuraion_base_path}/libraries", query: args, headers: headers, timeout: timeout)
+      response = HTTParty.get("#{configuration_base_path}/libraries", query: args, headers: headers, timeout: timeout)
       if response.code == 200
         LibrarySet.new(response)
       else
@@ -12,7 +12,7 @@ module Alma
     end
 
     def self.find(library_code:, args: {})
-      response = HTTParty.get("#{configuraion_base_path}/libraries/#{library_code}",query: args, headers: headers, timeout: timeout)
+      response = HTTParty.get("#{configuration_base_path}/libraries/#{library_code}",query: args, headers: headers, timeout: timeout)
       if response.code == 200
         AlmaRecord.new(response)
       else
