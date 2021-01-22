@@ -1,0 +1,18 @@
+{
+    "code": "main",
+    "id": "12900830000231",
+    "name": "Main Library",
+    "path": "API_GUEST.API_GUEST_INST.main",
+    "description": "Supports undergraduate level programs",
+    "resource_sharing": false,
+    "campus": {
+        "desc": "string",
+        "value": "MAINCAMPUS"
+    },
+    "proxy": "",
+    "default_location": {
+        "value": "main",
+        "desc": "string"
+    },
+    "link": "https://api-na.hosted.exlibrisgroup.com/almaws/v1/conf/libraries/main"
+}

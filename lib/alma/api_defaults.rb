@@ -27,6 +27,10 @@ module Alma
       "#{self.region}/almaws/v1/items"
     end
 
+    def configuration_base_path
+      "#{self.region}/almaws/v1/conf"
+    end
+
     def timeout
       Alma.configuration.timeout
     end

@@ -128,7 +128,7 @@ RSpec.configure do |config|
     stub_request(:post, /.*\.exlibrisgroup\.com\/almaws\/v1\/bibs\/foo\/requests/).
         to_return(:status => 200)
 
-    stub_request(:get,/.*\/error/).
+    stub_request(:get,/.*\/.*error/).
         to_return(:status => 400,
                   :headers => { "Content-Type" => "application/json" },
                   :body => File.open(SPEC_ROOT + '/fixtures/error.json'))
@@ -157,10 +157,35 @@ RSpec.configure do |config|
       to_return(:status => 200,
                  :headers => { "Content-Type" => "application/json" },
                  :body => File.open(SPEC_ROOT + '/fixtures/item_from_barcode.json'))
+
     # Holding
     stub_request(:get, /.*\.exlibrisgroup\.com\/almaws\/v1\/bibs\/991227850000541\/holdings\/2282456310006421.*/).
       to_return(:status => 200,
                  :headers => { "Content-Type" => "application/json" },
                  :body => File.open(SPEC_ROOT + '/fixtures/single_holding.json'))
+
+    # libraries
+    stub_request(:get, /.*\.exlibrisgroup\.com\/almaws\/v1\/conf\/libraries$/).
+        to_return(:status => 200,
+                  :headers => { "Content-Type" => "application/json" },
+                  :body => File.open(SPEC_ROOT + '/fixtures/libraries.json'))
+
+    # single library
+    stub_request(:get, /.*\.exlibrisgroup\.com\/almaws\/v1\/conf\/libraries\/main/).
+        to_return(:status => 200,
+                  :headers => { "Content-Type" => "application/json" },
+                  :body => File.open(SPEC_ROOT + '/fixtures/library.json'))
+
+    # locations
+    stub_request(:get, /.*\.exlibrisgroup\.com\/almaws\/v1\/conf\/libraries\/main\/locations$/).
+        to_return(:status => 200,
+                  :headers => { "Content-Type" => "application/json" },
+                  :body => File.open(SPEC_ROOT + '/fixtures/locations.json'))
+
+    # single location
+    stub_request(:get, /.*\.exlibrisgroup\.com\/almaws\/v1\/conf\/libraries\/main\/locations\/offsite/).
+        to_return(:status => 200,
+                  :headers => { "Content-Type" => "application/json" },
+                  :body => File.open(SPEC_ROOT + '/fixtures/location.json'))
   end
 end

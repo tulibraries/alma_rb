@@ -1,0 +1,25 @@
+{
+  "code": "offsite",
+  "name": "Building 9",
+  "external_name": "Main Library Remote Storage Location",
+  "type": {
+    "value": "REMOTE",
+    "desc": "Remote Storage"
+  },
+  "remote_storage": "Offsite",
+  "map": "",
+  "suppress_from_publishing": "false",
+  "fulfillment_unit": {
+    "value": "General",
+    "desc": "General"
+  },
+  "accession_placement": {
+    "value": "none",
+    "desc": "None"
+  },
+  "call_number_type": {
+    "value": "0",
+    "desc": "Library of Congress classification"
+  },
+  "link": "https://api-eu.hosted.exlibrisgroup.com/almaws/v1/conf/libraries/MAIN/locations/offsite"
+}
