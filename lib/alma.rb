@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'alma/version'
 require 'alma/config'
 require 'alma/api_defaults'
@@ -27,6 +29,8 @@ require 'alma/library'
 require 'alma/library_set'
 require 'alma/location'
 require 'alma/location_set'
+require 'alma/course_set'
+require 'alma/course'
 
 module Alma
   require 'httparty'

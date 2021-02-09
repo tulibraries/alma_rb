@@ -187,5 +187,11 @@ RSpec.configure do |config|
         to_return(:status => 200,
                   :headers => { "Content-Type" => "application/json" },
                   :body => File.open(SPEC_ROOT + '/fixtures/location.json'))
+    
+    # Course details
+    stub_request(:get, /.*\.exlibrisgroup\.com\/almaws\/v1\/courses/).
+        to_return(:status => 200,
+                  :headers => { "Content-Type" => "application/json" },
+                  :body => File.open(SPEC_ROOT + '/fixtures/courses.json'))
   end
 end

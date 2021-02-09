@@ -1,0 +1,294 @@
+{
+    "course": [
+      {
+        "id": "2703155000006421",
+        "code": "000",
+        "name": "GSG",
+        "section": "",
+        "academic_department": {
+          "value": "GSG-246",
+          "desc": "GSG"
+        },
+        "processing_department": {
+          "value": "COURSE_UNIT",
+          "desc": "Course Unit"
+        },
+        "status": "ACTIVE",
+        "start_date": "2020-08-31Z",
+        "end_date": "2021-01-31Z",
+        "weekly_hours": 0,
+        "participants": 0,
+        "year": "",
+        "instructor": [],
+        "campus": [],
+        "note": [],
+        "created_by": "EX_LIBRIS",
+        "created_date": "2020-12-08Z",
+        "last_modified_by": "System",
+        "last_modified_date": "2020-12-08Z",
+        "rolled_from": "",
+        "link": "https://api-na.hosted.exlibrisgroup.com/almaws/v1/courses/2703155000006421"
+      },
+      {
+        "id": "2703148140006421",
+        "code": "105",
+        "name": "Intermediate Hindi I",
+        "section": "",
+        "academic_department": {
+          "value": "HIN-166",
+          "desc": "Hindi"
+        },
+        "processing_department": {
+          "value": "COURSE_UNIT",
+          "desc": "Course Unit"
+        },
+        "status": "ACTIVE",
+        "start_date": "2020-07-22Z",
+        "end_date": "2021-01-27Z",
+        "weekly_hours": 0,
+        "participants": 0,
+        "year": "",
+        "instructor": [],
+        "campus": [],
+        "note": [],
+        "created_by": "EX_LIBRIS",
+        "created_date": "2020-12-08Z",
+        "last_modified_by": "System",
+        "last_modified_date": "2020-12-08Z",
+        "rolled_from": "",
+        "link": "https://api-na.hosted.exlibrisgroup.com/almaws/v1/courses/2703148140006421"
+      },
+      {
+        "id": "2703151270006421",
+        "code": "111",
+        "name": "Everyday Enchantment",
+        "section": "",
+        "academic_department": {
+          "value": "FRS-221",
+          "desc": "FRESHMAN SEMINAR"
+        },
+        "processing_department": {
+          "value": "COURSE_UNIT",
+          "desc": "Course Unit"
+        },
+        "status": "ACTIVE",
+        "start_date": "2020-08-31Z",
+        "end_date": "2021-01-31Z",
+        "weekly_hours": 0,
+        "participants": 0,
+        "year": "",
+        "instructor": [],
+        "campus": [],
+        "note": [],
+        "created_by": "EX_LIBRIS",
+        "created_date": "2020-12-08Z",
+        "last_modified_by": "System",
+        "last_modified_date": "2020-12-08Z",
+        "rolled_from": "",
+        "link": "https://api-na.hosted.exlibrisgroup.com/almaws/v1/courses/2703151270006421"
+      },
+      {
+        "id": "2703156090006421",
+        "code": "126",
+        "name": "CBE: Computer Science: An Interdisciplin",
+        "section": "",
+        "academic_department": {
+          "value": null,
+          "desc": null
+        },
+        "processing_department": {
+          "value": "COURSE_UNIT",
+          "desc": "Course Unit"
+        },
+        "status": "ACTIVE",
+        "start_date": "2020-01-20Z",
+        "weekly_hours": 0,
+        "participants": 0,
+        "year": "",
+        "instructor": [],
+        "campus": [],
+        "note": [],
+        "created_by": "EX_LIBRIS",
+        "created_date": "2020-12-08Z",
+        "last_modified_by": "System",
+        "last_modified_date": "2020-12-08Z",
+        "rolled_from": "",
+        "link": "https://api-na.hosted.exlibrisgroup.com/almaws/v1/courses/2703156090006421"
+      },
+      {
+        "id": "2703151800006421",
+        "code": "143",
+        "name": "Is Politics a Performance",
+        "section": "",
+        "academic_department": {
+          "value": "FRS-221",
+          "desc": "FRESHMAN SEMINAR"
+        },
+        "processing_department": {
+          "value": "COURSE_UNIT",
+          "desc": "Course Unit"
+        },
+        "status": "ACTIVE",
+        "start_date": "2020-08-22Z",
+        "end_date": "2021-01-31Z",
+        "weekly_hours": 0,
+        "participants": 0,
+        "year": "",
+        "instructor": [],
+        "campus": [],
+        "note": [],
+        "created_by": "EX_LIBRIS",
+        "created_date": "2020-12-08Z",
+        "last_modified_by": "System",
+        "last_modified_date": "2020-12-08Z",
+        "rolled_from": "",
+        "link": "https://api-na.hosted.exlibrisgroup.com/almaws/v1/courses/2703151800006421"
+      },
+      {
+        "id": "2703151870006421",
+        "code": "145",
+        "name": "Learning to 'Spell': Visions of School",
+        "section": "",
+        "academic_department": {
+          "value": "FRS-84",
+          "desc": "Freshman Seminars"
+        },
+        "processing_department": {
+          "value": "COURSE_UNIT",
+          "desc": "Course Unit"
+        },
+        "status": "ACTIVE",
+        "start_date": "2020-08-22Z",
+        "end_date": "2021-01-31Z",
+        "weekly_hours": 0,
+        "participants": 0,
+        "year": "",
+        "instructor": [],
+        "campus": [],
+        "note": [],
+        "created_by": "EX_LIBRIS",
+        "created_date": "2020-12-08Z",
+        "last_modified_by": "System",
+        "last_modified_date": "2020-12-08Z",
+        "rolled_from": "",
+        "link": "https://api-na.hosted.exlibrisgroup.com/almaws/v1/courses/2703151870006421"
+      },
+      {
+        "id": "2703151960006421",
+        "code": "147",
+        "name": "How People Change",
+        "section": "",
+        "academic_department": {
+          "value": "FRS-221",
+          "desc": "FRESHMAN SEMINAR"
+        },
+        "processing_department": {
+          "value": "COURSE_UNIT",
+          "desc": "Course Unit"
+        },
+        "status": "ACTIVE",
+        "start_date": "2020-08-22Z",
+        "end_date": "2021-01-31Z",
+        "weekly_hours": 0,
+        "participants": 0,
+        "year": "",
+        "instructor": [],
+        "campus": [],
+        "note": [],
+        "created_by": "EX_LIBRIS",
+        "created_date": "2020-12-08Z",
+        "last_modified_by": "System",
+        "last_modified_date": "2020-12-08Z",
+        "rolled_from": "",
+        "link": "https://api-na.hosted.exlibrisgroup.com/almaws/v1/courses/2703151960006421"
+      },
+      {
+        "id": "2703152760006421",
+        "code": "151",
+        "name": "Love and Social Change",
+        "section": "",
+        "academic_department": {
+          "value": "WRI-66",
+          "desc": "Writing Seminar"
+        },
+        "processing_department": {
+          "value": "COURSE_UNIT",
+          "desc": "Course Unit"
+        },
+        "status": "ACTIVE",
+        "start_date": "2020-08-22Z",
+        "end_date": "2021-01-31Z",
+        "weekly_hours": 0,
+        "participants": 0,
+        "year": "",
+        "instructor": [],
+        "campus": [],
+        "note": [],
+        "created_by": "EX_LIBRIS",
+        "created_date": "2020-12-08Z",
+        "last_modified_by": "System",
+        "last_modified_date": "2020-12-08Z",
+        "rolled_from": "",
+        "link": "https://api-na.hosted.exlibrisgroup.com/almaws/v1/courses/2703152760006421"
+      },
+      {
+        "id": "2703147010006421",
+        "code": "163",
+        "name": "Once Upon a Time: Magic Tales &  Meaning",
+        "section": "",
+        "academic_department": {
+          "value": "FRS-221",
+          "desc": "FRESHMAN SEMINAR"
+        },
+        "processing_department": {
+          "value": "COURSE_UNIT",
+          "desc": "Course Unit"
+        },
+        "status": "ACTIVE",
+        "start_date": "2020-09-01Z",
+        "end_date": "2021-01-31Z",
+        "weekly_hours": 0,
+        "participants": 0,
+        "year": "",
+        "instructor": [],
+        "campus": [],
+        "note": [],
+        "created_by": "EX_LIBRIS",
+        "created_date": "2020-12-08Z",
+        "last_modified_by": "System",
+        "last_modified_date": "2020-12-08Z",
+        "rolled_from": "",
+        "link": "https://api-na.hosted.exlibrisgroup.com/almaws/v1/courses/2703147010006421"
+      },
+      {
+        "id": "2703147870006421",
+        "code": "165",
+        "name": "Archaeology as History",
+        "section": "",
+        "academic_department": {
+          "value": "FRS-221",
+          "desc": "FRESHMAN SEMINAR"
+        },
+        "processing_department": {
+          "value": "COURSE_UNIT",
+          "desc": "Course Unit"
+        },
+        "status": "ACTIVE",
+        "start_date": "2020-07-22Z",
+        "end_date": "2020-12-22Z",
+        "weekly_hours": 0,
+        "participants": 0,
+        "year": "",
+        "instructor": [],
+        "campus": [],
+        "note": [],
+        "created_by": "EX_LIBRIS",
+        "created_date": "2020-12-08Z",
+        "last_modified_by": "System",
+        "last_modified_date": "2020-12-08Z",
+        "rolled_from": "",
+        "link": "https://api-na.hosted.exlibrisgroup.com/almaws/v1/courses/2703147870006421"
+      }
+    ],
+    "total_record_count": 246
+  }
