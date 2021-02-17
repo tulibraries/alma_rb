@@ -1,0 +1,13 @@
+{
+  "errorsExist": true,
+  "errorList": {
+    "error": [
+      {
+        "errorCode": "40166415",
+        "errorMessage": "Must send at least one of the following parameters: [circ_desk,department]",
+        "trackingId": "E01-1702184810-FVCA7-AWAE980040178"
+      }
+    ]
+  },
+  "result": null
+}

@@ -25,6 +25,12 @@ module Alma
       new(response)
     end
 
+    def self.scan(mms_id:, holding_id:, item_pid:, options: {})
+      url = "#{bibs_base_path}/#{mms_id}/holdings/#{holding_id}/items/#{item_pid}"
+      response = HTTParty.post(url, headers: headers, query: options)
+      new(response)
+    end
+
     def initialize(item)
       @item = item
     end
