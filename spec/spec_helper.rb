@@ -158,6 +158,13 @@ RSpec.configure do |config|
                  :headers => { "Content-Type" => "application/json" },
                  :body => File.open(SPEC_ROOT + '/fixtures/item_from_barcode.json'))
 
+    # Item scan
+    stub_request(:post, /.*\.exlibrisgroup\.com\/almaws\/v1\/bibs\/.*\/holdings\/.*\/items\/.*/).
+        to_return(:status => 200,
+                  :headers => { "Content-Type" => "application/json" },
+                  :body => File.open(SPEC_ROOT + '/fixtures/scan.json'))
+
+
     # Holding
     stub_request(:get, /.*\.exlibrisgroup\.com\/almaws\/v1\/bibs\/991227850000541\/holdings\/2282456310006421.*/).
       to_return(:status => 200,
