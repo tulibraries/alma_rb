@@ -2,6 +2,18 @@ version: 2.1
 orbs:
   ruby: circleci/ruby@0.1.2
 
+workflows:
+  version: 2
+  test-deploy:
+    jobs:
+      - build
+      - deploy:
+          filters:
+            tags:
+              only: /.*/
+            branches:
+              ignore: /.*/
+
 jobs:
   build:
     docker:
