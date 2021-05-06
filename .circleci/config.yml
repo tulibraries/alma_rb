@@ -37,7 +37,7 @@ jobs:
           command: bundle exec rake
   deploy:
     docker:
-      - image: cimg/ruby:2.7.2-node-browsers
+      - image: circleci/ruby:2.7.2-node-browsers
 
     working_directory: ~/repo
 
