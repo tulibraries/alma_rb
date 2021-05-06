@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Alma
   class  User
     class ResponseError < Alma::StandardError
@@ -5,24 +7,24 @@ module Alma
     extend Forwardable
     extend Alma::ApiDefaults
 
-      def self.find(user_id, args={})
-        args[:expand] ||= "fees,requests,loans"
-        response = HTTParty.get("#{self.users_base_path}/#{user_id}", query: args, headers: headers, timeout: timeout)
+    def self.find(user_id, args = {})
+      args[:expand] ||= "fees,requests,loans"
+      response = HTTParty.get("#{self.users_base_path}/#{user_id}", query: args, headers: headers, timeout: timeout)
 
-        Alma::User.new response
-      end
+      Alma::User.new response
+    end
 
-      # Authenticates a Alma user with their Alma Password
-      # @param [Hash] args
-      # @option args [String] :user_id The unique id of the user
-      # @option args [String] :password The users local alma password
-      # @return [Boolean] Whether or not the user Successfully authenticated
-      def self.authenticate(args)
-        user_id = args.delete(:user_id) { raise ArgumentError }
-        args.merge!({op: 'auth'})
-        response = HTTParty.post("#{users_base_path}/#{user_id}", query: args, headers: headers, timeout: timeout)
-        response.code == 204
-      end
+    # Authenticates a Alma user with their Alma Password
+    # @param [Hash] args
+    # @option args [String] :user_id The unique id of the user
+    # @option args [String] :password The users local alma password
+    # @return [Boolean] Whether or not the user Successfully authenticated
+    def self.authenticate(args)
+      user_id = args.delete(:user_id) { raise ArgumentError }
+      args.merge!({ op: "auth" })
+      response = HTTParty.post("#{users_base_path}/#{user_id}", query: args, headers: headers, timeout: timeout)
+      response.code == 204
+    end
 
 
     # The User object can respond directly to Hash like access of attributes
@@ -52,19 +54,19 @@ module Alma
     end
 
     def id
-      self['primary_id']
+      self["primary_id"]
     end
 
     def total_fines
-      response.dig('fees','value') || "0"
+      response.dig("fees", "value") || "0"
     end
 
     def total_requests
-      response.dig('requests','value') || "0"
+      response.dig("requests", "value") || "0"
     end
 
     def total_loans
-      response.dig('loans','value') || "0"
+      response.dig("loans", "value") || "0"
     end
 
 
@@ -95,12 +97,12 @@ module Alma
     end
 
 
-    def loans(args={})
-        @loans ||= Alma::Loan.where_user(id, args)
+    def loans(args = {})
+      @loans ||= Alma::Loan.where_user(id, args)
     end
 
     def renew_loan(loan_id)
-      response = self.class.send_loan_renewal_request({user_id: id, loan_id: loan_id})
+      response = self.class.send_loan_renewal_request({ user_id: id, loan_id: loan_id })
       if response.renewed?
         @recheck_loans ||= true
       end
@@ -130,7 +132,7 @@ module Alma
 
     def preferred_middle_name
       pref_middle = self["pref_middle_name"] unless self["pref_middle_name"] == ""
-      pref_middle  || self["middle_name"] || ""
+      pref_middle || self["middle_name"] || ""
     end
 
     def preferred_last_name
@@ -150,46 +152,46 @@ module Alma
 
     private
 
-    # Attempts to renew a single item for a user
-    # @param [Hash] args
-    # @option args [String] :user_id The unique id of the user
-    # @option args [String] :loan_id The unique id of the loan
-    # @option args [String] :user_id_type Type of identifier being used to search. OPTIONAL
-    # @return [RenewalResponse] Object indicating the renewal message
-    def self.send_loan_renewal_request(args)
-      loan_id = args.delete(:loan_id) { raise ArgumentError }
-      user_id = args.delete(:user_id) { raise ArgumentError }
-      params = {op: 'renew'}
-      response = HTTParty.post("#{users_base_path}/#{user_id}/loans/#{loan_id}", query: params, headers: headers)
-      RenewalResponse.new(response)
-    end
+      # Attempts to renew a single item for a user
+      # @param [Hash] args
+      # @option args [String] :user_id The unique id of the user
+      # @option args [String] :loan_id The unique id of the loan
+      # @option args [String] :user_id_type Type of identifier being used to search. OPTIONAL
+      # @return [RenewalResponse] Object indicating the renewal message
+      def self.send_loan_renewal_request(args)
+        loan_id = args.delete(:loan_id) { raise ArgumentError }
+        user_id = args.delete(:user_id) { raise ArgumentError }
+        params = { op: "renew" }
+        response = HTTParty.post("#{users_base_path}/#{user_id}/loans/#{loan_id}", query: params, headers: headers)
+        RenewalResponse.new(response)
+      end
 
-    # Attempts to renew multiple items for a user
-    # @param [Hash] args
-    # @option args [String] :user_id The unique id of the user
-    # @option args [Array<String>] :loan_ids The unique ids of the loans
-    # @option args [String] :user_id_type Type of identifier being used to search. OPTIONAL
-    # @return [Array<RenewalResponse>] Array of Objects indicating the renewal messages
-    def self.send_multiple_loan_renewal_requests(args)
-      loan_ids = args.delete(:loan_ids) { raise ArgumentError }
-      loan_ids.map { |id| Alma::User.send_loan_renewal_request(args.merge(loan_id: id))}
-    end
+      # Attempts to renew multiple items for a user
+      # @param [Hash] args
+      # @option args [String] :user_id The unique id of the user
+      # @option args [Array<String>] :loan_ids The unique ids of the loans
+      # @option args [String] :user_id_type Type of identifier being used to search. OPTIONAL
+      # @return [Array<RenewalResponse>] Array of Objects indicating the renewal messages
+      def self.send_multiple_loan_renewal_requests(args)
+        loan_ids = args.delete(:loan_ids) { raise ArgumentError }
+        loan_ids.map { |id| Alma::User.send_loan_renewal_request(args.merge(loan_id: id)) }
+      end
 
-    def get_body_from(response)
-      JSON.parse(response.body)
-    end
+      def get_body_from(response)
+        JSON.parse(response.body)
+      end
 
 
-    def self.users_base_path
-      "https://api-na.hosted.exlibrisgroup.com/almaws/v1/users"
-    end
+      def self.users_base_path
+        "https://api-na.hosted.exlibrisgroup.com/almaws/v1/users"
+      end
 
-    def users_base_path
-      self.class.users_base_path
-    end
+      def users_base_path
+        self.class.users_base_path
+      end
 
-    def headers
-      self.class.headers
-    end
+      def headers
+        self.class.headers
+      end
   end
 end

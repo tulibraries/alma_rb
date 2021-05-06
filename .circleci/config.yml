@@ -1,0 +1,54 @@
+version: 2.1
+orbs:
+  ruby: circleci/ruby@0.1.2
+
+workflows:
+  version: 2
+  test-deploy:
+    jobs:
+      - build
+      - deploy:
+          filters:
+            tags:
+              only: /.*/
+            branches:
+              ignore: /.*/
+
+jobs:
+  build:
+    docker:
+      - image: cimg/ruby:2.7.2-node
+        auth:
+          username: $DOCKERHUB_USER
+          password: $DOCKERHUB_PASSWORD
+
+    executor: ruby/default
+    steps:
+      - checkout
+      - run:
+          name: Which bundler?
+          command: bundle -v
+      - ruby/bundle-install
+      - run:
+          name: lint
+          command: bundle exec rubocop
+      - run:
+          name: test
+          command: bundle exec rake
+  deploy:
+    docker:
+      - image: cimg/ruby:2.7.2-node-browsers
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+      - run:
+          name: Setup Rubygems
+          command: bash .circleci/setup-rubygems.sh
+
+      - run:
+          name: Publish to Rubygems
+          command: |
+            gem build alma.gemspec
+            gem push "alma-$(git describe --tags).gem"

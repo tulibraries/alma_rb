@@ -5,7 +5,7 @@ module Alma
     def_delegators :results, :[], :empty?
 
     def each(&block)
-       results.each(&block)
+      results.each(&block)
     end
 
     def results

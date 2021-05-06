@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 module Alma
   class UserRequest < AlmaRecord
     extend Alma::ApiDefaults
 
-    def self.where_user(user_id, args={})
+    def self.where_user(user_id, args = {})
       # Default to upper limit
       args[:limit] ||= 100
       response = HTTParty.get(

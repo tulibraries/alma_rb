@@ -1,6 +1,7 @@
+# frozen_string_literal: true
+
 module Alma
   class AlmaRecord
-
     def initialize(record)
       @raw_record = record
       post_initialize()
@@ -23,6 +24,5 @@ module Alma
       # Subclasses can define this method to perform extra initialization
       # after the super class init.
     end
-
   end
 end

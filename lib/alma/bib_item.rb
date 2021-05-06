@@ -1,4 +1,6 @@
-require 'alma/bib_item_set'
+# frozen_string_literal: true
+
+require "alma/bib_item_set"
 module Alma
   class BibItem
     extend Alma::ApiDefaults
@@ -7,17 +9,17 @@ module Alma
     attr_reader :item
     def_delegators :item, :[], :has_key?, :keys, :to_json
 
-    PERMITTED_ARGS  = [
+    PERMITTED_ARGS = [
       :limit, :offset, :expand, :user_id, :current_library,
       :current_location, :q, :order_by, :direction
     ]
 
-    def self.find(mms_id, options={})
+    def self.find(mms_id, options = {})
       holding_id = options.delete(:holding_id) || "ALL"
-      options.select! {|k,_| PERMITTED_ARGS.include? k }
+      options.select! { |k, _| PERMITTED_ARGS.include? k }
       url = "#{bibs_base_path}/#{mms_id}/holdings/#{holding_id}/items"
       response = HTTParty.get(url, headers: headers, query: options, timeout: timeout)
-      BibItemSet.new(response, options.merge({mms_id: mms_id, holding_id: holding_id}))
+      BibItemSet.new(response, options.merge({ mms_id: mms_id, holding_id: holding_id }))
     end
 
     def self.find_by_barcode(barcode)
@@ -96,7 +98,7 @@ module Alma
     end
 
     def temp_call_number
-      holding_data.fetch("temp_call_number","")
+      holding_data.fetch("temp_call_number", "")
     end
 
     def has_temp_call_number?
@@ -107,7 +109,7 @@ module Alma
       if has_temp_call_number?
         holding_data.fetch("temp_call_number")
       else
-        holding_data.fetch("call_number","")
+        holding_data.fetch("call_number", "")
       end
     end
 
@@ -116,7 +118,7 @@ module Alma
     end
 
     def alt_call_number
-      item_data.fetch("alternative_call_number","")
+      item_data.fetch("alternative_call_number", "")
     end
 
     def has_process_type?
@@ -132,7 +134,7 @@ module Alma
     end
 
     def base_status
-      item_data.dig("base_status","value")|| ""
+      item_data.dig("base_status", "value") || ""
     end
 
     def in_place?

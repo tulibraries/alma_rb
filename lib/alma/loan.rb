@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Alma
   class Loan < AlmaRecord
     extend Alma::ApiDefaults
@@ -16,10 +18,10 @@ module Alma
     end
 
     def renew
-      Alma::User.renew_loan({user_id: user_id, loan_id: loan_id})
+      Alma::User.renew_loan({ user_id: user_id, loan_id: loan_id })
     end
 
-    def self.where_user(user_id, args={})
+    def self.where_user(user_id, args = {})
       # Always expand renewable unless you really don't want to
       args[:expand] ||= "renewable"
       # Default to upper limit

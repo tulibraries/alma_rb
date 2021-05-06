@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Alma
   class BibRequest
     class  ItemAlreadyExists < Alma::StandardError
@@ -11,11 +13,11 @@ module Alma
       request = new(args)
       response = HTTParty.post(
         "#{bibs_base_path}/#{request.mms_id}/requests",
-        query: {user_id: request.user_id},
+        query: { user_id: request.user_id },
         headers: headers,
         body: request.body.to_json
         )
-        Alma::Response.new(response)
+      Alma::Response.new(response)
     end
 
     attr_reader :mms_id, :user_id, :body, :request_type
@@ -69,18 +71,18 @@ module Alma
     def digitization_validation(args)
       args.fetch(:target_destination) do
         raise ArgumentError.new(
-        ":target_destination option must be specified when request_type is DIGITIZATION"
+          ":target_destination option must be specified when request_type is DIGITIZATION"
         )
       end
       pd = args.fetch(:partial_digitization) do
         raise ArgumentError.new(
-        ":partial_digitization option must be specified when request_type is DIGITIZATION"
+          ":partial_digitization option must be specified when request_type is DIGITIZATION"
         )
       end
       if pd == true
         args.fetch(:comment) do
           raise ArgumentError.new(
-          ":comment option must be specified when :request_type is DIGITIZATION and :partial_digitization is true"
+            ":comment option must be specified when :request_type is DIGITIZATION and :partial_digitization is true"
           )
         end
       end
@@ -95,22 +97,22 @@ module Alma
     def booking_validation(args)
       args.fetch(:booking_start_date) do
         raise ArgumentError.new(
-        ":booking_start_date option must be specified when request_type is BOOKING"
+          ":booking_start_date option must be specified when request_type is BOOKING"
         )
       end
       args.fetch(:booking_end_date) do
         raise ArgumentError.new(
-        ":booking_end_date option must be specified when request_type is BOOKING"
+          ":booking_end_date option must be specified when request_type is BOOKING"
         )
       end
       args.fetch(:pickup_location_type) do
         raise ArgumentError.new(
-        ":pickup_location_type option must be specified when request_type is BOOKING"
+          ":pickup_location_type option must be specified when request_type is BOOKING"
         )
       end
       args.fetch(:pickup_location_library) do
         raise ArgumentError.new(
-        ":pickup_location_library option must be specified when request_type is BOOKING"
+          ":pickup_location_library option must be specified when request_type is BOOKING"
         )
       end
     end
@@ -124,12 +126,12 @@ module Alma
     def hold_validation(args)
       args.fetch(:pickup_location_type) do
         raise ArgumentError.new(
-        ":pickup_location_type option must be specified when request_type is HOLD"
+          ":pickup_location_type option must be specified when request_type is HOLD"
         )
       end
       args.fetch(:pickup_location_library) do
         raise ArgumentError.new(
-        ":pickup_location_library option must be specified when request_type is HOLD"
+          ":pickup_location_library option must be specified when request_type is HOLD"
         )
       end
     end
@@ -140,11 +142,11 @@ module Alma
       request = new(args)
       response = HTTParty.post(
         "#{bibs_base_path}/#{request.mms_id}/holdings/#{request.holding_id}/items/#{request.item_pid}/requests",
-        query: {user_id: request.user_id},
+        query: { user_id: request.user_id },
         headers: headers,
         body: request.body.to_json
         )
-        Alma::Response.new(response)
+      Alma::Response.new(response)
     end
 
     attr_reader :holding_id, :item_pid
@@ -157,7 +159,7 @@ module Alma
     def additional_validation!(args)
       args.fetch(:description) do
         raise ArgumentError.new(
-        ":description option must be specified when request_type is DIGITIZATION"
+          ":description option must be specified when request_type is DIGITIZATION"
         )
       end
     end

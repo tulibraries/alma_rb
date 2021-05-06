@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Alma
   class RequestOptions
     class ResponseError < Alma::StandardError
@@ -18,9 +20,9 @@ module Alma
     end
 
 
-    def self.get(mms_id, options={})
+    def self.get(mms_id, options = {})
       url = "#{bibs_base_path}/#{mms_id}/request-options"
-      options.select! {|k,_|  REQUEST_OPTIONS_PERMITTED_ARGS.include? k }
+      options.select! { |k, _|  REQUEST_OPTIONS_PERMITTED_ARGS.include? k }
       response = HTTParty.get(url, headers: headers, query: options, timeout: timeout)
       new(response)
     end
@@ -38,26 +40,26 @@ module Alma
 
     def hold_allowed?
       !request_options.nil? &&
-        !request_options.select {|option| option["type"]["value"] == "HOLD" }.empty?
+        !request_options.select { |option| option["type"]["value"] == "HOLD" }.empty?
     end
 
     def digitization_allowed?
       !request_options.nil? &&
-        !request_options.select {|option| option["type"]["value"] == "DIGITIZATION" }.empty?
+        !request_options.select { |option| option["type"]["value"] == "DIGITIZATION" }.empty?
     end
 
     def booking_allowed?
       !request_options.nil? &&
-        !request_options.select {|option| option["type"]["value"] == "BOOKING" }.empty?
+        !request_options.select { |option| option["type"]["value"] == "BOOKING" }.empty?
     end
 
     def resource_sharing_broker_allowed?
       !request_options.nil? &&
-        !request_options.select {|option| option["type"]["value"] == "RS_BROKER" }.empty?
+        !request_options.select { |option| option["type"]["value"] == "RS_BROKER" }.empty?
     end
 
     def ez_borrow_link
-      broker = request_options.select {|option| option["type"]["value"] == "RS_BROKER" }
+      broker = request_options.select { |option| option["type"]["value"] == "RS_BROKER" }
       broker.collect { |opt| opt["request_url"] }.first
     end
   end

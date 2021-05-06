@@ -30,7 +30,7 @@ module Alma
     end
 
     def each(&block)
-       @results.each(&block)
+      @results.each(&block)
     end
 
     def success?

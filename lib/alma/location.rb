@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Alma
   class Location < AlmaRecord
     extend Alma::ApiDefaults

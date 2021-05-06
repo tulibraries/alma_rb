@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Alma
   class Library < AlmaRecord
     extend Alma::ApiDefaults
@@ -12,7 +14,7 @@ module Alma
     end
 
     def self.find(library_code:, args: {})
-      response = HTTParty.get("#{configuration_base_path}/libraries/#{library_code}",query: args, headers: headers, timeout: timeout)
+      response = HTTParty.get("#{configuration_base_path}/libraries/#{library_code}", query: args, headers: headers, timeout: timeout)
       if response.code == 200
         AlmaRecord.new(response)
       else
