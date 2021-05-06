@@ -7,7 +7,7 @@ require "alma/version"
 
 Gem::Specification.new do |spec|
   spec.name          = "alma"
-  spec.version       = "v#{Alma::VERSION}"
+  spec.version       = Alma::VERSION
   spec.authors       = ["Jennifer Anton", "David Kinzer", "Chad Nelson"]
   spec.email         = ["jennifer.anton@temple.edu", "david.kinzer@temple.edu", "chad.nelson@temple.edu"]
 
