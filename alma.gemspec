@@ -28,9 +28,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency "xml-simple"
   spec.add_dependency "activesupport"
 
-
-
-
   spec.add_development_dependency "bundler", "~> 2.0"
   spec.add_development_dependency "rake", "~> 13.0"
   spec.add_development_dependency "rspec", "~> 3.0"
@@ -41,5 +38,4 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "byebug"
   spec.add_development_dependency "guard"
   spec.add_development_dependency "guard-rspec"
-
 end

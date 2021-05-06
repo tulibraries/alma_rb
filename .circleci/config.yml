@@ -51,4 +51,4 @@ jobs:
           name: Publish to Rubygems
           command: |
             gem build alma.gemspec
-            gem push "alma-$(git describe --tags).gem"
+            gem push "$(ls alma-*.gem)"
