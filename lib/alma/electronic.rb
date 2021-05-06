@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "httparty"
 require "active_support"
 require "active_support/core_ext"
@@ -7,7 +8,6 @@ require "alma/config"
 module Alma
   # Alma::Electronic APIs wrapper.
   class Electronic
-
     class ElectronicError < ArgumentError
     end
 

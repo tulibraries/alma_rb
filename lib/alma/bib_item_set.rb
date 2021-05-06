@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 module Alma
-
   class BibItemSet < ResultSet
     ITEMS_PER_PAGE = 100
 
@@ -14,7 +13,7 @@ module Alma
     def_delegators :items, :[], :[]=, :empty?, :size, :each
     def_delegators :raw_response, :response, :request
 
-    def initialize(response, options={})
+    def initialize(response, options = {})
       @raw_response = response
       parsed = response.parsed_response
       @total_record_count = parsed["total_record_count"]
@@ -54,7 +53,7 @@ module Alma
       Enumerator.new do |yielder|
         offset = 0
         while (!@last_page_index || @last_page_index >= offset / items_per_page) do
-          r = (offset == 0) ? self : single_record_class.find(@mms_id, options=@options.merge({limit: items_per_page, offset: offset}))
+          r = (offset == 0) ? self : single_record_class.find(@mms_id, options = @options.merge({ limit: items_per_page, offset: offset }))
           unless r.empty?
             r.map { |item| yielder << item }
             @last_page_index = (offset / items_per_page)
@@ -72,7 +71,7 @@ module Alma
     end
 
     def each(&block)
-       @items.each(&block)
+      @items.each(&block)
     end
 
     def success?

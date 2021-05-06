@@ -1,6 +1,7 @@
+# frozen_string_literal: true
+
 module Alma
   module ApiDefaults
-
     def apikey
       Alma.configuration.apikey
     end

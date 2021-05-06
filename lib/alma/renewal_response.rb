@@ -1,10 +1,11 @@
+# frozen_string_literal: true
+
 module Alma
   class RenewalResponse
-
     def initialize(response)
       @raw_response = response
       @response = response.parsed_response
-      @success  = response.has_key?('loan_id')
+      @success  = response.has_key?("loan_id")
     end
 
     def loggable
@@ -21,19 +22,19 @@ module Alma
     end
 
     def due_date
-      @response.fetch('due_date', '')
+      @response.fetch("due_date", "")
     end
 
 
     def due_date_pretty
-      Time.parse(due_date).strftime('%m-%e-%y %H:%M')
+      Time.parse(due_date).strftime("%m-%e-%y %H:%M")
     end
 
     def item_title
       if renewed?
-        @response['title']
+        @response["title"]
       else
-        'This Item'
+        "This Item"
       end
     end
 
@@ -46,8 +47,7 @@ module Alma
     end
 
     def error_message
-        @response unless renewed?
+      @response unless renewed?
     end
-
   end
 end

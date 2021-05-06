@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "spec_helper"
 
 describe Alma::Response do
@@ -5,11 +7,11 @@ describe Alma::Response do
     Alma.configure
   end
 
-  let(:response) {described_class.new(http_response)}
+  let(:response) { described_class.new(http_response) }
 
-  describe 'errors method' do
+  describe "errors method" do
     let(:http_response) { HTTParty.get("http://foo.com/error") }
-    it 'raises a response error' do
+    it "raises a response error" do
       expect { response }.to raise_error(Alma::Response::StandardError)
     end
 

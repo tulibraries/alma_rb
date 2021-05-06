@@ -28,20 +28,20 @@ module Alma
 
     private
 
-    def self.get_body_from(response)
-      JSON.parse(response.body)
-    end
+      def self.get_body_from(response)
+        JSON.parse(response.body)
+      end
 
-    def self.courses_base_path
-      'https://api-na.hosted.exlibrisgroup.com/almaws/v1'
-    end
+      def self.courses_base_path
+        "https://api-na.hosted.exlibrisgroup.com/almaws/v1"
+      end
 
-    def courses_base_path
-      self.class.courses_base_path
-    end
+      def courses_base_path
+        self.class.courses_base_path
+      end
 
-    def headers
-      self.class.headers
-    end
+      def headers
+        self.class.headers
+      end
   end
 end

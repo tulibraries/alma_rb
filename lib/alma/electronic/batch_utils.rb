@@ -81,12 +81,12 @@ module Alma
       end
 
       self.class.new(options.merge(
-        chain: chain,
-        ids: ids,
-        type: type,
-        tag: tag,
-        notes: notes,
-        logger: @@logger,
+                       chain: chain,
+                       ids: ids,
+                       type: type,
+                       tag: tag,
+                       notes: notes,
+                       logger: @@logger,
       ))
     end
 
@@ -179,11 +179,11 @@ module Alma
       end
 
       self.class.new(options.merge(
-        chain: chain,
-        notes: notes,
-        type: type,
-        tag: tag,
-        logger: @@logger,
+                       chain: chain,
+                       notes: notes,
+                       type: type,
+                       tag: tag,
+                       logger: @@logger,
       ))
     end
 

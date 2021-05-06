@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Alma
   class << self
     attr_accessor :configuration
@@ -14,7 +16,7 @@ module Alma
 
     def initialize
       @apikey = "TEST_API_KEY"
-      @region = 'https://api-na.hosted.exlibrisgroup.com'
+      @region = "https://api-na.hosted.exlibrisgroup.com"
       @enable_loggable = false
       @timeout = 5
       @http_retries = 3

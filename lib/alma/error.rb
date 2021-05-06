@@ -1,15 +1,16 @@
-module Alma::Error
+# frozen_string_literal: true
 
+module Alma::Error
   def has_error?
     !error.empty?
   end
 
   def error_message
-    (has_error?) ? error['errorList']['error']['errorMessage'] : ''
+    (has_error?) ? error["errorList"]["error"]["errorMessage"] : ""
   end
 
   def error
-    @response.fetch('web_service_result', {})
+    @response.fetch("web_service_result", {})
   end
 end
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Alma
   class BibHolding
     extend Alma::ApiDefaults
