@@ -26,7 +26,6 @@ module Alma
       response.code == 204
     end
 
-
     # The User object can respond directly to Hash like access of attributes
     def_delegators :response, :[], :[]=, :has_key?, :keys, :to_json
 
@@ -69,7 +68,6 @@ module Alma
       response.dig("loans", "value") || "0"
     end
 
-
     # Access the top level JSON attributes as object methods
     def method_missing(name)
       return response[name.to_s] if has_key?(name.to_s)
@@ -80,13 +78,11 @@ module Alma
       has_key?(name.to_s) || super
     end
 
-
     # Persist the user in it's current state back to Alma
     def save!
       response = HTTParty.put("#{users_base_path}/#{id}", timeout: timeout, headers: headers, body: to_json)
       get_body_from(response)
     end
-
 
     def fines
       Alma::Fine.where_user(id)
@@ -95,7 +91,6 @@ module Alma
     def requests
       Alma::UserRequest.where_user(id)
     end
-
 
     def loans(args = {})
       @loans ||= Alma::Loan.where_user(id, args)
@@ -107,7 +102,6 @@ module Alma
         @recheck_loans ||= true
       end
     end
-
 
     def renew_multiple_loans(loan_ids)
       loan_ids.map { |id| renew_loan(id) }
@@ -148,8 +142,6 @@ module Alma
       "#{preferred_first_name} #{preferred_middle_name} #{preferred_last_name} #{preferred_suffix}"
     end
 
-
-
     private
 
       # Attempts to renew a single item for a user
@@ -177,10 +169,19 @@ module Alma
         loan_ids.map { |id| Alma::User.send_loan_renewal_request(args.merge(loan_id: id)) }
       end
 
+      # Attempts to pay total fines for a user
+      # @param [Hash] args
+      # @option args [String] :user_id The unique id of the user
+      def self.send_payment(args)
+        user_id = args.delete(:user_id) { raise ArgumentError }
+        params = { op: "pay", amount: "ALL" }
+        response = HTTParty.post("#{users_base_path}/#{user_id}/fees/all", query: params, headers: headers)
+        PaymentResponse.new(response)
+      end
+
       def get_body_from(response)
         JSON.parse(response.body)
       end
-
 
       def self.users_base_path
         "https://api-na.hosted.exlibrisgroup.com/almaws/v1/users"
