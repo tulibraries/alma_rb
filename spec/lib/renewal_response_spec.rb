@@ -7,7 +7,6 @@ describe Alma::RenewalResponse do
     Alma.configure
   end
 
-
   let(:renewal) do
     Alma::User.send_loan_renewal_request(user_id: "foo", loan_id: "bar")
   end
@@ -31,15 +30,10 @@ describe Alma::RenewalResponse do
       end
     end
 
-
     describe "#error_message" do
       it "is empty" do
         expect(renewal.error_message).to be_nil
       end
     end
-
   end
-
-
-
 end

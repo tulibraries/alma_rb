@@ -78,6 +78,13 @@ RSpec.configure do |config|
                   headers: { "Content-Type" => "application/json" },
                   body: File.open(SPEC_ROOT + "/fixtures/renewal_success.json"))
 
+    # fines payment
+    stub_request(:post, /.*\.exlibrisgroup\.com\/almaws\/v1\/users\/.*\/fees\/all/).
+        with(query: hash_including({ op: "pay", amount: "ALL" })).
+        to_return(status: 200,
+                  headers: { "Content-Type" => "application/json" },
+                  body: File.open(SPEC_ROOT + "/fixtures/payment_success.json"))
+
     # Request bibs info
 
     stub_request(:get, /.*\.exlibrisgroup\.com\/almaws\/v1\/bibs/).
