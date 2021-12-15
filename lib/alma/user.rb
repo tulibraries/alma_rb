@@ -57,7 +57,7 @@ module Alma
     end
 
     def total_fines
-      response.dig("fees", "value") || "0"
+      response.dig("fees", "value") || 0.0
     end
 
     def total_requests

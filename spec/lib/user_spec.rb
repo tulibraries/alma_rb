@@ -51,8 +51,12 @@ describe Alma::User do
         expect(user.total_loans).to eql "14"
       end
 
-      it "returns 0 if the element is missing" do
-        expect(user.total_fines).to eql "0"
+      it "returns 0.0 if the element is missing" do
+        expect(user.total_fines).to eql 0.0
+      end
+
+      it "returns something that can be measured" do
+        expect(user.total_fines).to be >= 0
       end
     end
 
