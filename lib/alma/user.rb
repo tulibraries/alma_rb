@@ -174,7 +174,7 @@ module Alma
       # @option args [String] :user_id The unique id of the user
       def self.send_payment(args)
         user_id = args.delete(:user_id) { raise ArgumentError }
-        params = { op: "pay", amount: "ALL" }
+        params = { op: "pay", amount: "ALL", method: "ONLINE" }
         response = HTTParty.post("#{users_base_path}/#{user_id}/fees/all", query: params, headers: headers)
         PaymentResponse.new(response)
       end
