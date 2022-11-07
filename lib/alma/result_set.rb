@@ -22,7 +22,7 @@ class Alma::ResultSet
   end
 
   def each
-    @results ||= @response.fetch(key, [])
+    @results ||= (@response.fetch(key, []) || [])
       .map { |item| single_record_class.new(item) }
   end
 

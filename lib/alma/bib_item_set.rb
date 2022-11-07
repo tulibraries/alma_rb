@@ -21,7 +21,8 @@ module Alma
       @mms_id = @options.delete(:mms_id)
 
       validate(response)
-      @items = parsed.fetch(key, []).map { |item| single_record_class.new(item) }
+      @items = (parsed.fetch(key, []) || [])
+        .map { |item| single_record_class.new(item) }
     end
 
     def loggable
