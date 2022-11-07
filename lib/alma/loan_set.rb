@@ -16,8 +16,8 @@ module Alma
       @response = raw_response.parsed_response
       @search_args = search_args
       validate(raw_response)
-      @results = @response.fetch(key, [])
-        .map { |item| single_record_class.new(item) }
+      @results = @response.fetch(key, []) || []
+      @results.map! { |item| single_record_class.new(item) }
       # args passed to the search that returned this set
       # such as limit, expand, order_by, etc
     end
