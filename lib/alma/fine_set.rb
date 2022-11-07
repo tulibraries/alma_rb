@@ -12,8 +12,8 @@ module Alma
       @raw_response = raw_response
       @response = raw_response.parsed_response
       validate(raw_response)
-      @results = @response.fetch(key, [])
-        .map { |item| single_record_class.new(item) }
+      @results = @response.fetch(key, []) || []
+      @results.map! { |item| single_record_class.new(item) }
     end
 
     def loggable
