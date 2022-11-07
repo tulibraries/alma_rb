@@ -9,7 +9,7 @@ module Alma
     end
 
     def results
-      @results ||= @response.fetch(key, [])
+      @results ||= (@response.fetch(key, []) || [])
          .map { |item| single_record_class.new(item) }
     end
 

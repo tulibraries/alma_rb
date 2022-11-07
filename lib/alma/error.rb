@@ -10,7 +10,7 @@ module Alma::Error
   end
 
   def error
-    @response.fetch("web_service_result", {})
+    @response.fetch("web_service_result", {}) || {}
   end
 end
 
