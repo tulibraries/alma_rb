@@ -10,7 +10,7 @@ RSpec.describe Alma::Electronic::BatchUtils do
   let(:batch) { Alma::Electronic::BatchUtils.new(options) }
   let(:logfile) { "log/electronic_batch_process_spec.log" }
   let(:logger) { Logger.new(logfile) }
-  let(:options) { { ids: ids, logger: logger } }
+  let(:options) { { ids:, logger: } }
 
   before do
     Alma.configure
@@ -126,7 +126,7 @@ RSpec.describe Alma::Electronic::BatchUtils do
 
   describe "#build_notes" do
     let(:items) { [] }
-    let(:options) { { ids: ids, tag: "BUZZ" } }
+    let(:options) { { ids:, tag: "BUZZ" } }
 
     before do
       allow(batch).to receive(:get_logged_items) { items }

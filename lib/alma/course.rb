@@ -8,8 +8,8 @@ module Alma
     def self.all_courses(args: {})
       response = HTTParty.get("#{courses_base_path}/courses",
                               query: args,
-                              headers: headers,
-                              timeout: timeout)
+                              headers:,
+                              timeout:)
       if response.code == 200
         Alma::CourseSet.new(get_body_from(response))
       else
