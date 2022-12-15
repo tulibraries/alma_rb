@@ -54,7 +54,7 @@ module Alma
       Enumerator.new do |yielder|
         offset = 0
         while (!@last_page_index || @last_page_index >= offset / items_per_page) do
-          r = (offset == 0) ? self : single_record_class.find(@mms_id, options = @options.merge({ limit: items_per_page, offset: offset }))
+          r = (offset == 0) ? self : single_record_class.find(@mms_id, options = @options.merge({ limit: items_per_page, offset: }))
           unless r.empty?
             r.map { |item| yielder << item }
             @last_page_index = (offset / items_per_page)

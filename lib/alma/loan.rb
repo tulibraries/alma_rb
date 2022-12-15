@@ -18,7 +18,7 @@ module Alma
     end
 
     def renew
-      Alma::User.renew_loan({ user_id: user_id, loan_id: loan_id })
+      Alma::User.renew_loan({ user_id:, loan_id: })
     end
 
     def self.where_user(user_id, args = {})
@@ -29,8 +29,8 @@ module Alma
       response = HTTParty.get(
         "#{users_base_path}/#{user_id}/loans",
         query: args,
-        headers: headers,
-        timeout: timeout
+        headers:,
+        timeout:
         )
       Alma::LoanSet.new(response, args)
     end

@@ -48,7 +48,7 @@ module Alma
       @ids ||= groups.map { |limit|
         prev_offset = offset
         offset += limit
-        { offset: prev_offset, limit: limit }
+        { offset: prev_offset, limit: }
       }
         .map { |params|  Thread.new { self.get(params) } }
         .map(&:value).map(&:data)
@@ -76,8 +76,8 @@ module Alma
       def initialize(params = {})
         @params = params
         headers = self.class::headers
-        log.info(url: url, query: params)
-        response = self.class::get(url, headers: headers, query: params, timeout: timeout)
+        log.info(url:, query: params)
+        response = self.class::get(url, headers:, query: params, timeout:)
         @data = JSON.parse(response.body) rescue {}
       end
 

@@ -72,7 +72,7 @@ module Alma
         end
 
         if data.present?
-          log(params.merge(data).merge(type: type, start: start, tag: tag))
+          log(params.merge(data).merge(type:, start:, tag:))
 
           notes[id] = data unless data["error"].present?
         end
@@ -81,11 +81,11 @@ module Alma
       end
 
       self.class.new(options.merge(
-                       chain: chain,
-                       ids: ids,
-                       type: type,
-                       tag: tag,
-                       notes: notes,
+                       chain:,
+                       ids:,
+                       type:,
+                       tag:,
+                       notes:,
                        logger: @@logger,
       ))
     end
@@ -97,14 +97,14 @@ module Alma
       make_collection_ids(ids)
         .map { |id| id.merge(type: "services") }
         .inject([]) do |service_ids, params|
-        params.merge!(tag: tag)
+        params.merge!(tag:)
 
         begin
           item = Alma::Electronic.get(params)
 
           if item["errorList"]
             log params.merge(item["errorList"])
-              .merge(start: start)
+              .merge(start:)
           else
             item["electronic_service"].each { |service|
               service_id = { service_id: service["id"].to_s }
@@ -112,13 +112,13 @@ module Alma
                 .merge(service_id)
 
               log params.merge(service_id)
-                .merge(start: start)
+                .merge(start:)
             }
           end
 
         rescue StandardError => e
           log params.merge("error" => e.message)
-            .merge(start: start)
+            .merge(start:)
         end
 
         service_ids
@@ -179,10 +179,10 @@ module Alma
       end
 
       self.class.new(options.merge(
-                       chain: chain,
-                       notes: notes,
-                       type: type,
-                       tag: tag,
+                       chain:,
+                       notes:,
+                       type:,
+                       tag:,
                        logger: @@logger,
       ))
     end

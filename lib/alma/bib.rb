@@ -13,8 +13,8 @@ module Alma
       response = HTTParty.get(
         self.bibs_base_path,
         query: { mms_id: ids_from_array(ids) }.merge(args),
-        headers: headers,
-        timeout: timeout
+        headers:,
+        timeout:
         )
 
       if response.code == 200

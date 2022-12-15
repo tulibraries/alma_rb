@@ -55,7 +55,7 @@ describe Alma::BibItem do
   describe ".scan" do
     it "hits the endpoint and returns the item" do
       options = { op: "scan", library: "recap", circ_desk: "DEFAULT_CIRC_DESK", done: "true" }
-      item = described_class.scan(mms_id: 9968643943506421, holding_id: 22258767470006421, item_pid: 23258767460006421, options: options)
+      item = described_class.scan(mms_id: 9968643943506421, holding_id: 22258767470006421, item_pid: 23258767460006421, options:)
 
       expect(a_request(:post, /.*bibs\/9968643943506421\/holdings\/22258767470006421\/items\/23258767460006421/)).to have_been_made
       expect(item.library_name).to eq "ReCAP"
@@ -69,7 +69,7 @@ describe Alma::BibItem do
                     body: File.open(SPEC_ROOT + "/fixtures/scan_missing_params.json"))
 
         options = { op: "scan" }
-        item = described_class.scan(mms_id: 9968643943506421, holding_id: 22258767470006421, item_pid: 23258767460006421, options: options)
+        item = described_class.scan(mms_id: 9968643943506421, holding_id: 22258767470006421, item_pid: 23258767460006421, options:)
 
         expect(a_request(:post, /.*bibs\/9968643943506421\/holdings\/22258767470006421\/items\/23258767460006421/)).to have_been_made
         expect(item["errorsExist"]).to be true

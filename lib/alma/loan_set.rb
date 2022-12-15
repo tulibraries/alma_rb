@@ -40,7 +40,7 @@ module Alma
       Enumerator.new do |yielder|
         offset = 0
         loop do
-          extra_args = @search_args.merge({ limit: 100, offset: offset })
+          extra_args = @search_args.merge({ limit: 100, offset: })
           r = (offset == 0) ? self : single_record_class.where_user(user_id, extra_args)
           unless r.empty?
             r.map { |item| yielder << item }

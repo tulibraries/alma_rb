@@ -23,7 +23,7 @@ module Alma
     def self.get(mms_id, options = {})
       url = "#{bibs_base_path}/#{mms_id}/request-options"
       options.select! { |k, _|  REQUEST_OPTIONS_PERMITTED_ARGS.include? k }
-      response = HTTParty.get(url, headers: headers, query: options, timeout: timeout)
+      response = HTTParty.get(url, headers:, query: options, timeout:)
       new(response)
     end
 
