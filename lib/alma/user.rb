@@ -9,7 +9,7 @@ module Alma
 
     def self.find(user_id, args = {})
       args[:expand] ||= "fees,requests,loans"
-      response = HTTParty.get("#{self.users_base_path}/#{user_id}", query: args, headers:, timeout:)
+      response = HTTParty.get("#{self.users_base_path}/#{user_id}", query: args.compact_blank, headers:, timeout:)
 
       Alma::User.new response
     end

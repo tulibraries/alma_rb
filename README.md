@@ -138,6 +138,20 @@ Alma::User.get_requests({:user_id => 123456789})
 
 ```
 
+##### Get a single user without fees, requests, or loans
+
+By default, this gem fetches a user's fees, requests,
+and loans.  If you don't want these, you can pass the
+`expand` param with only the expansions you need.
+
+```ruby
+# don't request fees or loans
+user = Alma::User.find(123456789, expand: 'requests')
+
+# don't request any of the above
+user = Alma::User.find(123456789, expand: '')
+```
+
 ### Bib Records
 Wrappings for some of the API endpoints described by the [Bibliographic Records and Inventory
 ](https://developers.exlibrisgroup.com/alma/apis/bibs) section of the Ex Libris Developers Network
