@@ -23,15 +23,15 @@ describe Alma::User do
     end
 
     it "allows calls without expand params" do
-      Alma::User.find("johns", { expand: ''})
+      Alma::User.find("johns", { expand: "" })
       expect(WebMock).to have_requested(:get, /.*\/users.*/).
         with(query: nil)
     end
 
     it "allows calls with extra params but without expand params" do
-      Alma::User.find("johns", { expand: '', view: 'brief' })
+      Alma::User.find("johns", { expand: "", view: "brief" })
       expect(WebMock).to have_requested(:get, /.*\/users.*/).
-        with(query: {view: 'brief'} )
+        with(query: { view: "brief" })
     end
 
     it "defines an id attribute" do
