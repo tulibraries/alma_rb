@@ -34,12 +34,16 @@ module Alma
     def all
       Enumerator.new do |yielder|
         offset = 0
+        limit = 100
+
         loop do
-          r = (offset == 0) ? self : single_record_class.where_user(user_id, { limit: 100, offset: })
+          r = (offset == 0) ? self : single_record_class.where_user(user_id, { limit:, offset: })
           unless r.empty?
             r.map { |item| yielder << item }
             offset += 100
-          else
+          end
+
+          if r.empty? || r.count < limit
             raise StopIteration
           end
         end

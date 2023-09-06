@@ -37,7 +37,7 @@ describe Alma::LoanSet do
       loans.all.map(&:renewable?)
       expect(WebMock).to have_requested(:get, /.*\/users\/.*\/loans.*/).
         with(query: hash_including(sort_by: "due_date")).
-        times(3)
+        times(2)
     end
 
     it "loops over multiple pages of results" do

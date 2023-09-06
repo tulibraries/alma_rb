@@ -42,10 +42,13 @@ module Alma
         loop do
           extra_args = @search_args.merge({ limit: 100, offset: })
           r = (offset == 0) ? self : single_record_class.where_user(user_id, extra_args)
+
           unless r.empty?
             r.map { |item| yielder << item }
             offset += 100
-          else
+          end
+
+          if r.empty? || r.count < extra_args[:limit]
             raise StopIteration
           end
         end
