@@ -39,8 +39,9 @@ module Alma
     def all
       Enumerator.new do |yielder|
         offset = 0
+        limit = 100
         loop do
-          extra_args = @search_args.merge({ limit: 100, offset: })
+          extra_args = @search_args.merge({ limit:, offset: })
           r = (offset == 0) ? self : single_record_class.where_user(user_id, extra_args)
 
           unless r.empty?
@@ -48,7 +49,11 @@ module Alma
             offset += 100
           end
 
-          if r.empty? || r.count < extra_args[:limit]
+          # TODO: r.count greater than "limit" doesn't make any sense unless the ALMA User/Loan API is broken.
+          # We should remove this qualification in October once Alma fixes the bug they introduced in their
+          # September release.
+          # @see https://developers.exlibrisgroup.com/forums/topic/limit-and-offset-not-being-applied-to-retrieve-user-loans-api/
+          if r.empty? || r.count < limit || r.count > limit
             raise StopIteration
           end
         end
