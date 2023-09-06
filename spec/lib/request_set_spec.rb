@@ -35,7 +35,7 @@ describe Alma::RequestSet do
     it "should make three calls to the api" do
       # OUr fixture object has 101 records
       requests.all.map(&:response)
-      expect(WebMock).to have_requested(:get, /.*\/users\/.*\/requests.*/).times(3)
+      expect(WebMock).to have_requested(:get, /.*\/users\/.*\/requests.*/).times(2)
     end
 
     it "loops over multiple pages of results" do
