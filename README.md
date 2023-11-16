@@ -250,9 +250,26 @@ item.public_note
 ```
 
 ### Logging
+
+#### Using :enable_loggable
 This gem exposes a loggable interface to responses.  Thus a response will respond to `loggable` and return a hash with state values that may be of use to log.
 
 As a bonus, when we enable this feature using the `enable_loggable` configuration, error messages will contain the loggable values and be formatted as JSON.
+
+#### Using logging configuration.
+You can configure logging via the following configurations:
+* `enable_log_requests`: (`true/false`)
+* `log_level`
+* `log_format`
+* `logger`
+
+The logger can be any logger including the Rails.logger.  This logging feature is provided through [HTTParty](https://www.rubydoc.info/github/jnunemaker/httparty/HTTParty/ClassMethods#logger-instance_method).
+
+### Debugging requests
+You can configure debugging requests by setting the `enable_debug_output` configuration which is false by default. This feature is also provided through [HTTParty](https://www.rubydoc.info/github/jnunemaker/httparty/HTTParty/ClassMethods#debug_output-instance_method).
+
+You can configure the `debug_output_stream` which is set to `$stderr` by default.
+
 
 ## Development
 

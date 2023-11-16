@@ -7,7 +7,7 @@ module Alma
 
     def self.find(mms_id:, holding_id:)
       url = "#{bibs_base_path}/#{mms_id}/holdings/#{holding_id}"
-      response = HTTParty.get(url, headers:, timeout:)
+      response = Net.get(url, headers:, timeout:)
       new(response)
     end
 

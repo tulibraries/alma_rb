@@ -6,7 +6,7 @@ module Alma
     extend Forwardable
 
     def self.all_courses(args: {})
-      response = HTTParty.get("#{courses_base_path}/courses",
+      response = Net.get("#{courses_base_path}/courses",
                               query: args,
                               headers:,
                               timeout:)

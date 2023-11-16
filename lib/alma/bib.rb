@@ -10,7 +10,7 @@ module Alma
     end
 
     def self.get_bibs(ids, args = {})
-      response = HTTParty.get(
+      response = Net.get(
         self.bibs_base_path,
         query: { mms_id: ids_from_array(ids) }.merge(args),
         headers:,

@@ -11,7 +11,7 @@ module Alma
 
     def self.submit(args)
       request = new(args)
-      response = HTTParty.post(
+      response = Net.post(
         "#{bibs_base_path}/#{request.mms_id}/requests",
         query: { user_id: request.user_id },
         headers:,
@@ -140,7 +140,7 @@ module Alma
   class ItemRequest < BibRequest
     def self.submit(args)
       request = new(args)
-      response = HTTParty.post(
+      response = Net.post(
         "#{bibs_base_path}/#{request.mms_id}/holdings/#{request.holding_id}/items/#{request.item_pid}/requests",
         query: { user_id: request.user_id },
         headers:,

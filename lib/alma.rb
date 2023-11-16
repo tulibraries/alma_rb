@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "alma/version"
+require "alma/net"
 require "alma/config"
 require "alma/api_defaults"
 require "alma/error"
@@ -34,7 +35,5 @@ require "alma/course_set"
 require "alma/course"
 
 module Alma
-  require "httparty"
-
   ROOT = File.dirname __dir__
 end

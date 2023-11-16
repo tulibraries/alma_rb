@@ -18,18 +18,18 @@ module Alma
       holding_id = options.delete(:holding_id) || "ALL"
       options.select! { |k, _| PERMITTED_ARGS.include? k }
       url = "#{bibs_base_path}/#{mms_id}/holdings/#{holding_id}/items"
-      response = HTTParty.get(url, headers:, query: options, timeout:)
+      response = Net.get(url, headers:, query: options, timeout:)
       BibItemSet.new(response, options.merge({ mms_id:, holding_id: }))
     end
 
     def self.find_by_barcode(barcode)
-      response = HTTParty.get(items_base_path, headers:, query: { item_barcode: barcode }, timeout:, follow_redirects: true)
+      response = Net.get(items_base_path, headers:, query: { item_barcode: barcode }, timeout:, follow_redirects: true)
       new(response)
     end
 
     def self.scan(mms_id:, holding_id:, item_pid:, options: {})
       url = "#{bibs_base_path}/#{mms_id}/holdings/#{holding_id}/items/#{item_pid}"
-      response = HTTParty.post(url, headers:, query: options)
+      response = Net.post(url, headers:, query: options)
       new(response)
     end
 
