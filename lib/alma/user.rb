@@ -9,7 +9,7 @@ module Alma
 
     def self.find(user_id, args = {})
       args[:expand] ||= "fees,requests,loans"
-      response = HTTParty.get("#{self.users_base_path}/#{user_id}", query: args.compact_blank, headers:, timeout:)
+      response = Net.get("#{self.users_base_path}/#{user_id}", query: args.compact_blank, headers:, timeout:)
 
       Alma::User.new response
     end
@@ -22,7 +22,7 @@ module Alma
     def self.authenticate(args)
       user_id = args.delete(:user_id) { raise ArgumentError }
       args.merge!({ op: "auth" })
-      response = HTTParty.post("#{users_base_path}/#{user_id}", query: args, headers:, timeout:)
+      response = Net.post("#{users_base_path}/#{user_id}", query: args, headers:, timeout:)
       response.code == 204
     end
 
@@ -80,7 +80,7 @@ module Alma
 
     # Persist the user in it's current state back to Alma
     def save!
-      response = HTTParty.put("#{users_base_path}/#{id}", timeout:, headers:, body: to_json)
+      response = Net.put("#{users_base_path}/#{id}", timeout:, headers:, body: to_json)
       get_body_from(response)
     end
 
@@ -154,7 +154,7 @@ module Alma
         loan_id = args.delete(:loan_id) { raise ArgumentError }
         user_id = args.delete(:user_id) { raise ArgumentError }
         params = { op: "renew" }
-        response = HTTParty.post("#{users_base_path}/#{user_id}/loans/#{loan_id}", query: params, headers:)
+        response = Net.post("#{users_base_path}/#{user_id}/loans/#{loan_id}", query: params, headers:)
         RenewalResponse.new(response)
       end
 
@@ -175,7 +175,7 @@ module Alma
       def self.send_payment(args)
         user_id = args.delete(:user_id) { raise ArgumentError }
         params = { op: "pay", amount: "ALL", method: "ONLINE" }
-        response = HTTParty.post("#{users_base_path}/#{user_id}/fees/all", query: params, headers:)
+        response = Net.post("#{users_base_path}/#{user_id}/fees/all", query: params, headers:)
         PaymentResponse.new(response)
       end
 

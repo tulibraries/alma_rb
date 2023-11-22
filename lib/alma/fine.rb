@@ -5,7 +5,7 @@ module Alma
     extend Alma::ApiDefaults
 
     def self.where_user(user_id, args = {})
-      response = HTTParty.get("#{users_base_path}/#{user_id}/fees", query: args, headers:, timeout:)
+      response = Net.get("#{users_base_path}/#{user_id}/fees", query: args, headers:, timeout:)
       if response.code == 200
         Alma::FineSet.new(response)
       else

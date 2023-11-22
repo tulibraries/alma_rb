@@ -26,7 +26,7 @@ module Alma
       args[:expand] ||= "renewable"
       # Default to upper limit
       args[:limit] ||= 100
-      response = HTTParty.get(
+      response = Net.get(
         "#{users_base_path}/#{user_id}/loans",
         query: args,
         headers:,

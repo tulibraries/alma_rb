@@ -3,19 +3,23 @@
 require "spec_helper"
 
 describe "Configuring Alma" do
+  before(:all) do
+    Alma.configure {}
+  end
+
+  after(:all) do
+    Alma.configuration = nil
+  end
 
   context "when no attributes are set in the passed block" do
-
-    before(:all) do
-      Alma.configure {}
-    end
-
     it "uses default values" do
-      expect(Alma.configuration.apikey).to eql "TEST_API_KEY"
-    end
 
-    after(:all) do
-      Alma.configuration = nil
+      expect(Alma.configuration.apikey).to eql "TEST_API_KEY"
+      expect(Alma.configuration.enable_log_requests).to eql false
+      expect(Alma.configuration.logger).to be_instance_of(Logger)
+      expect(Alma.configuration.log_level).to eq(:info)
+      expect(Alma.configuration.enable_debug_output).to eql false
+      expect(Alma.configuration.debug_output_stream).to eq($stderr)
     end
   end
 
@@ -44,12 +48,32 @@ describe "Configuring Alma" do
       end
       expect(Alma.configuration.timeout).to eql 10
     end
+  end
 
+  context "when we enable logging via configuration" do
+    before do
+      Alma.configure do |config|
+        config.enable_log_requests = true
+      end
+    end
 
-    after(:all) do
-      Alma.configuration = nil
+    it "should eanble logging in Alma::Net class" do
+      expect(Alma::Net.default_options[:logger]).to eq(Alma.configuration.logger)
+      expect(Alma::Net.default_options[:log_level]).to eq(Alma.configuration.log_level)
+      expect(Alma::Net.default_options[:log_format]).to eq(Alma.configuration.log_format)
     end
   end
 
+  context "when we enable debugging via configuration" do
+    before do
+      Alma.configure do |config|
+        config.enable_debug_output = true
+      end
+    end
+
+    it "should set debugging options for Alma::Net class" do
+      expect(Alma::Net.default_options[:debug_output]).to eq(Alma.configuration.debug_output_stream)
+    end
+  end
 
 end
