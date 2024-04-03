@@ -179,9 +179,19 @@ describe Alma::ItemRequest do
         expect { described_class.submit({ mms_id: "foo" }) }.to raise_error(ArgumentError, /:user_id option/)
       end
 
-      it "raises an Error when description is not an included option" do
+      it "raises an Error when holding_type is DIGITIZATION and description is not an included option" do
         options = { mms_id: "foo", holding_id: "hold", item_pid: "pid", user_id: "user", request_type: "DIGITIZATION", target_destination: "DIGI_DEPT_INST", partial_digitization: false }
         expect { described_class.submit(options) }.to raise_error(ArgumentError, /:description option/)
+      end
+
+      it "raises an Error when holding_type is HOLD and pickup_location_type is not an included option" do
+        options = { mms_id: "foo", holding_id: "hold", item_pid: "pid", user_id: "user", request_type: "HOLD" }
+        expect { described_class.submit(options) }.to raise_error(ArgumentError, /:pickup_location_type option/)
+      end
+
+      it "raises an Error when holding_type is HOLD and pickup_location_type is not an included option" do
+        options = { mms_id: "foo", holding_id: "hold", item_pid: "pid", user_id: "user", request_type: "HOLD", pickup_location_type: "LIBRARY" }
+        expect { described_class.submit(options) }.to raise_error(ArgumentError, /:pickup_location_library option/)
       end
 
       it "raises an Error when request_type is not an included option" do
