@@ -157,6 +157,8 @@ module Alma
     end
 
     def additional_validation!(args)
+      return unless args.fetch(:request_type) == "DIGITIZATION"
+
       args.fetch(:description) do
         raise ArgumentError.new(
           ":description option must be specified when request_type is DIGITIZATION"
