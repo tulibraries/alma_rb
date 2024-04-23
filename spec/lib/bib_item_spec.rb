@@ -27,6 +27,20 @@ describe Alma::BibItem do
       end
     end
 
+    describe ".find_one" do
+      let(:mms_id) { "99117110763506421" }
+      let(:holding_id) { "22195173890006421" }
+      let(:item_pid) { "23195173880006421" }
+
+      it "finds one specified item" do
+        output = described_class.find_one(mms_id:, holding_id:, item_pid:)
+
+        expect(a_request(:get, /.*bibs\/99117110763506421\/holdings\/22195173890006421\/items\/23195173880006421/))
+          .to have_been_made
+        expect(output.library_name).to eq "Firestone Library"
+      end
+    end
+
     describe ".find_by_barcode" do
       it "searches by barcode and resolves it" do
         output = described_class.find_by_barcode("32101108168939")
@@ -78,105 +92,105 @@ describe Alma::BibItem do
   end
 
   describe "instance methods" do
-  let (:normal_location) {
-    {
-      "bib_data" => { "mms_id" => "991004101219703811" },
-      "holding_data" => {
-        "call_number" => "PR4167.J2 1962",
-        "in_temp_location" => false,
-        "temp_call_number" => "",
+    let (:normal_location) {
+      {
+        "bib_data" => { "mms_id" => "991004101219703811" },
+        "holding_data" => {
+          "call_number" => "PR4167.J2 1962",
+          "in_temp_location" => false,
+          "temp_call_number" => "",
 
-      },
-      "item_data" => {
-        "library" => { "value" => "MAIN", "desc" => "Paley Library" },
-        "location" => { "value" => "stacks", "desc" => "Main Stacks" },
-        "base_status" => { "value" => "1", "desc" => "Item in place" },
-        "description" => "a description",
-        "public_note" => "a public note",
-        "physical_material_type" => { "value" => "BOOK", "desc" => "Book" }
+        },
+        "item_data" => {
+          "library" => { "value" => "MAIN", "desc" => "Paley Library" },
+          "location" => { "value" => "stacks", "desc" => "Main Stacks" },
+          "base_status" => { "value" => "1", "desc" => "Item in place" },
+          "description" => "a description",
+          "public_note" => "a public note",
+          "physical_material_type" => { "value" => "BOOK", "desc" => "Book" }
+        }
       }
     }
-  }
-  let (:temp_location) {
-    {
-      "holding_data" => {
-        "call_number" => "PR4167.J2 1962",
-        "in_temp_location" => true,
-        "temp_library" => { "value" => "AMBLER", "desc" => "Ambler Library" },
-        "temp_location" => { "value" => "flacks", "desc" => "Ambler Stacks" },
-        "temp_call_number" => "TEMP CALL NUMBER",
+    let (:temp_location) {
+      {
+        "holding_data" => {
+          "call_number" => "PR4167.J2 1962",
+          "in_temp_location" => true,
+          "temp_library" => { "value" => "AMBLER", "desc" => "Ambler Library" },
+          "temp_location" => { "value" => "flacks", "desc" => "Ambler Stacks" },
+          "temp_call_number" => "TEMP CALL NUMBER",
+        }
       }
     }
-  }
-  let (:item) { described_class.new(normal_location) }
-  let (:temp_item) { described_class.new(temp_location) }
+    let (:item) { described_class.new(normal_location) }
+    let (:temp_item) { described_class.new(temp_location) }
 
-  describe "in its normal location" do
-    it "responds with expected library" do
-      expect(item.library).to eql "MAIN"
+    describe "in its normal location" do
+      it "responds with expected library" do
+        expect(item.library).to eql "MAIN"
+      end
+
+      it "responds with expected library name" do
+        expect(item.library_name).to eql "Paley Library"
+      end
+
+      it "responds with expected location" do
+        expect(item.location).to eql "stacks"
+      end
+
+      it "responds with expected location name" do
+        expect(item.location_name).to eql "Main Stacks"
+      end
+
+      it "responds with expected call number" do
+        expect(item.call_number).to eql "PR4167.J2 1962"
+      end
+
+      it "is in place" do
+        expect(item.in_place?).to be true
+      end
+
+      it "has a public note" do
+        expect(item.public_note).to eql "a public note"
+      end
+
+      it "has a description" do
+        expect(item.description).to eql "a description"
+      end
+
+      it "has a physical_material_type" do
+        expect(item.physical_material_type["value"]).to eql "BOOK"
+      end
     end
 
-    it "responds with expected library name" do
-      expect(item.library_name).to eql "Paley Library"
+    describe "in a temp_location" do
+      it "responds with expected temporary library" do
+        expect(temp_item.library).to eql "AMBLER"
+      end
+
+      it "responds with expected temporary library name" do
+        expect(temp_item.library_name).to eql "Ambler Library"
+      end
+
+      it "responds with expected temporary  location" do
+        expect(temp_item.location).to eql "flacks"
+      end
+
+      it "responds with expected temporary location name" do
+        expect(temp_item.location_name).to eql "Ambler Stacks"
+      end
+
+      it "responds with expected temporary call number" do
+        expect(temp_item.call_number).to eql "TEMP CALL NUMBER"
+
+      end
     end
 
-    it "responds with expected location" do
-      expect(item.location).to eql "stacks"
-    end
-
-    it "responds with expected location name" do
-      expect(item.location_name).to eql "Main Stacks"
-    end
-
-    it "responds with expected call number" do
-      expect(item.call_number).to eql "PR4167.J2 1962"
-    end
-
-    it "is in place" do
-      expect(item.in_place?).to be true
-    end
-
-    it "has a public note" do
-      expect(item.public_note).to eql "a public note"
-    end
-
-    it "has a description" do
-      expect(item.description).to eql "a description"
-    end
-
-    it "has a physical_material_type" do
-      expect(item.physical_material_type["value"]).to eql "BOOK"
+    describe "#missing_or_lost?" do
+      it "correctly identifies missing items" do
+        missing = { "item_data" => { "process_type" => { "value" => "MISSING" } } }
+        expect(described_class.new(missing).missing_or_lost?).to be true
+      end
     end
   end
-
-  describe "in a temp_location" do
-    it "responds with expected temporary library" do
-      expect(temp_item.library).to eql "AMBLER"
-    end
-
-    it "responds with expected temporary library name" do
-      expect(temp_item.library_name).to eql "Ambler Library"
-    end
-
-    it "responds with expected temporary  location" do
-      expect(temp_item.location).to eql "flacks"
-    end
-
-    it "responds with expected temporary location name" do
-      expect(temp_item.location_name).to eql "Ambler Stacks"
-    end
-
-    it "responds with expected temporary call number" do
-      expect(temp_item.call_number).to eql "TEMP CALL NUMBER"
-
-    end
-  end
-
-  describe "#missing_or_lost?" do
-    it "correctly identifies missing items" do
-      missing = { "item_data" => { "process_type" => { "value" => "MISSING" } } }
-      expect(described_class.new(missing).missing_or_lost?).to be true
-    end
-  end
-end
 end
