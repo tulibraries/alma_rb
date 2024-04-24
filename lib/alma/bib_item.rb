@@ -22,6 +22,12 @@ module Alma
       BibItemSet.new(response, options.merge({ mms_id:, holding_id: }))
     end
 
+    def self.find_one(mms_id:, holding_id:, item_pid:, options: {})
+      url = "#{bibs_base_path}/#{mms_id}/holdings/#{holding_id}/items/#{item_pid}"
+      response = Net.get(url, headers:, query: options, timeout:)
+      new(response)
+    end
+
     def self.find_by_barcode(barcode)
       response = Net.get(items_base_path, headers:, query: { item_barcode: barcode }, timeout:, follow_redirects: true)
       new(response)
