@@ -39,7 +39,7 @@ module Alma
 
     def request_id
       @response.fetch("request_id", "")
-    end 
+    end
 
     def managed_by_library
       @response.fetch("managed_by_library", "")
