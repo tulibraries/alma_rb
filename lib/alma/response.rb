@@ -14,7 +14,7 @@ module Alma
 
     def initialize(response)
       @raw_response = response
-      # We could validate and throw an error here but currently a
+      @response = response.parsed_response
       validate(response)
     end
 
@@ -37,9 +37,21 @@ module Alma
       end
     end
 
+    def request_id
+      @response.fetch("request_id", "")
+    end 
+
+    def managed_by_library
+      @response.fetch("managed_by_library", "")
+    end
+
+    def managed_by_library_code
+      @response.fetch("managed_by_library_code", "")
+    end
+
     # Returns an array of errors
     def errors
-      @raw_response.parsed_response&.dig("errorList", "error") || []
+      @response&.dig("errorList", "error") || []
     end
   end
 end
