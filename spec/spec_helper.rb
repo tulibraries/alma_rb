@@ -137,6 +137,11 @@ RSpec.configure do |config|
     stub_request(:post, /.*\.exlibrisgroup\.com\/almaws\/v1\/bibs\/foo\/requests/).
         to_return(status: 200)
 
+    stub_request(:post, /.*\.exlibrisgroup\.com\/almaws\/v1\/bibs\/request_success\/requests/).
+        to_return(status: 200,
+                headers: { "Content-Type" => "application/json" },
+                body: File.open(SPEC_ROOT + "/fixtures/request_success.json"))
+
     stub_request(:get, /.*\/.*error/).
         to_return(status: 400,
                   headers: { "Content-Type" => "application/json" },
