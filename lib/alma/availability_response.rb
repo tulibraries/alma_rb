@@ -20,22 +20,30 @@ module Alma
     end
 
     def build_holdings_for(bib)
+      holdings = []
+
       get_inventory_fields_for(bib).map do |inventory_field|
+        h = {}
+
         # Use the mapping for this inventory type
         subfield_codes = Alma::INVENTORY_SUBFIELD_MAPPING[inventory_field["tag"]]
+        h["inventory_type"] = subfield_codes["INVENTORY_TYPE"]
 
         inventory_field.
           # Get all the subfields for this inventory field
           fetch("subfield", []).
           # Limit to only subfields codes for which we have a mapping
-          select { |sf| subfield_codes.key? sf["code"] }.
-          # Transform the array of subfields into a hash with mapped code as key
-          reduce(Hash.new) { |acc, subfield|
-             acc.merge({ "#{subfield_codes[subfield['code']]}" => subfield["content"] })
-           }.
-          # Include the inventory type
-          merge({ "inventory_type" => subfield_codes["INVENTORY_TYPE"] })
+          select { |sf| subfield_codes.key? sf["code"] }.each { |f|
+          key = subfield_codes[f["code"]]
+          if h.key? key
+            h[key] << ' ' + f["content"]
+          else
+            h[key] = f["content"]
+          end
+        }
+        holdings << h
       end
+      holdings
     end
 
     def get_inventory_fields_for(bib)
