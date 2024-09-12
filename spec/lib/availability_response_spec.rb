@@ -66,7 +66,8 @@ describe Alma::AvailabilityResponse do
         "call_number_type" => "0",
         "priority" => "1",
         "library" => "Paley Library",
-        "inventory_type" => "physical" }]
+        "inventory_type" => "physical",
+        "holding_info" => "holding-1 holding-2 holding-3" }]
         }
       }
     expect(availability).to eql expected
