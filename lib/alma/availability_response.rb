@@ -36,7 +36,7 @@ module Alma
           select { |sf| subfield_codes.key? sf["code"] }.each { |f|
           key = subfield_codes[f["code"]]
           if h.key? key
-            h[key] << ' ' + f["content"]
+            h[key] << " " + f["content"]
           else
             h[key] = f["content"]
           end
