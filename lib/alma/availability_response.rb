@@ -35,10 +35,12 @@ module Alma
           # Limit to only subfields codes for which we have a mapping
           select { |sf| subfield_codes.key? sf["code"] }.each { |f|
           key = subfield_codes[f["code"]]
-          if h.key? key
-            h[key] << " " + f["content"]
-          else
-            h[key] = f["content"]
+          unless key.blank? || f["content"].blank?
+            if h.key? key
+              h[key] << " " + f["content"]
+            else
+              h[key] = f["content"]
+            end
           end
         }
         holdings << h
