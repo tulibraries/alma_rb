@@ -1,0 +1,30 @@
+name: Deploy
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.4.3'
+        bundler-cache: true
+    
+    - name: Setup RubyGems credentials
+      run: |
+        mkdir -p ~/.gem
+        echo -e "---\r\n:rubygems_api_key: ${{ secrets.RUBYGEMS_API_KEY }}" > ~/.gem/credentials
+        chmod 0600 ~/.gem/credentials
+    
+    - name: Build and publish gem
+      run: |
+        gem build alma.gemspec
+        gem push "$(ls alma-*.gem)"
