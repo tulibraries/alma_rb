@@ -36,6 +36,7 @@ jobs:
     needs: lint
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: true
       matrix:
         ruby-version: ['3.4']
     
