@@ -16,6 +16,7 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: true
       matrix:
         ruby-version: ['3.4']
     
@@ -37,7 +38,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        ruby-version: ${{ matrix.ruby-version }}
+        ruby-version: ['3.4']
     
     steps:
     - uses: actions/checkout@v4
