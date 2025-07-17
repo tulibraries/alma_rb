@@ -18,7 +18,7 @@ jobs:
     
     strategy:
       matrix:
-        ruby-version: ['3.4.3']
+        ruby-version: ['3.4']
     
     steps:
     - uses: actions/checkout@v4
@@ -37,7 +37,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        ruby-version: ['3.4.3']
+        ruby-version: ['3.4']
     
     steps:
     - uses: actions/checkout@v4
