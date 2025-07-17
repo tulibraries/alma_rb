@@ -2,13 +2,12 @@ name: Publish Gem
 
 on:
   push:
-    branches:
-      - "*"
+    branches: [ main ]
     tags:
       - v*
       
 jobs:
-  build:
+  publish:
     runs-on: ubuntu-latest
     
     steps:
