@@ -17,14 +17,13 @@ jobs:
       with:
         ruby-version: '3.4.3'
         bundler-cache: true
+
+    - name: Build gem
+      run: gem build alma.gemspec
     
-    - name: Setup RubyGems credentials
-      run: |
-        mkdir -p ~/.gem
-        echo -e "---\r\n:rubygems_api_key: ${{ secrets.RUBYGEMS_API_KEY }}" > ~/.gem/credentials
-        chmod 0600 ~/.gem/credentials
-    
-    - name: Build and publish gem
-      run: |
-        gem build alma.gemspec
-        gem push "$(ls alma-*.gem)"
+    - name: Push to Test RubyGems
+      uses: softprops/action-rubygems-push@v1
+      with:
+        api-key: ${{ secrets.RUBYGEMS_API_KEY }}
+        gem: alma_rb
+        gem-push-args: --host https://test.rubygems.org
