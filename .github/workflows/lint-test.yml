@@ -1,0 +1,52 @@
+---
+name: "Lint and Test"
+
+on:
+  push:
+    branches-ignore:
+      - main
+  workflow_dispatch: {}
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        ruby-version: ['3.4']
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: ${{ matrix.ruby-version }}
+        bundler-cache: true
+    
+    - name: Run linter
+      run: bundle exec rubocop
+
+  test:
+    needs: lint
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        ruby-version: ['3.4']
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: ${{ matrix.ruby-version }}
+        bundler-cache: true
+    
+    - name: Run tests
+      run: bundle exec rspec spec
