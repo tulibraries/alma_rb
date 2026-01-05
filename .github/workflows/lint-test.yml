@@ -53,7 +53,7 @@ jobs:
 
   notify_on_failure:
     if: failure()
-    needs: [test]
+    needs: [lint, test]
     uses: tulibraries/.github/.github/workflows/slack-notify.yml@main
     with:
       repo: ${{ github.repository }}
