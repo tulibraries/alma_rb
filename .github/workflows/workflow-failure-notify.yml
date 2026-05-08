@@ -5,7 +5,7 @@ permissions:
 
 on:
   workflow_run:
-    workflows: ["Lint and Test", "Publish Gem"]
+    workflows: ["Lint and Test", "Publish Gem", "Dependabot auto-merge"]
     types: [completed]
 
 jobs:
