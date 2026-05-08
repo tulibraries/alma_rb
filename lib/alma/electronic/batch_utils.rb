@@ -97,31 +97,31 @@ module Alma
       make_collection_ids(ids)
         .map { |id| id.merge(type: "services") }
         .inject([]) do |service_ids, params|
-          params.merge!(tag:)
+        params.merge!(tag:)
 
-          begin
-            item = Alma::Electronic.get(params)
+        begin
+          item = Alma::Electronic.get(params)
 
-            if item["errorList"]
-              log params.merge(item["errorList"])
-                .merge(start:)
-            else
-              item["electronic_service"].each { |service|
-                service_id = { service_id: service["id"].to_s }
-                service_ids << params.slice(:collection_id)
-                  .merge(service_id)
-
-                log params.merge(service_id)
-                  .merge(start:)
-              }
-            end
-
-          rescue StandardError => e
-            log params.merge("error" => e.message)
+          if item["errorList"]
+            log params.merge(item["errorList"])
               .merge(start:)
+          else
+            item["electronic_service"].each { |service|
+              service_id = { service_id: service["id"].to_s }
+              service_ids << params.slice(:collection_id)
+                .merge(service_id)
+
+              log params.merge(service_id)
+                .merge(start:)
+            }
           end
 
-          service_ids
+        rescue StandardError => e
+          log params.merge("error" => e.message)
+            .merge(start:)
+        end
+
+        service_ids
       end
     end
 
@@ -134,8 +134,8 @@ module Alma
         .select { |item| item.slice("authentication_note", "public_note").values.any?(&:present?) }
         .inject({}) do |nodes, item|
 
-          id = item["#{type}_id"]
-          nodes.merge(id => item.slice("authentication_note", "public_note"))
+        id = item["#{type}_id"]
+        nodes.merge(id => item.slice("authentication_note", "public_note"))
       end
     end
 
