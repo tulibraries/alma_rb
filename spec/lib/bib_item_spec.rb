@@ -192,5 +192,12 @@ describe Alma::BibItem do
         expect(described_class.new(missing).missing_or_lost?).to be true
       end
     end
+
+    describe "#technical_migration?" do
+      it "correctly identifies items in technical migration" do
+        technical = { "item_data" => { "process_type" => { "value" => "TECHNICAL" } } }
+        expect(described_class.new(technical).technical_migration?).to be true
+      end
+    end
   end
 end

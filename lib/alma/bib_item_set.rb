@@ -49,6 +49,12 @@ module Alma
       clone
     end
 
+    def filter_technical_migrations
+      clone = dup
+      clone.items = reject(&:technical_migration?)
+      clone
+    end
+
     def all
       @last_page_index ||= false
       Enumerator.new do |yielder|

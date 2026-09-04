@@ -24,6 +24,16 @@ describe Alma::BibItemSet do
       end
     end
 
+    describe "#filter_technical_migrations" do
+      it "filters items in technical migration" do
+        available_item = Alma::BibItem.new({ "item_data" => { "process_type" => { "value" => "" } } })
+        technical_item = Alma::BibItem.new({ "item_data" => { "process_type" => { "value" => "TECHNICAL" } } })
+        bib_item_set.items = [available_item, technical_item]
+
+        expect(bib_item_set.filter_technical_migrations.items).to eq [available_item]
+      end
+    end
+
     describe "#grouped_by_library" do
       let(:grouped) { bib_item_set.grouped_by_library }
       it "returns the items grouped by library" do

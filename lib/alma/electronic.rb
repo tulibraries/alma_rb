@@ -50,7 +50,7 @@ module Alma
         offset += limit
         { offset: prev_offset, limit: }
       }
-        .map { |params|  Thread.new { self.get(params) } }
+        .map { |params| Thread.new { self.get(params) } }
         .map(&:value).map(&:data)
         .map { |data| data["electronic_collection"].map { |coll| coll["id"] } }
         .flatten.uniq

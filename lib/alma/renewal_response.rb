@@ -5,7 +5,7 @@ module Alma
     def initialize(response)
       @raw_response = response
       @response = response.parsed_response
-      @success  = response.has_key?("loan_id")
+      @success = response.has_key?("loan_id")
     end
 
     def loggable

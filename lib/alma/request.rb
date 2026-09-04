@@ -2,7 +2,7 @@
 
 module Alma
   class BibRequest
-    class  ItemAlreadyExists < Alma::StandardError
+    class ItemAlreadyExists < Alma::StandardError
     end
 
     extend Alma::ApiDefaults

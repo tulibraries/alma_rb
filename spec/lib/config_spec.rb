@@ -26,7 +26,7 @@ describe "Configuring Alma" do
   context "when attributes are set in the passed block" do
     before(:all) do
       Alma.configure do |config|
-        config.apikey =  "SOME_OTHER_API_KEY"
+        config.apikey = "SOME_OTHER_API_KEY"
       end
     end
 
@@ -35,7 +35,7 @@ describe "Configuring Alma" do
     end
 
     it "still sets the default value for attributes not overriden" do
-      expect(Alma.configuration.region).to eql  "https://api-na.hosted.exlibrisgroup.com"
+      expect(Alma.configuration.region).to eql "https://api-na.hosted.exlibrisgroup.com"
     end
 
     it "sets a default timeout value" do

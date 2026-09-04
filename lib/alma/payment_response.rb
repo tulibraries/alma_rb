@@ -5,7 +5,7 @@ module Alma
     def initialize(response)
       @raw_response = response
       @response = response.parsed_response
-      @success  = response["total_sum"] == 0.0
+      @success = response["total_sum"] == 0.0
     end
 
     def loggable

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Alma
-  class  User
+  class User
     class ResponseError < Alma::StandardError
     end
     extend Forwardable

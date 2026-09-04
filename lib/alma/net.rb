@@ -3,7 +3,7 @@
 require "httparty"
 
 module Alma
-  class  Net
+  class Net
     include HTTParty
   end
 end

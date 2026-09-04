@@ -139,6 +139,10 @@ module Alma
       !!process_type.match(/MISSING|LOST_LOAN/)
     end
 
+    def technical_migration?
+      !!process_type.match("TECHNICAL")
+    end
+
     def base_status
       item_data.dig("base_status", "value") || ""
     end

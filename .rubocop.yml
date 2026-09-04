@@ -1,5 +1,4 @@
-require:
-  - rubocop-rails
+plugins: rubocop-rails
 
 AllCops:
   TargetRubyVersion: 3.4
@@ -74,7 +73,12 @@ Layout/SpaceAroundOperators:
   Enabled: true
 
 Layout/SpaceBeforeFirstArg:
-    Enabled: true
+  Enabled: true
+  AllowForAlignment: false
+
+Layout/ExtraSpacing:
+  Enabled: true
+  AllowForAlignment: false
 
 # Defining a method with parameters needs parentheses.
 Style/MethodDefParentheses:
