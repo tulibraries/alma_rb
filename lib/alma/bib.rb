@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Alma
-  class  Bib
+  class Bib
     extend Alma::ApiDefaults
     extend Forwardable
 
