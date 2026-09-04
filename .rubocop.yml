@@ -1,5 +1,4 @@
-require:
-  - rubocop-rails
+plugins: rubocop-rails
 
 AllCops:
   TargetRubyVersion: 3.4

@@ -26,7 +26,7 @@ describe "Configuring Alma" do
   context "when attributes are set in the passed block" do
     before(:all) do
       Alma.configure do |config|
-        config.apikey =  "SOME_OTHER_API_KEY"
+        config.apikey = "SOME_OTHER_API_KEY"
       end
     end
 
