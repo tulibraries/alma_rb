@@ -74,9 +74,11 @@ Layout/SpaceAroundOperators:
 
 Layout/SpaceBeforeFirstArg:
   Enabled: true
+  AllowForAlignment: false
 
 Layout/ExtraSpacing:
   Enabled: true
+  AllowForAlignment: false
 
 # Defining a method with parameters needs parentheses.
 Style/MethodDefParentheses:

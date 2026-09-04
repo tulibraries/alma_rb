@@ -35,7 +35,7 @@ describe "Configuring Alma" do
     end
 
     it "still sets the default value for attributes not overriden" do
-      expect(Alma.configuration.region).to eql  "https://api-na.hosted.exlibrisgroup.com"
+      expect(Alma.configuration.region).to eql "https://api-na.hosted.exlibrisgroup.com"
     end
 
     it "sets a default timeout value" do

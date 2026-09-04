@@ -6,21 +6,21 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require "alma/version"
 
 Gem::Specification.new do |spec|
-  spec.name          = "alma"
-  spec.version       = Alma::VERSION
-  spec.authors       = ["Jennifer Anton", "David Kinzer", "Chad Nelson"]
-  spec.email         = ["jennifer.anton@temple.edu", "david.kinzer@temple.edu", "chad.nelson@temple.edu"]
+  spec.name = "alma"
+  spec.version = Alma::VERSION
+  spec.authors = ["Jennifer Anton", "David Kinzer", "Chad Nelson"]
+  spec.email = ["jennifer.anton@temple.edu", "david.kinzer@temple.edu", "chad.nelson@temple.edu"]
 
-  spec.summary       = "Client for Ex Libris Alma Web Services"
-  spec.description   = "Client for Ex Libris Alma Web Services"
-  spec.homepage      = "https://github.com/tulibraries/alma_rb"
-  spec.license       = "MIT"
+  spec.summary = "Client for Ex Libris Alma Web Services"
+  spec.description = "Client for Ex Libris Alma Web Services"
+  spec.homepage = "https://github.com/tulibraries/alma_rb"
+  spec.license = "MIT"
 
-  spec.files         = `git ls-files -z`.split("\x0").reject do |f|
+  spec.files = `git ls-files -z`.split("\x0").reject do |f|
     f.match(%r{^(test|spec|features)/})
   end
-  spec.bindir        = "exe"
-  spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
+  spec.bindir = "exe"
+  spec.executables = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
   spec.add_dependency "httparty"
