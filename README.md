@@ -175,9 +175,11 @@ items.total_record_count
 > 4
 ```
 
-You can remove items that are missing or lost from the result set
-` avail_items = items.filter_missing_and_lost
-`
+You can remove items that are missing, lost, or in technical migration from the result set:
+
+```ruby
+avail_items = items.filter_missing_and_lost.filter_technical_migrations
+```
 
 Items can be grouped by the library they are held at, which returns a hash with library codes as the keys and an array of items as the values.
 
